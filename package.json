@@ -1,0 +1,20 @@
+{
+  "name": "fsm-core",
+  "version": "1.0.2",
+  "description": "This module is composed of software that allows us to formally create and define deterministic Finite State Transducers.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Ricardo Morais",
+  "license": "ISC",
+  "dependencies": {
+    "babel": "^6.23.0",
+    "io-core": "^1.0.0",
+    "sequelize": "^3.30.2"
+  },
+  "repository" :
+  { "type" : "git"
+  , "url" : "https://github.com/moraispgsi/fsm-core.git"
+  }
+}
