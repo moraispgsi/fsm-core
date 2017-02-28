@@ -265,9 +265,7 @@ module.exports = function(dialect, host, user, password, database) {
                                         versionID: versionID
                                     })
                                     .then((state) => {
-                                        resolve({
-                                            state: state
-                                        });
+                                        resolve(state);
                                     }).catch(()=>{
                                         reject('state not created');
                                     });
@@ -785,6 +783,7 @@ module.exports = function(dialect, host, user, password, database) {
                 }
             }
         }
+
     };
 
     meta.model.Version.belongsTo(meta.model.FSM, {foreignKey: 'fsmID', constraints: false, onDelete: 'CASCADE'});
