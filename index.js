@@ -1,833 +1,299 @@
+
 /**
  * Created by Ricardo Morais on 25/02/2017.
+ *
+ * This module is the core for modeling Finite-state machines using SCXML. It is simply a database that can be used in
+ * the versioning of SCXML Finite-state machine models. This module also validates the SCXML.
+ **/
+
+
+ /**
+ * Uses the sequelize library to connect to a database using the information given, a database library as to be
+ * installed and its type should be sent as the dialect
+ *
+ * # One of the following libraries will suffice:
+ * $ npm install --save pg pg-hstore
+ * $ npm install --save mysql2
+ * $ npm install --save sqlite3
+ * $ npm install --save tedious // MSSQL
+ *
+ * The dialect should be one of the following
+ * dialect: 'mysql'|'sqlite'|'postgres'|'mssql',
+ *
+ * @param dialect A string representing the database technology 'mysql'|'sqlite'|'postgres'|'mssql'
+ * @param host The host of the database
+ * @param user The user
+ * @param password The user password
+ * @param database The name of the database
+ * @returns {Promise} Returns a promise that will return an object interface for this module
  */
+module.exports = function (dialect, host, user, password, database) {
 
-module.exports = function(dialect, host, user, password, database) {
+    //Load dependencies
+    let co = require('co');                     //For a easier promise handling experience
+    let Sequelize = require('sequelize');       //For a ORM for the database
+    const fs = require('fs');                   //For file reading
+    const xmllint = require('xmllint');         //For SCXML Validations
 
-    let Sequelize = require('sequelize');
-    let ioCore =  require('io-core')(dialect, host, user, password, database);
-    let sequelize = ioCore.sequelize;
-    let moduleName = 'FSMCore';
-    let meta = {
-        sequelize: sequelize,
-        name: 'fsmcore',
-        dependencies: {
-            ioCore: ioCore,
-        },
-        model: {
-            FSM: sequelize.define(moduleName + 'Fsm', {
-                name: {type: Sequelize.STRING, allowNull: false, unique: true},
-            }, {
-                freezeTableName: true,
-                underscoredAll: false
-            }),
-            Version: sequelize.define(moduleName + 'Version', {
-                isSealed: {type: Sequelize.BOOLEAN, allowNull: false, defaultValue: false},
-            }, {
-                freezeTableName: true,
-                underscoredAll: false
-            }),
-            State: sequelize.define(moduleName + 'State', {
-                name: {type: Sequelize.STRING, allowNull: false, unique: 'stateVersion'},
-                versionID: {type: Sequelize.INTEGER, allowNull: false, unique: 'stateVersion'},
-            }, {
-                freezeTableName: true,
-                underscoredAll: false
-            }),
-            Transition: sequelize.define(moduleName + 'Transition', {
-                fromID: {type: Sequelize.INTEGER, allowNull: false, unique: 'transitionState'},
-                toID: {type: Sequelize.INTEGER, allowNull: false, unique: 'transitionState'},
-            }, {
-                freezeTableName: true,
-                underscoredAll: false
-            }),
-            TransitionInputBond: sequelize.define(moduleName + 'TransitionInputBond',{
-                transitionID: {type: Sequelize.INTEGER, allowNull: false, unique: 'inputTransition'},
-                inputID: {type: Sequelize.INTEGER, allowNull: false, unique: 'inputTransition'},
-            }, {
-                freezeTableName: true,
-                underscoredAll: false
-            }),
-            TransitionOutputBond: sequelize.define(moduleName + 'TransitionOutputBond', {
-                transitionID: {type: Sequelize.INTEGER, allowNull: false, unique: 'outputTransition'},
-                outputID: {type: Sequelize.INTEGER, allowNull: false, unique: 'outputTransition'},
-            }, {
-                freezeTableName: true,
-                underscoredAll: false
-            }),
-            StateOutputBond: sequelize.define(moduleName + 'StateOutputBond', {
-                stateID: {type: Sequelize.INTEGER, allowNull: false, unique: 'outputState'},
-                outputID: {type: Sequelize.INTEGER, allowNull: false, unique: 'outputState'},
-            }, {
-                freezeTableName: true,
-                underscoredAll: false
-            }),
-        },
-        query: {
-            assert: {
-                assertVersionNotSealed: (versionID) => {
+    return co(function*() {
 
-                    return new Promise((resolve, reject) => {
-                        meta.model.Version.findById(versionID).then((version) => {
-
-                            if (!version) {
-                                reject('version not found');
-                                return;
-                            }
-
-                            if(version.dataValues.isSealed) {
-                                reject('version is sealed');
-                                return;
-                            }
-
-                            resolve(version);
-
-                        });
-                    });
-
-                },
-                assertVersionSealed: (versionID) => {
-
-                    return new Promise((resolve, reject) => {
-
-                        meta.model.Version.findById(versionID)
-                            .then((version) => {
-
-                                if (!version) {
-                                    //throw 'version not found';
-                                    reject('version not found');
-                                    return;
-                                }
-
-                                if(!version.dataValues.isSealed) {
-                                    //throw 'version is not sealed';
-                                    reject('version is not sealed');
-                                    return;
-                                }
-
-                                resolve(version);
-
-                            });
-                    });
-
-                },
-                assertStateVersionNotSealed: (stateID) => {
-                    return new Promise((resolve, reject)=> {
-                        meta.model.State.findById(stateID)
-                            .catch(() => reject('state not found'))
-                            .then((state) => {
-                                meta.query.assert.assertVersionNotSealed(state.dataValues.versionID)
-                                    .catch((err) => reject(err))
-                                    .then(() => resolve())
-                            });
-                    });
-
-                },
-                assertTransitionVersionNotSealed (transitionID){
-                    return new Promise((resolve, reject)=> {
-                        meta.model.Transition
-                            .findById(transitionID)
-                            .catch(() => reject('transition not found'))
-                            .then((transition) => {
-                                meta.query.assert
-                                    .assertStateVersionNotSealed(transition.dataValues.fromID)
-                                    .catch((err)=>reject(err))
-                                    .then(()=>resolve());
-                            });
-                    });
-                }
+        //Setup sequelize with the database parameters received
+        let sequelize = new Sequelize(database, user, password, {
+            host: host,
+            dialect: dialect,
+            pool: {
+                max: 5,
+                min: 0,
+                idle: 10000
             },
-            get: {
-                isVersionSealed: (versionID) => {
-                    return new Promise((resolve, reject) => {
-                        meta.model.Version.findById(versionID).then((version) => {
+        });
 
-                            if (!version) {
-                                reject('version not found');
-                                return;
-                            }
+        let tablePrefix = 'FSMCore';  //The prefix of every table in the database
+        let meta = {};                //The module is stored in this object
+        meta.sequelize = sequelize;   //Store an initialized sequelize.js instance
+        meta.moduleName = 'fsm-core'; //The name of the module
+        meta.model = {};              //Stores the model definitions
+        meta.query = {};              //Stores the functions that query the database
+        meta.action = {};             //Stores the actions available
+        meta.utils = {};              //Stores utility facilities
 
-                            resolve(version.dataValues.isSealed);
+        /**
+         * This table holds the finite-state machines declarations, each row represent a finite-state machine
+         * @type {Object} Model table definition
+         */
+        meta.model.fsm = sequelize.define(tablePrefix + 'Fsm', {
+            name: {type: Sequelize.STRING, allowNull: false, unique: true},
+        }, {
+            freezeTableName: true,
+            underscoredAll: false
+        });
 
-                        });
-                    });
-                },
-                versionTransitions: (versionID) => {
-                    return new Promise((resolve, reject) => {
-                        meta.model.Transition.findAll({
-                            where: Sequelize.where(Sequelize.col('transitionFromState.versionID'), versionID),
-                            include: [
-                                {
-                                    model: meta.model.State,
-                                    as: 'transitionFromState'
-                                },
-                                {
-                                    model: meta.model.State,
-                                    as: 'transitionToState'
-                                }
-                            ]
-                        }).then((transitions) => {
-                            resolve(transitions);
-                        });
-                    });
-                },
-                versionStateOutputBond: (versionID) => {
+        /**
+         * This table holds the finite-state machines version, each row represent a version of a
+         * finite-state machine model
+         * @type {Object} Model table definition
+         */
+        meta.model.version = sequelize.define(tablePrefix + 'Version', {
+            isSealed: {type: Sequelize.BOOLEAN, allowNull: false, defaultValue: false},
+            scxml: {type: Sequelize.TEXT, allowNull: true}
+        }, {
+            freezeTableName: true,
+            underscoredAll: false
+        });
 
-                    return new Promise((resolve, reject) => {
-
-                        meta.model.StateOutputBond.findAll({
-                            where: Sequelize.where(Sequelize.col('stateFK.versionID'), versionID),
-                            include: [
-                                {
-                                    model: meta.model.State,
-                                    as: 'stateFK'
-                                }
-                            ]
-                        }).then((transitions) => {
-                            resolve(transitions);
-                        });
-                    });
-                },
-                versionTransitionInputBond: (versionID) => {
-                    return new Promise((resolve, reject) => {
-                        meta.model.TransitionInputBond.findAll({
-                            where: Sequelize.where(Sequelize.col('transitionFK.transitionFromState.versionID'), versionID),
-                            include: [
-                                {
-                                    model: meta.model.Transition,
-                                    as: 'transitionFK',
-                                    include: [{
-                                        model: meta.model.State,
-                                        as: 'transitionFromState',
-                                    }]
-                                }
-                            ]
-                        }).then((transitions) => {
-                            resolve(transitions);
-                        });
-                    });
-                },
-                versionTransitionOutputBond: (versionID) => {
-                    return new Promise((resolve, reject) => {
-                        meta.model.TransitionOutputBond.findAll({
-                            where: Sequelize.where(Sequelize.col('transitionFK.transitionFromState.versionID'), versionID),
-                            include: [
-                                {
-                                    model: meta.model.Transition,
-                                    as: 'transitionFK',
-                                    include: [{
-                                        model: meta.model.State,
-                                        as: 'transitionFromState',
-                                    }]
-                                }
-                            ]
-                        }).then((transitions) => {
-                            resolve(transitions);
-                        });
-                    });
+        /**
+         * Verifies if a version is sealed
+         * @param versionID the version ID
+         * @returns {*} Returns a promise to return a boolean value
+         */
+        meta.query.isVersionSealed = function (versionID) {
+            return co(function*(){
+                let version = yield meta.model.version.findById(versionID);
+                if (!version) {
+                    throw new Error('version not found');
                 }
-            },
-            action: {
-                createFSM: function(name){
-                    //out FSMID, out VersionID
-                    //todo: transaction in order to rollback on failure
-                    return new Promise((resolve, reject) => {
-                        meta.model.FSM.create({
-                            name: name
-                        }).then((fsm) => {
-                            meta.model.Version
-                                .create({fsmID: fsm.dataValues.id})
-                                .then((version) => {
-                                    resolve({
-                                        fsm: fsm,
-                                        version: version});
-                                }).catch(()=>{
-                                    reject('version not created')
-                                });
-                        }).catch(()=>{
-                            reject('fsm not created')
-                        });
-                    });
-                },
-                createState: function(name, versionID){
-                  // out StateID
-                    return new Promise((resolve, reject) => {
-
-                        meta.query.assert
-                            .assertVersionNotSealed(versionID).catch((err) =>{
-                                reject(err);
-                            })
-                            .then(() => {
-
-                                meta.model.State
-                                    .create({
-                                        name: name,
-                                        versionID: versionID
-                                    })
-                                    .then((state) => {
-                                        resolve(state);
-                                    }).catch(()=>{
-                                        reject('state not created');
-                                    });
-                            });
-                    });
-                },
-                createTransition: function(fromID, toID){
-                    // out TransitionID
-                    return new Promise((resolve, reject) => {
-
-                        meta.model.State.findById(fromID).then((fromState) => {
-
-                            meta.model.State.findById(toID).then((toState) => {
-
-                                if(fromState.dataValues.versionID != toState.dataValues.versionID )
-                                    reject('versions do not match');
-
-                                let versionID = fromState.dataValues.versionID;
-
-                                meta.query.assert
-                                    .assertVersionNotSealed(versionID)
-                                    .catch((err) => {
-                                        reject(err);
-                                    }).then(() => {
-
-                                        meta.model.Transition
-                                            .create({
-                                                fromID: fromID,
-                                                toID: toID,
-                                            }).catch(()=>{
-                                                reject('transition not created');
-                                            }).then((transition) => {
-                                                resolve(transition);
-                                        });
-                                });
-                            });
-                        });
-                    });
-                },
-                removeFSMModel: function(fsmID){
-
-                    return new Promise((resolve, reject) => {
-                        meta.model.FSM.findById(fsmID).then((fsm) => {
-
-                            if(!fsm){
-                                reject('fsm not found');
-                                return;
-                            }
-
-                            meta.model.Version.findAll({
-                                where: {
-                                    fsmID: fsm.dataValues.id
-                                }
-                            }).then((versions)=>{
-
-                                if(versions.length > 1){
-                                    reject('fsm has more than one version');
-                                    return;
-                                }
-
-                                //Fms has at least one version therefor the array has one version
-
-                                let versionID = versions[0].dataValues.id;
-
-                                if(versions[0].dataValues.isSealed){
-                                    reject('fsm version is sealed');
-                                    return;
-                                }
-
-                                //Cascade deletion
-                                fsm.destroy();
-
-                            });
-
-                        });
-                    });
-                },
-                removeFSMModelVersion: function(versionID){
-                    return new Promise((resolve, reject) => {
-
-                        meta.model.Version.findById(versionID).then((version) => {
-
-                            if(!version){
-                                reject('version not found');
-                                return;
-                            }
-
-                            if(version.dataValues.isSealed){
-                                reject('fsm version is sealed');
-                                return;
-                            }
-
-                            meta.model.FSM.findOne({
-                                where: {
-                                    id: version.dataValues.fsmID
-                                }
-                            }).then((fsm)=>{
-
-                                //If the fsm has only one version, the fsm  must be removed
-                                meta.model.Version
-                                    .findAll({
-                                        where: {
-                                            id: versionID
-                                        },
-                                        attributes: [[sequelize.fn('COUNT', sequelize.col('id')), 'count']]
-                                    })
-                                    .then((rows) => {
-
-
-                                        version.destroy();
-
-                                        //There is only one version and the version is not sealed
-                                        if(rows[0].dataValues.count == 1){
-                                            fsm.destroy();
-                                        }
-
-                                        resolve();
-                                        return;
-
-                                    });
-                                });
-                        });
-                    });
-
-                },
-                removeState: function(stateID){
-                    return new Promise((resolve, reject) => {
-                        meta.model.State.findById(stateID).then((state)=>{
-                            meta.assert.assertVersionNotSealed(state.dataValues.versionID)
-                                .catch((err) => reject(err))
-                                .then(()=>{
-                                    state.destroy();
-                                })
-                        });
-                    });
-                },
-                removeTransition: function(transitionID){
-                    return new Promise((resolve, reject) => {
-                        meta.assert.assertTransitionVersionNotSealed(transitionID)
-                                    .catch((err) => reject(err))
-                                    .then(()=>{
-                                        transition.destroy();
-                                    });
-                    });
-                },
-                setInitialState: function(stateID){
-                    return new Promise((resolve, reject) => {
-                        meta.model.State.findById(stateID).then((state)=>{
-                            meta.query.assert.assertVersionNotSealed(state.dataValues.versionID)
-                                .catch((err) => reject(err))
-                                .then(()=>{
-
-                                    meta.model.Version.update({
-                                        initialStateID: stateID,
-                                    }, {
-                                        where: {
-                                            id: state.dataValues.versionID
-                                        }
-                                    }).catch(()=>reject('could not set initial state'))
-                                      .then(()=>resolve());
-
-                                })
-                        });
-                    });
-                },
-                unsetInitialState: function(versionID){
-                    return new Promise((resolve, reject) => {
-                        meta.query.assert.assertVersionNotSealed(versionID)
-                            .catch((err) => reject(err))
-                            .then(()=>{
-                                meta.model.Version.update({
-                                    initialStateID: null,
-                                }, {
-                                    where: {
-                                        id: versionID
-                                    }
-                                }).catch(()=>reject('could not set initial state'))
-                                    .then(()=>resolve());
-
-                            })
-                    });
-                },
-                seal: function(versionID){
-                    return new Promise((resolve, reject) => {
-                        meta.query.assert.assertVersionNotSealed(versionID)
-                            .catch((err) => reject(err))
-                            .then((version)=>{
-
-                                if(version.dataValues.initialStateID == null){
-                                    reject('version must have a initial state');
-                                    return;
-                                }
-
-                                meta.model.Version.update({
-                                    isSealed: true,
-                                }, {
-                                    where: {
-                                        id: versionID
-                                    }
-                                }).catch(()=>reject('could not seal the version'))
-                                    .then(()=>resolve());
-                            });
-                    });
-                },
-                bindInputToTransition: function(inputID, transitionID){
-                    return new Promise((resolve, reject) => {
-                        meta.query.assert.assertTransitionVersionNotSealed(transitionID)
-                            .catch((err) => reject(err))
-                            .then(()=>{
-                                meta.model.TransitionInputBond.create({
-                                    transitionID: transitionID,
-                                    inputID: inputID
-                                })  .catch(()=>reject('could not create bond'))
-                                    .then((transitionInputBond)=>resolve(transitionInputBond));
-                            });
-                    });
-                },
-                bindOutputToTransition: function(outputID, transitionID){
-                    return new Promise((resolve, reject) => {
-                        meta.query.assert.assertTransitionVersionNotSealed(transitionID)
-                            .catch((err) => reject(err))
-                            .then(()=>{
-                                meta.model.TransitionOutputBond.create({
-                                    transitionID: transitionID,
-                                    outputID: outputID
-                                })  .catch(()=>reject('could not create bond'))
-                                    .then((transitionInputBond)=>resolve(transitionInputBond));
-                            });
-                    });
-                },
-                bindOutputToState: function(outputID, stateID){
-                    return new Promise((resolve, reject) => {
-                        meta.query.assert.assertStateVersionNotSealed(stateID)
-                            .catch((err) => reject(err))
-                            .then(()=>{
-                                meta.model.StateOutputBond.create({
-                                    stateID: stateID,
-                                    outputID: outputID
-                                })  .catch(()=>reject('could not create bond'))
-                                    .then((transitionInputBond)=>resolve(transitionInputBond));
-                            });
-                    });
-                },
-                unbindInputToTransition: function(inputID, transitionID){
-                    return new Promise((resolve, reject) => {
-                        meta.query.assert.assertTransitionVersionNotSealed(transitionID)
-                            .catch((err) => reject(err))
-                            .then(()=>{
-                                meta.model.TransitionInputBond.findAll({
-                                    where: {
-                                        transitionID: transitionID,
-                                        inputID: inputID
-                                    }
-                                }).catch(()=>reject('could not find bond')).then((bond)=>{
-                                    bond.destroy()
-                                        .catch(reject('could not unbind'))
-                                        .then(resolve);
-                                });
-                            });
-                    });
-                },
-                unbindOutputToTransition: function(outputID, transitionID){
-                    return new Promise((resolve, reject) => {
-                        meta.query.assert.assertTransitionVersionNotSealed(transitionID)
-                            .catch((err) => reject(err))
-                            .then(()=>{
-                                meta.model.TransitionOutputBond.findAll({
-                                    where: {
-                                        transitionID: transitionID,
-                                        outputID: outputID
-                                    }
-                                }).catch(()=>reject('could not find bond')).then((bond)=>{
-                                    bond.destroy()
-                                        .catch(reject('could not unbind'))
-                                        .then(resolve);
-                                });
-                            });
-                    });
-                },
-                unbindOutputToState: function(outputID, stateID){
-                    return new Promise((resolve, reject) => {
-                        meta.query.assert.assertTransitionVersionNotSealed(transitionID)
-                            .catch((err) => reject(err))
-                            .then(()=>{
-                                meta.model.StateOutputBond.findAll({
-                                    where: {
-                                        stateID: stateID,
-                                        outputID: outputID
-                                    }
-                                }).catch(()=>reject('could not find bond')).then((bond)=>{
-                                    bond.destroy()
-                                        .catch(reject('could not unbind'))
-                                        .then(resolve);
-                                });
-                            });
-                    });
-                },
-                cloneFSMModel: function(versionID){
-                    // out FSMID, out VersionID
-                    return new Promise((resolve, reject) => {
-                        //create states
-                        //create transitions
-                        //create bonds
-                    });
-                },
-                refurbishFSMModelVersion: function(versionID){
-                    // out VersionID
-                    return new Promise((resolve, reject) => {
-
-                        //check if version is sealed, if the version is sealed copy all
-                        let newVersion;
-                        meta.query.assert
-                            .assertVersionSealed(versionID)
-                            .then((version)=> {
-                                console.log("HEREEEEE");
-
-                                return meta.model.Version.create({
-                                    fsmID: version.dataValues.fsmID,
-                                    versionParentForkID: versionID
-                                });
-                            })
-                            .catch((err)=>{
-                                return Promise.reject(err);
-                            })
-                            .then((version)=> {
-                                newVersion = version;
-                                //create states
-                                return meta.model.State.findAll({
-                                    where: {
-                                        versionID: versionID
-                                    }
-                                });
-                            })
-                            .catch((err)=>{
-                                return Promise.reject(err);
-                            })
-                            .then((states)=> {
-                                let promises = [];
-                                for (let state of states) {
-                                    promises
-                                        .push(meta.query.action.createState(state.dataValues.name, newVersion.dataValues.id));
-                                }
-                                return Promise.all(promises).then(() => {
-                                    return meta.query.get.versionTransitions(versionID);
-                                });
-                            })
-                            .catch((err)=>{
-                                return Promise.reject(err);
-                            })
-                            .then((transitions)=>{
-                                let promises = [];
-                                for(let transition of transitions){
-                                    promises.push(new Promise((resolve, reject) => {
-                                        let fromStateName = transition.dataValues.transitionFromState.dataValues.name;
-                                        let toStateName = transition.dataValues.transitionToState.dataValues.name;
-                                        let fromState;
-                                        let toState;
-                                        meta.model.State.findOne({
-                                            where: {
-                                                versionID: newVersion.dataValues.id,
-                                                name: fromStateName
-                                            }
-                                        }).then((data)=>{
-                                            fromState = data;
-                                            return meta.model.State.findOne({
-                                                where: {
-                                                    versionID: newVersion.dataValues.id,
-                                                    name: toStateName
-                                                }
-                                            });
-                                        }).then((data)=> {
-                                            toState = data;
-                                            return meta.query.action
-                                                .createTransition(fromState.dataValues.id, toState.dataValues.id);
-                                        }).then((transition) => {
-                                                resolve(newVersion);
-                                            });
-                                    }));
-                                }
-                                Promise.all(promises).then(()=>{
-                                    return meta.query.get.versionStateOutputBond(versionID)
-                                }).then((rows)=> {
-                                    let promises = [];
-                                    for(let row of rows) {
-                                        promises.push(new Promise((resolve, reject) => {
-                                            meta.model.State.findOne({
-                                                where: {
-                                                    versionID: newVersion.dataValues.id,
-                                                    name: row.dataValues
-                                                        .stateFK
-                                                        .dataValues.name
-                                                }
-                                            }).then((state)=>{
-
-                                                meta.query.action.bindOutputToState(row.dataValues.outputID, state.dataValues.id)
-                                                    .then(()=>resolve());
-                                            });
-                                        }));
-                                    }
-                                    return Promise.all(promises);
-                                }).then(()=>{
-                                    return meta.query.get.versionTransitionInputBond(versionID)
-                                }).then((rows)=> {
-                                    let promises = [];
-
-                                    for(let row of rows) {
-                                        promises.push(new Promise((resolve, reject) => {
-                                            let _transition;
-                                            let _fromStateName;
-                                            let _toStateName;
-                                            let _newFromState;
-                                            let _newToState;
-                                            meta.model.Transition.findById(row.dataValues.transitionID)
-                                                .then((transition)=> {
-                                                    _transition = transition;
-                                                    return meta.model.State.findById(_transition.dataValues.fromID);
-                                                }).then((fromState)=> {
-                                                    _fromStateName = fromState.dataValues.name;
-                                                    return meta.model.State.findById(_transition.dataValues.toID);
-                                                }).then((toState)=> {
-                                                    _toStateName = toState.dataValues.name;
-                                                    return meta.model.State.findOne({
-                                                        where: {
-                                                            name: _fromStateName,
-                                                            versionID: newVersion.dataValues.id
-                                                        }
-                                                    });
-                                                }).then((fromState) => {
-                                                    _newFromState = fromState;
-                                                    return meta.model.State.findOne({
-                                                        where: {
-                                                            name: _toStateName,
-                                                            versionID: newVersion.dataValues.id
-                                                        }
-                                                    });
-                                                }).then((toState) => {
-                                                    _newToState = toState;
-
-                                                    return meta.model.Transition.findOne({
-                                                        where: {
-                                                            fromID: _newFromState.dataValues.id,
-                                                            toID: _newToState.dataValues.id
-                                                        }
-                                                    });
-                                                }).then((transition)=>{
-                                                    meta.query
-                                                        .action
-                                                        .bindInputToTransition(row.dataValues.inputID, transition.dataValues.id)
-                                                        .then(()=>resolve());
-                                                });
-                                        }));
-
-                                    }
-                                    return Promise.all(promises);
-                                }).then(()=>{
-
-                                    return meta.query.get.versionTransitionOutputBond(versionID);
-                                }).then((rows)=> {
-                                    let promises = [];
-                                    for(let row of rows) {
-                                        promises.push(new Promise((resolve, reject) => {
-                                            let _transition;
-                                            let _fromStateName;
-                                            let _toStateName;
-                                            let _newFromState;
-                                            let _newToState;
-                                            meta.model.Transition.findById(row.dataValues.transitionID)
-                                                .then((transition)=> {
-                                                    _transition = transition;
-                                                    return meta.model.State.findById(_transition.dataValues.fromID);
-                                                }).then((fromState)=> {
-                                                _fromStateName = fromState.dataValues.name;
-                                                return meta.model.State.findById(_transition.dataValues.toID);
-                                            }).then((toState)=> {
-                                                _toStateName = toState.dataValues.name;
-
-                                                return meta.model.State.findOne({
-                                                    where: {
-                                                        name: _fromStateName,
-                                                        versionID: newVersion.dataValues.id
-                                                    }
-                                                });
-                                            }).then((fromState) => {
-                                                _newFromState = fromState;
-
-                                                return meta.model.State.findOne({
-                                                    where: {
-                                                        name: _toStateName,
-                                                        versionID: newVersion.dataValues.id
-                                                    }
-                                                });
-                                            }).then((toState) => {
-                                                _newToState = toState;
-                                                return meta.model.Transition.findOne({
-                                                    where: {
-                                                        fromID: _newFromState.dataValues.id,
-                                                        toID: _newToState.dataValues.id
-                                                    }
-                                                });
-                                            }).then((transition)=>{
-
-                                                meta.query.action
-                                                    .bindOutputToTransition(row.dataValues.outputID,transition.dataValues.id)
-                                                    .then(()=>resolve());
-
-                                            });
-                                        }));
-                                    }
-                                    return Promise.all(promises);
-                                }).then(()=>resolve(newVersion));
-                            }).catch((err)=>{
-                                reject(err);
-                            });
-                        });
+                return version.dataValues.isSealed;
+            });
+        };
+        /**
+         * Creates a new Finite-state machine model
+         * @param name The name of the finite-state machine model
+         */
+        meta.action.createFSM = function (name) {
+            return sequelize.transaction(function (t) {
+                return co(function*() {
+                    let fsm = yield meta.model.fsm.create({name: name}, {transaction: t});
+                    let version = yield meta.model.version.create({fsmID: fsm.dataValues.id}, {transaction: t});
+                    return {fsm: fsm, version: version};
+                });
+            });
+        };
+        /**
+         * Removes a Finite-State machine model if there is only one version and that version is not sealed
+         * @param fsmID the Finite-State machine id
+         * @returns {Promise} A promise to remove the Finite-State machine model
+         */
+        meta.action.removeFSMModel = function (fsmID) {
+            return co(function*() {
+                let fsm = yield meta.model.fsm.findById(fsmID);
+                if (!fsm) {
+                    throw new Error('FSM not found');
                 }
+                let versions = yield meta.model.version.findAll({where: {fsmID: fsm.dataValues.id}});
+                if (versions.length > 1) {
+                    throw new Error('FSM has more than one version');
+                }
+                //Fms has at least one version therefor the array has one version
+                if (versions[0].dataValues.isSealed) {
+                    throw new Error('fsm version is sealed');
+                }
+                //Cascade deletion
+                yield fsm.destroy();
+            });
+        };
+
+        /**
+         * Removes a Finite-State machine model version if the version is not sealed
+         * @param versionID The id of the Finite-State machine model version
+         * @returns {Promise} A promise to remove the Finite-State machine model version
+         */
+        meta.action.removeFSMModelVersion = function (versionID) {
+            return co(function*() {
+                let version = yield meta.model.version.findById(versionID);
+
+                if (!version) {
+                    throw new Error('version not found');
+                }
+
+                if (version.dataValues.isSealed) {
+                    throw new Error('fsm version is sealed');
+                }
+
+                let fsm = meta.model.fsm.findOne({
+                    where: {
+                        id: version.dataValues.fsmID
+                    }
+                });
+                //If the fsm has only one version, the fsm  must be removed
+                version.destroy();
+                let count = yield meta.model.version.count({where: {id: versionID}});
+                //There is only one version and the version is not sealed
+                if (count === 0) {
+                    fsm.destroy();
+                }
+            });
+        };
+        /**
+         * Sets the current scxml for a FSM model version
+         * @param versionID The id of the FSM model version
+         * @param scxml A string SCXML
+         * @returns {Promise} A Promise to set SCXML of the FSM model version
+         */
+        meta.action.setScxml = function (versionID, scxml) {
+            return co(function*(){
+                let version = yield meta.model.version.findById(versionID);
+                let versionValues = version.dataValues;
+
+                if (versionValues.isSealed) {
+                    throw new Error("Version is already sealed.");
+                }
+
+                yield meta.model.version.update({
+                    scxml: scxml,
+                }, {
+                    where: {id: versionID}
+                });
+            });
+        };
+
+        /**
+         * Seals a FSM model version if it is not already sealed and the scxml of the version is valid
+         * @param versionID The id of the FSM model version
+         * @returns {Promise} A Promise to seal the version and return the new version
+         */
+        meta.action.seal = function (versionID) {
+            return co(function*() {
+
+                let version = yield meta.model.version.findById(versionID);
+                let versionValues = version.dataValues;
+                if (versionValues.isSealed) {
+                    throw new Error("Version is already sealed.");
+                }
+
+                //Validate the SCXML
+                yield meta.utils.validateSCXML(versionValues.scxml);
+
+                yield meta.model.version.update({
+                    isSealed: true,
+                }, {
+                    where: {id: versionID}
+                });
+
+            });
+        };
+
+        /**
+         * Clones a FSM model version, the cloning process creates a new finite-state machine with only one version
+         * whose data match the FSM model version to be copied. The newly created version will be unsealed
+         * @param versionID The id of the FSM model version to clone
+         * @param fsmName The name of the new finite-state machine
+         * @returns {Promise} A Promise to create the clone and return an object with the fsm data and the version data
+         */
+        meta.action.clone = function (versionID, fsmName) {
+            return co(function*() {
+                let data = yield meta.model.fsm.createFSM(fsmName);
+                let fsmVersion = data.version;
+                let version = yield meta.model.version.findById(versionID);
+                let scxml = version.dataValues.scxml;
+                yield meta.model.version.update({
+                    scxml: scxml
+                }, { where: { id: fsmVersion.dataValues.id} });
+                return data;
+            });
+        };
+
+        /**
+         * Creates a fork from the a FSM Model version. This will generate a new version with the same exact model of
+         * the version to fork and the new version will reference the old one. The version to fork must also be sealed
+         * @param versionID The id of the version to fork
+         * @returns {Promise} A Promise to fork a FSM model version and return the version.
+         */
+        meta.action.fork = function (versionID) {
+            return co(function*(){
+                let version = yield meta.model.version.findById(versionID);
+                yield meta.assert.assertVersionSealed(versionID);
+                let scxml = version.dataValues.scxml;
+                let newVersion = yield meta.model.version.create({
+                    fsmID: version.dataValues.fsmID,
+                    versionParentForkID: version.dataValues.id,
+                    scxml: scxml
+                });
+                return newVersion;
+            });
+        };
+
+        //Creating the table relationships
+        meta.model.version.belongsTo(meta.model.fsm, {foreignKey: 'fsmID', constraints: false, onDelete: 'CASCADE'});
+        meta.model.version.belongsTo(meta.model.version, {
+            foreignKey: 'versionParentForkID',
+            constraints: false,
+            onDelete: 'CASCADE'
+        });
+
+        yield sequelize.sync();
+        return meta;
+
+    });
+
+    /**
+     * Validates a SCXML string
+     * The validation is done using the xmllint npm library
+     * https://github.com/kripken/xml.js/issues/8
+     * @param {String} scxml A string with the SCXML document to validate
+     * @returns {Promise} A Promise that validates the SCXML string
+     */
+    meta.utils.validateSCXML = function(scxml){
+        return co(function*(){
+
+            let xsdFiles = [];
+            let xmlxsd = fs.readFileSync('xmlSchemas/xml.xsd','utf8')
+
+            //Using a flattened scxml.xsd file from https://www.w3.org/2011/04/SCXML/scxml.xsd
+            //The flattening was done using oXygen XML Editor in Tools > Flatten Schema
+            let scxmlxsd = fs.readFileSync('xmlSchemas/scxml.xsd','utf8')
+            xsdFiles.push(xmlxsd);
+            xsdFiles.push(scxmlxsd);
+
+            let opts = {
+                xml: versionValues.scxml,
+                schema: xsdFiles,
+            };
+
+            let errors = xmllint.validateXML(opts).errors;
+            if(errors) {
+                throw new Error(errors);
             }
-        }
 
-    };
-
-    meta.model.Version.belongsTo(meta.model.FSM, {foreignKey: 'fsmID', constraints: false, onDelete: 'CASCADE'});
-    meta.model.State.belongsTo(meta.model.Version, {foreignKey: 'versionID', constraints: false, onDelete: 'CASCADE'});
-    meta.model.Version.belongsTo(meta.model.State, {foreignKey: 'initialStateID', constraints: false});
-    meta.model.Version.belongsTo(meta.model.Version, {foreignKey: 'versionParentForkID', constraints: false, onDelete: 'CASCADE'});
-    meta.model.Transition.belongsTo(meta.model.State, {as: 'transitionFromState',foreignKey: 'fromID', constraints: false,onDelete: 'CASCADE'});
-    meta.model.Transition.belongsTo(meta.model.State, {as: 'transitionToState',foreignKey: 'toID', constraints: false, onDelete: 'CASCADE'});
-    meta.model.StateOutputBond.belongsTo(meta.model.State, {
-        as: 'stateFK',
-        foreignKey: 'stateID',
-        constraints: false,
-        onDelete: 'CASCADE'
-    });
-    meta.model.StateOutputBond.belongsTo(ioCore.model.Output, {
-        as: 'outputFK',
-        foreignKey: 'outputID',
-        constraints: false,
-        onDelete: 'CASCADE'
-    });
-    meta.model.TransitionInputBond.belongsTo(meta.model.Transition, {
-        as: 'transitionFK',
-        foreignKey: 'transitionID',
-        constraints: false,
-        onDelete: 'CASCADE'
-    });
-    meta.model.TransitionInputBond.belongsTo(ioCore.model.Input, {
-        as: 'inputFK',
-        foreignKey: 'inputID',
-        constraints: false,
-        onDelete: 'CASCADE'
-    });
-    meta.model.TransitionOutputBond.belongsTo(meta.model.Transition, {
-        as: 'transitionFK',
-        foreignKey: 'transitionID',
-        constraints: false,
-        onDelete: 'CASCADE'
-    });
-    meta.model.TransitionOutputBond.belongsTo(ioCore.model.Output, {
-        as: 'outputFK',
-        foreignKey: 'outputID',
-        constraints: false,
-    });
-
-    return meta;
-
+        });
+    }
 };
