@@ -252,6 +252,38 @@ module.exports = function (dialect, host, user, password, database) {
             });
         };
 
+        /**
+         * Validates a SCXML string
+         * The validation is done using the xmllint npm library
+         * https://github.com/kripken/xml.js/issues/8
+         * @param {String} scxml A string with the SCXML document to validate
+         * @returns {Promise} A Promise that validates the SCXML string
+         */
+        meta.utils.validateSCXML = function(scxml){
+            return co(function*(){
+
+                let xsdFiles = [];
+                let xmlxsd = fs.readFileSync('xmlSchemas/xml.xsd','utf8')
+
+                //Using a flattened scxml.xsd file from https://www.w3.org/2011/04/SCXML/scxml.xsd
+                //The flattening was done using oXygen XML Editor in Tools > Flatten Schema
+                let scxmlxsd = fs.readFileSync('xmlSchemas/scxml.xsd','utf8')
+                xsdFiles.push(xmlxsd);
+                xsdFiles.push(scxmlxsd);
+
+                let opts = {
+                    xml: scxml,
+                    schema: xsdFiles,
+                };
+
+                let errors = xmllint.validateXML(opts).errors;
+                if(errors) {
+                    throw new Error(errors);
+                }
+
+            });
+        };
+
         //Creating the table relationships
         meta.model.version.belongsTo(meta.model.fsm, {foreignKey: 'fsmID', constraints: false, onDelete: 'CASCADE'});
         meta.model.version.belongsTo(meta.model.version, {
@@ -265,35 +297,4 @@ module.exports = function (dialect, host, user, password, database) {
 
     });
 
-    /**
-     * Validates a SCXML string
-     * The validation is done using the xmllint npm library
-     * https://github.com/kripken/xml.js/issues/8
-     * @param {String} scxml A string with the SCXML document to validate
-     * @returns {Promise} A Promise that validates the SCXML string
-     */
-    meta.utils.validateSCXML = function(scxml){
-        return co(function*(){
-
-            let xsdFiles = [];
-            let xmlxsd = fs.readFileSync('xmlSchemas/xml.xsd','utf8')
-
-            //Using a flattened scxml.xsd file from https://www.w3.org/2011/04/SCXML/scxml.xsd
-            //The flattening was done using oXygen XML Editor in Tools > Flatten Schema
-            let scxmlxsd = fs.readFileSync('xmlSchemas/scxml.xsd','utf8')
-            xsdFiles.push(xmlxsd);
-            xsdFiles.push(scxmlxsd);
-
-            let opts = {
-                xml: versionValues.scxml,
-                schema: xsdFiles,
-            };
-
-            let errors = xmllint.validateXML(opts).errors;
-            if(errors) {
-                throw new Error(errors);
-            }
-
-        });
-    }
 };
