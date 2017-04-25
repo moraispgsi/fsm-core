@@ -30,10 +30,10 @@
 module.exports = function (dialect, host, user, password, database) {
 
     //Load dependencies
-    let co = require('co');                     //For a easier promise handling experience
-    let Sequelize = require('sequelize');       //For a ORM for the database
-    const fs = require('fs');                   //For file reading
-    const xmllint = require('xmllint');         //For SCXML Validations
+    let co = require('co');                //For a easier promise handling experience
+    let Sequelize = require('sequelize');  //For a ORM for the database
+    const fs = require('fs');              //For file reading
+    const xmllint = require('xmllint');    //For SCXML Validations
 
     return co(function*() {
 
