@@ -27,7 +27,7 @@
  * @param database The name of the database
  * @returns {Promise} Returns a promise that will return an object interface for this module
  */
-module.exports = function (dialect, host, user, password, database) {
+module.exports = function (dialect, host, user, password, database, config) {
 
     //Load dependencies
     let co = require('co');                //For a easier promise handling experience
@@ -37,16 +37,17 @@ module.exports = function (dialect, host, user, password, database) {
 
     return co(function*() {
 
+        config = config || {};
+        config.host = host;
+        config.dialect = dialect;
+        config.pool = {
+            max: 5,
+            min: 0,
+            idle: 10000
+        };
+
         //Setup sequelize with the database parameters received
-        let sequelize = new Sequelize(database, user, password, {
-            host: host,
-            dialect: dialect,
-            pool: {
-                max: 5,
-                min: 0,
-                idle: 10000
-            },
-        });
+        let sequelize = new Sequelize(database, user, password, config);
 
         let tablePrefix = 'FSMCore';  //The prefix of every table in the database
         let meta = {};                //The module is stored in this object

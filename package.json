@@ -1,6 +1,6 @@
 {
   "name": "fsm-core",
-  "version": "0.0.13",
+  "version": "0.0.14",
   "description": "This module is composed of software that allows us to formally create and define deterministic Finite State Transducers.",
   "main": "index.js",
   "scripts": {

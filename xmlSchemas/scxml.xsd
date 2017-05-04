@@ -767,7 +767,45 @@
         <xsd:attributeGroup ref="scxml.finalize.attlist"/>
     </xsd:complexType>
     <xsd:element name="finalize" type="scxml.finalize.type"/>
-    <!-- the various elements of executable content are defined in the relevant modules. 
+
+<!-- NEW ELEMENTS -->
+    <!-- logme-->
+    <xsd:attributeGroup name="scxml.logme.attlist">
+        <xsd:attribute name="label" type="xsd:string"/>
+        <xsd:attribute name="expr" type="ValueLang.datatype"/>
+        <xsd:attributeGroup ref="scxml.extra.attribs"/>
+    </xsd:attributeGroup>
+    <xsd:group name="scxml.logme.content">
+        <xsd:sequence>
+            <xsd:group maxOccurs="unbounded" minOccurs="0" ref="scxml.extra.content"/>
+        </xsd:sequence>
+    </xsd:group>
+    <xsd:complexType name="scxml.logme.type">
+        <xsd:group ref="scxml.logme.content"/>
+        <xsd:attributeGroup ref="scxml.logme.attlist"/>
+    </xsd:complexType>
+    <xsd:element name="logme" type="scxml.logme.type"/>
+    <!-- ddm:changeView-->
+    <xsd:attributeGroup name="scxml.changeView.attlist">
+        <xsd:attribute name="id" type="ValueLang.datatype"/>
+        <xsd:attribute name="view" type="xsd:string"/>
+        <xsd:attributeGroup ref="scxml.extra.attribs"/>
+    </xsd:attributeGroup>
+    <xsd:group name="scxml.changeView.content">
+        <xsd:sequence>
+            <xsd:group maxOccurs="unbounded" minOccurs="0" ref="scxml.extra.content"/>
+        </xsd:sequence>
+    </xsd:group>
+    <xsd:complexType name="scxml.changeView.type">
+        <xsd:group ref="scxml.changeView.content"/>
+        <xsd:attributeGroup ref="scxml.changeView.attlist"/>
+    </xsd:complexType>
+    <xsd:element name="changeView" type="scxml.changeView.type"/>
+
+<!-- NEW ELEMENTS END -->
+
+
+    <!-- the various elements of executable content are defined in the relevant modules.
 This gathers them up into a single type -->
     <xsd:group name="scxml.core.executablecontent">
         <xsd:choice>
@@ -780,6 +818,9 @@ This gathers them up into a single type -->
             <xsd:element ref="assign"/>
             <xsd:element ref="log"/>
             <xsd:element ref="cancel"/>
+            <!-- New elements -->
+            <xsd:element ref="logme"/>
+            <xsd:element ref="changeView"/>
         </xsd:choice>
     </xsd:group>
 </xsd:schema>

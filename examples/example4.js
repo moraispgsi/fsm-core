@@ -4,7 +4,6 @@
 let xml_valid = `
             <scxml xmlns="http://www.w3.org/2005/07/scxml"
             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-            xmlns:ddm="http://INSTICC.org/DDM"
             datamodel="ecmascript"
             version="1.0">
     <state id="Main">   
@@ -22,7 +21,7 @@ let xml_valid = `
             <onentry> 
                 <log expr="'Inside Test1'"/>
             </onentry>     
-             <ddm:logg/>
+             <logme/>
             <!-- Here is our first substate -->
             <state id="Test1Sub1"> 
                 <onentry>   

@@ -11,57 +11,95 @@ require('./../index')('mysql', 'localhost', 'root', 'root', 'mydatabase').then(f
         let version = data.version;
 
         let scxml = `
-                <scxml xmlns="http://www.w3.org/2005/07/scxml"
-                    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-                    xmlns:ddm="http://INSTICC.org/ddm"
-                    version="1.0"
-                    initial="Main" 
-                    datamodel="ecmascript"> 
-                    <state id="Main">   
-                        <!-- its initial state is Test1 -->
-                        <initial>  
-                            <transition target="Test1"/>      
-                        </initial>    
-                        
-                        <!-- Really simple state showing the basic syntax. -->
-                        <state id="Test1"> 
-                            <initial>
-                                <transition target="Test1Sub1"/>
-                            </initial>
-                            <!-- Runs before we go into the substate -->
-                            <onentry> 
-                                <log expr="'Inside Test1'"/>
-                            </onentry>     
-                             <ddm:logg/>
-                            <!-- Here is our first substate -->
-                            <state id="Test1Sub1"> 
-                                <onentry>   
-                                    <ddm:logme3 label="gdgs" expr="gdsg"/> 
-                                    <ddm:logme label="gdgs" expr="gdsg"/>   
-                                </onentry>
-                                <onexit>
-                                    <log expr="'Leaving Test1Sub1'"/>
-                                </onexit> 
-                                <!-- Go to Sub2 on Event1 --> 
-                                <transition event="Event1" target="Test1Sub2"/> 
-                            </state>
-                            
-                            <!-- Here is the second substate 
-                           It is final, so Test1 is done when we get here -->
-                            <final id="Test1Sub2"/>
-                            
-                            <!-- We get this event when we reach Test1Sub2. --> 
-                      
-                            
-                            <!-- We run this on the way out of Test1 -->
-                            <onexit>
-                                <log expr="'Leaving Test1...'"/>
-                            </onexit>
-                        </state>
-                        
-                        <!-- End of Main > -->
-                    </state>
-                </scxml>`;
+<scxml xmlns="http://www.w3.org/2005/07/scxml" version="1.0" datamodel="ecmascript"
+    initial="uninitilized"
+    >
+    <datamodel>
+        <data id="date"/>
+        <data id="extensionDate"/>
+        <data id="deadlineId"/>
+    </datamodel>
+    <state id="uninitilized">
+        <transition event="initialize" target="running">
+            <assign location="date" expr="_event.date"/>
+            <assign location="deadlineId" expr="_event.deadlineId"/>
+        </transition>
+    </state>
+    <state id="running">
+        <transition event="extension" target="extended">
+           <assign location="extensionDate" expr="_event.extensionDate"/> 
+        </transition>
+        <transition event="cancel" target="canceled">
+           <cancel sendid="timer"/> 
+        </transition>
+        <state id="running.start">
+            <onentry>
+                <log label="Start"/>
+                <send id="timer" event="timeout" delay="20s"/>
+                <raise event="wait" />
+            </onentry>
+            <transition event="wait" target="running.waiting"/>
+        </state>  
+        <state id="running.waiting">
+            <onentry>
+                <log label="Waiting"/>
+            </onentry>
+            <transition event="timeout" cond="date &lt; new Date()" target="expired">
+                <log label="Timeout received!"/>
+            </transition>
+            <transition event="timeout" target="running.start">
+                <log label="Not the time yet!"/>
+            </transition>
+        </state>  
+    </state>
+    <state id="extended">
+        <onentry>
+            <changeView id="deadlineId" view="expired"/>
+        </onentry>
+        <state id="extended.start">
+            <onentry>
+                <log label="Start"/>
+                <send id="timer4" event="timeout" delay="20s"/>
+                <raise event="wait" />
+            </onentry>
+            <transition event="wait" target="extended.waiting"/>
+        </state>  
+        <state id="extended.waiting">
+            <onentry>
+                <log label="Waiting"/>
+            </onentry>
+            <transition event="timeout" cond="extensionDate &lt; new Date()" target="expired">
+                <log label="Timeout received!"/>
+            </transition>
+            <transition event="timeout" target="extended.start">
+                <log label="Not the time yet!"/>
+            </transition>
+        </state>  
+    </state>
+    <state id="expired">
+        <onentry>
+            <log label="Expired"/>
+            <changeView id="deadlineId" view="expired"/>
+            <send id="timer1" event="timeout" delay="10s"/>
+        </onentry>
+        <transition event="timeout" target="final"/>
+    </state>
+    <state id="canceled">
+        <onentry>
+            <log label="Canceled"/>
+            <changeView id="deadlineId" view="canceled"/>
+            <send id="timer2" event="timeout" delay="10s"/>
+        </onentry>
+        <transition event="timeout" target="final"/>
+    </state>
+    <final id="final">
+        <onentry>
+            <log label="Change view to invisible"/>
+            <changeView id="deadlineId" view="invisible"/>
+        </onentry>
+    </final>
+</scxml>
+`;
 
         yield meta.action.setScxml(version.dataValues.id, scxml);
         yield meta.action.seal(version.dataValues.id);
