@@ -96,6 +96,46 @@ module.exports = function (dialect, host, user, password, database, config) {
                 return version.dataValues.isSealed;
             });
         };
+
+        /**
+         * Gets a finite-state machine by its name
+         * @param name the name of the finite-state machine
+         * @returns {*} Returns a promise to return the finite-state machine
+         */
+        meta.query.getFsmByName = function (name) {
+            return co(function*(){
+                let fsm = yield meta.model.version.findOne({
+                    where: {
+                        name: name
+                    }
+                });
+                if (!fsm) {
+                    throw new Error('fsm not found');
+                }
+                return fsm;
+            });
+        };
+
+        /**
+         * Returns the latest sealed finite-state machine version
+         * @param fsmID the id of the finite-state machine
+         * @returns {*} Returns a promise to return the latest sealed version
+         */
+        meta.query.getLatestSealedFsmVersion = function (fsmID) {
+            return co(function*(){
+                let version = yield meta.model.version.findOne({
+                    where: {
+                        fsmID: fsmID,
+                        isSealed: true
+                    },
+                    order: [ [ 'createdAt', 'DESC' ] ]
+                });
+                if (!version) {
+                    throw new Error('version not found');
+                }
+                return version.dataValues.scxml;
+            });
+        };
         /**
          * Creates a new Finite-state machine model
          * @param name The name of the finite-state machine model
