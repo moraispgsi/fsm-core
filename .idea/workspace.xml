@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="a3b16e93-389a-47cc-bea8-547fa515eb36" name="Default" comment="Resolving a simple problem in the validateSCXML function">
+    <list default="true" id="a3b16e93-389a-47cc-bea8-547fa515eb36" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/examples/example3.js" afterPath="$PROJECT_DIR$/examples/example3.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/index.js" afterPath="$PROJECT_DIR$/index.js" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
@@ -55,23 +54,23 @@
       <file leaf-file-name="index.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/index.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="136">
-              <caret line="88" column="10" lean-forward="false" selection-start-line="88" selection-start-column="10" selection-end-line="88" selection-end-column="10" />
+            <state relative-caret-position="98">
+              <caret line="135" column="30" lean-forward="false" selection-start-line="135" selection-start-column="30" selection-end-line="135" selection-end-column="30" />
               <folding>
                 <element signature="e#2673#2760#0" expanded="false" />
                 <element signature="e#2762#2842#0" expanded="false" />
                 <element signature="e#3125#3283#0" expanded="false" />
                 <element signature="e#3285#3365#0" expanded="false" />
                 <element signature="e#3605#3903#0" expanded="false" />
-                <element signature="e#5499#5903#0" expanded="false" />
-                <element signature="e#6224#6973#0" expanded="false" />
-                <element signature="e#7316#8231#0" expanded="false" />
-                <element signature="e#8551#9046#0" expanded="false" />
-                <element signature="e#9371#9977#0" expanded="false" />
-                <element signature="e#10541#11025#0" expanded="false" />
-                <element signature="e#11487#12017#0" expanded="false" />
-                <element signature="e#12398#13196#0" expanded="false" />
-                <element signature="e#13417#13539#0" expanded="false" />
+                <element signature="e#5478#5882#0" expanded="false" />
+                <element signature="e#6203#6952#0" expanded="false" />
+                <element signature="e#7295#8210#0" expanded="false" />
+                <element signature="e#8530#9025#0" expanded="false" />
+                <element signature="e#9350#9956#0" expanded="false" />
+                <element signature="e#10520#11004#0" expanded="false" />
+                <element signature="e#11466#11996#0" expanded="false" />
+                <element signature="e#12377#13175#0" expanded="false" />
+                <element signature="e#13396#13518#0" expanded="false" />
               </folding>
             </state>
           </provider>
@@ -327,7 +326,7 @@
       <workItem from="1493659599370" duration="25208000" />
       <workItem from="1493965517864" duration="4697000" />
       <workItem from="1494861322322" duration="7902000" />
-      <workItem from="1494956404625" duration="21755000" />
+      <workItem from="1494956404625" duration="22154000" />
     </task>
     <task id="LOCAL-00001" summary="createState return only the state instead of an object">
       <created>1488240569779</created>
@@ -350,11 +349,18 @@
       <option name="project" value="LOCAL" />
       <updated>1493056615471</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="Get fsm by name and get latest fsm version">
+      <created>1495227206708</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1495227206708</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="240980000" />
+    <option name="totallyTimeSpent" value="241379000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
@@ -390,7 +396,8 @@
     <MESSAGE value="createState return only the state instead of an object" />
     <MESSAGE value="Full refactoring and scxml based approach." />
     <MESSAGE value="Resolving a simple problem in the validateSCXML function" />
-    <option name="LAST_COMMIT_MESSAGE" value="Resolving a simple problem in the validateSCXML function" />
+    <MESSAGE value="Get fsm by name and get latest fsm version" />
+    <option name="LAST_COMMIT_MESSAGE" value="Get fsm by name and get latest fsm version" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -720,23 +727,23 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/index.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="136">
-          <caret line="88" column="10" lean-forward="false" selection-start-line="88" selection-start-column="10" selection-end-line="88" selection-end-column="10" />
+        <state relative-caret-position="98">
+          <caret line="135" column="30" lean-forward="false" selection-start-line="135" selection-start-column="30" selection-end-line="135" selection-end-column="30" />
           <folding>
             <element signature="e#2673#2760#0" expanded="false" />
             <element signature="e#2762#2842#0" expanded="false" />
             <element signature="e#3125#3283#0" expanded="false" />
             <element signature="e#3285#3365#0" expanded="false" />
             <element signature="e#3605#3903#0" expanded="false" />
-            <element signature="e#5499#5903#0" expanded="false" />
-            <element signature="e#6224#6973#0" expanded="false" />
-            <element signature="e#7316#8231#0" expanded="false" />
-            <element signature="e#8551#9046#0" expanded="false" />
-            <element signature="e#9371#9977#0" expanded="false" />
-            <element signature="e#10541#11025#0" expanded="false" />
-            <element signature="e#11487#12017#0" expanded="false" />
-            <element signature="e#12398#13196#0" expanded="false" />
-            <element signature="e#13417#13539#0" expanded="false" />
+            <element signature="e#5478#5882#0" expanded="false" />
+            <element signature="e#6203#6952#0" expanded="false" />
+            <element signature="e#7295#8210#0" expanded="false" />
+            <element signature="e#8530#9025#0" expanded="false" />
+            <element signature="e#9350#9956#0" expanded="false" />
+            <element signature="e#10520#11004#0" expanded="false" />
+            <element signature="e#11466#11996#0" expanded="false" />
+            <element signature="e#12377#13175#0" expanded="false" />
+            <element signature="e#13396#13518#0" expanded="false" />
           </folding>
         </state>
       </provider>

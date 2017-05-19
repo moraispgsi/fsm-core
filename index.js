@@ -104,7 +104,7 @@ module.exports = function (dialect, host, user, password, database, config) {
          */
         meta.query.getFsmByName = function (name) {
             return co(function*(){
-                let fsm = yield meta.model.version.findOne({
+                let fsm = yield meta.model.fsm.findOne({
                     where: {
                         name: name
                     }
@@ -133,7 +133,7 @@ module.exports = function (dialect, host, user, password, database, config) {
                 if (!version) {
                     throw new Error('version not found');
                 }
-                return version.dataValues.scxml;
+                return version;
             });
         };
         /**
