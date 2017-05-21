@@ -5,7 +5,12 @@
  * This module is the core for modeling Finite-state machines using SCXML. It is simply a database that can be used in
  * the versioning of SCXML Finite-state machine models. This module also validates the SCXML.
  **/
-
+//  ______   ______     __    __           ______     ______     ______     ______
+// /\  ___\ /\  ___\   /\ "-./  \         /\  ___\   /\  __ \   /\  == \   /\  ___\
+// \ \  __\ \ \___  \  \ \ \-./\ \        \ \ \____  \ \ \/\ \  \ \  __<   \ \  __\
+//  \ \_\    \/\_____\  \ \_\ \ \_\        \ \_____\  \ \_____\  \ \_\ \_\  \ \_____\
+//   \/_/     \/_____/   \/_/  \/_/         \/_____/   \/_____/   \/_/ /_/   \/_____/
+//
 
  /**
  * Uses the sequelize library to connect to a database using the information given, a database library as to be
@@ -54,9 +59,6 @@ module.exports = function (dialect, host, user, password, database, config) {
         meta.sequelize = sequelize;   //Store an initialized sequelize.js instance
         meta.moduleName = 'fsm-core'; //The name of the module
         meta.model = {};              //Stores the model definitions
-        meta.query = {};              //Stores the functions that query the database
-        meta.action = {};             //Stores the actions available
-        meta.utils = {};              //Stores utility facilities
 
         /**
          * This table holds the finite-state machines declarations, each row represent a finite-state machine
@@ -87,7 +89,7 @@ module.exports = function (dialect, host, user, password, database, config) {
          * @param versionID the version ID
          * @returns {*} Returns a promise to return a boolean value
          */
-        meta.query.isVersionSealed = function (versionID) {
+        meta.isVersionSealed = function (versionID) {
             return co(function*(){
                 let version = yield meta.model.version.findById(versionID);
                 if (!version) {
@@ -102,7 +104,7 @@ module.exports = function (dialect, host, user, password, database, config) {
          * @param name the name of the finite-state machine
          * @returns {*} Returns a promise to return the finite-state machine
          */
-        meta.query.getFsmByName = function (name) {
+        meta.getFsmByName = function (name) {
             return co(function*(){
                 let fsm = yield meta.model.fsm.findOne({
                     where: {
@@ -112,7 +114,37 @@ module.exports = function (dialect, host, user, password, database, config) {
                 if (!fsm) {
                     throw new Error('fsm not found');
                 }
-                return fsm;
+                return fsm.dataValues;
+            });
+        };
+
+        /**
+         * Finds a finite-state machine by ID
+         * @param fsmID The ID of the finite-state machine
+         * @returns {*} A promise to return the finite-state machine
+         */
+        meta.getFsmById = function (fsmID) {
+            return co(function*(){
+                let fsm = yield meta.model.fsm.findById(fsmID);
+                if(!fsm) {
+                    throw new Error("version not found");
+                }
+                return fsm.dataValues;
+            });
+        };
+
+        /**
+         * Finds a version by ID
+         * @param versionID The ID of the version
+         * @returns {*} A promise to return the version
+         */
+        meta.getVersionById = function (versionID) {
+            return co(function*(){
+                let version = yield meta.model.version.findById(versionID);
+                if(!version) {
+                    throw new Error("version not found");
+                }
+                return version.dataValues;
             });
         };
 
@@ -121,7 +153,7 @@ module.exports = function (dialect, host, user, password, database, config) {
          * @param fsmID the id of the finite-state machine
          * @returns {*} Returns a promise to return the latest sealed version
          */
-        meta.query.getLatestSealedFsmVersion = function (fsmID) {
+        meta.getLatestSealedFsmVersion = function (fsmID) {
             return co(function*(){
                 let version = yield meta.model.version.findOne({
                     where: {
@@ -133,28 +165,101 @@ module.exports = function (dialect, host, user, password, database, config) {
                 if (!version) {
                     throw new Error('version not found');
                 }
-                return version;
+                return version.dataValues;
             });
         };
+
         /**
-         * Creates a new Finite-state machine model
-         * @param name The name of the finite-state machine model
+         * Returns the latest finite-state machine version
+         * @param fsmID the id of the finite-state machine
+         * @returns {*} Returns a promise to return the latest sealed version
          */
-        meta.action.createFSM = function (name) {
+        meta.getLatestFsmVersion = function (fsmID) {
+            return co(function*(){
+                let version = yield meta.model.version.findOne({
+                    where: {
+                        fsmID: fsmID,
+                    },
+                    order: [ [ 'createdAt', 'DESC' ] ]
+                });
+                if (!version) {
+                    throw new Error('version not found');
+                }
+                return version.dataValues;
+            });
+        };
+
+        /**
+         * Gets all the versions of a finite-state machine
+         * @param fsmID the finite-state machine id
+         * @returns an Array of versions
+         */
+        meta.getFsmVersions = function (fsmID) {
+            return co(function*(){
+                let versions = yield meta.model.version.findAll({
+                    where: {
+                        fsmID: fsmID
+                    },
+                });
+                if (!versions) {
+                    return [];
+                }
+
+                versions = versions.map(function(version){
+                    return version.dataValues;
+                });
+
+                return versions;
+            });
+        };
+
+        /**
+         * Gets all the versions that are sealed of a finite-state machine
+         * @param fsmID the finite-state machine id
+         * @returns an Array of versions
+         */
+        meta.getFsmSealedVersions = function (fsmID) {
+            return co(function*(){
+                let versions = yield meta.model.version.findAll({
+                    where: {
+                        fsmID: fsmID,
+                        isSealed: true
+                    },
+                });
+                if (!versions) {
+                    return [];
+                }
+
+                versions = versions.map(function(version){
+                    return version.dataValues;
+                });
+
+                return versions;
+            });
+        };
+
+        /**
+         * Creates a new Finite-state machine model.
+         * @param name The name of the finite-state machine model
+         * @returns {Promise} A promise to create a finite-state machine model and return an object with
+         * a fsm property and a version property which is the first unsealed version
+         */
+        meta.createFSM = function (name) {
             return sequelize.transaction(function (t) {
                 return co(function*() {
                     let fsm = yield meta.model.fsm.create({name: name}, {transaction: t});
                     let version = yield meta.model.version.create({fsmID: fsm.dataValues.id}, {transaction: t});
-                    return {fsm: fsm, version: version};
+                    return {fsm: fsm.dataValues, version: version.dataValues};
                 });
             });
         };
+
         /**
          * Removes a Finite-State machine model if there is only one version and that version is not sealed
          * @param fsmID the Finite-State machine id
          * @returns {Promise} A promise to remove the Finite-State machine model
          */
-        meta.action.removeFSMModel = function (fsmID) {
+        meta.removeFSMModel = function (fsmID) {
             return co(function*() {
                 let fsm = yield meta.model.fsm.findById(fsmID);
                 if (!fsm) {
@@ -178,7 +283,7 @@ module.exports = function (dialect, host, user, password, database, config) {
          * @param versionID The id of the Finite-State machine model version
          * @returns {Promise} A promise to remove the Finite-State machine model version
          */
-        meta.action.removeFSMModelVersion = function (versionID) {
+        meta.removeFSMModelVersion = function (versionID) {
             return co(function*() {
                 let version = yield meta.model.version.findById(versionID);
 
@@ -204,13 +309,14 @@ module.exports = function (dialect, host, user, password, database, config) {
                 }
             });
         };
+
         /**
          * Sets the current scxml for a FSM model version
          * @param versionID The id of the FSM model version
          * @param scxml A string SCXML
          * @returns {Promise} A Promise to set SCXML of the FSM model version
          */
-        meta.action.setScxml = function (versionID, scxml) {
+        meta.setScxml = function (versionID, scxml) {
             return co(function*(){
                 let version = yield meta.model.version.findById(versionID);
                 let versionValues = version.dataValues;
@@ -232,7 +338,7 @@ module.exports = function (dialect, host, user, password, database, config) {
          * @param versionID The id of the FSM model version
          * @returns {Promise} A Promise to seal the version and return the new version
          */
-        meta.action.seal = function (versionID) {
+        meta.seal = function (versionID) {
             return co(function*() {
 
                 let version = yield meta.model.version.findById(versionID);
@@ -242,7 +348,7 @@ module.exports = function (dialect, host, user, password, database, config) {
                 }
 
                 //Validate the SCXML
-                yield meta.utils.validateSCXML(versionValues.scxml);
+                yield meta.validateSCXML(versionValues.scxml);
 
                 yield meta.model.version.update({
                     isSealed: true,
@@ -254,42 +360,25 @@ module.exports = function (dialect, host, user, password, database, config) {
         };
 
         /**
-         * Clones a FSM model version, the cloning process creates a new finite-state machine with only one version
-         * whose data match the FSM model version to be copied. The newly created version will be unsealed
-         * @param versionID The id of the FSM model version to clone
-         * @param fsmName The name of the new finite-state machine
-         * @returns {Promise} A Promise to create the clone and return an object with the fsm data and the version data
+         * Creates a new version from of a finite-state machine. The new version will reference the old one. The
+         * latest version must be sealed
+         * @param fsmID The id of the finite-state machine to create a new version of
+         * @returns {Promise} A Promise to create a new version of the FSM model return the version.
          */
-        meta.action.clone = function (versionID, fsmName) {
-            return co(function*() {
-                let data = yield meta.model.fsm.createFSM(fsmName);
-                let fsmVersion = data.version;
-                let version = yield meta.model.version.findById(versionID);
-                let scxml = version.dataValues.scxml;
-                yield meta.model.version.update({
-                    scxml: scxml
-                }, { where: { id: fsmVersion.dataValues.id} });
-                return data;
-            });
-        };
-
-        /**
-         * Creates a fork from the a FSM Model version. This will generate a new version with the same exact model of
-         * the version to fork and the new version will reference the old one. The version to fork must also be sealed
-         * @param versionID The id of the version to fork
-         * @returns {Promise} A Promise to fork a FSM model version and return the version.
-         */
-        meta.action.fork = function (versionID) {
+        meta.newVersion = function (fsmID) {
             return co(function*(){
-                let version = yield meta.model.version.findById(versionID);
-                yield meta.assert.assertVersionSealed(versionID);
+                let version = yield meta.getLatestFsmVersion(fsmID);
+                let isVersionSealed = yield meta.isVersionSealed(version.id);
+                if(!isVersionSealed) {
+                    throw new Error("The latest version must be sealed");
+                }
                 let scxml = version.dataValues.scxml;
                 let newVersion = yield meta.model.version.create({
                     fsmID: version.dataValues.fsmID,
-                    versionParentForkID: version.dataValues.id,
+                    parentVersionID: version.dataValues.id,
                     scxml: scxml
                 });
-                return newVersion;
+                return newVersion.dataValues;
             });
         };
 
@@ -300,7 +389,7 @@ module.exports = function (dialect, host, user, password, database, config) {
          * @param {String} scxml A string with the SCXML document to validate
          * @returns {Promise} A Promise that validates the SCXML string
          */
-        meta.utils.validateSCXML = function(scxml){
+        meta.validateSCXML = function(scxml){
             return co(function*(){
 
                 let xsdFiles = [];
@@ -328,7 +417,7 @@ module.exports = function (dialect, host, user, password, database, config) {
         //Creating the table relationships
         meta.model.version.belongsTo(meta.model.fsm, {foreignKey: 'fsmID', constraints: false, onDelete: 'CASCADE'});
         meta.model.version.belongsTo(meta.model.version, {
-            foreignKey: 'versionParentForkID',
+            foreignKey: 'parentVersionID',
             constraints: false,
             onDelete: 'CASCADE'
         });
