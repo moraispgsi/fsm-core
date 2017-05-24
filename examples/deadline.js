@@ -3,7 +3,7 @@
  */
 
 
-require('./../index')('mysql', 'localhost', 'root', 'root', 'mydatabase').then(function (meta) {
+require('./../index')('mysql', '127.0.0.1', 'root', 'root', 'mydatabase').then(function (meta) {
     let co = require("co");
     co(function*(){
 
@@ -15,7 +15,7 @@ require('./../index')('mysql', 'localhost', 'root', 'root', 'mydatabase').then(f
     xmlns:ddm="https://insticc.org/DDM"
     initial="uninitialized">
     <datamodel>
-        <data id="ddmHost"       expr="'http://be62e844.ngrok.io'"/>
+        <data id="ddmHost"       expr="'http://10.0.0.220:5003'"/>
         <data id="date"          expr="null"/>
         <data id="hasExtension"  expr="false"/>
         <data id="extensionDate" expr="null"/>
@@ -27,7 +27,7 @@ require('./../index')('mysql', 'localhost', 'root', 'root', 'mydatabase').then(f
             <transition event="init" target="idle">
                 <assign location="date" expr="new Date(_event.date)"/>
                 <assign location="deadlineId" expr="_event.deadlineId"/>
-                <assign location="ddmHost" expr="_event.host ? _event.host : ddmHost"/>
+                <!--<assign location="ddmHost" expr="_event.host ? _event.host : ddmHost"/>-->
             </transition>
         </state>
         <state id="idle">
@@ -48,27 +48,27 @@ require('./../index')('mysql', 'localhost', 'root', 'root', 'mydatabase').then(f
        </state>
      <state id="extended">
         <onentry>
-            <ddm:changeView exprId="deadlineId" view="extended" exprhost="ddmHost"/>
+            <ddm:changeView exprId="deadlineId" view="DataTestExtended" exprHost="ddmHost"/>
             <assign location="hideDate" expr="new Date(extendedDate.getTime() + sevenDays)"/>
         </onentry>
         <transition event="1000MsTick" cond="extensionDate &lt; globals.now()" target="expired"/>
     </state>
     <state id="expired">
         <onentry>
-            <ddm:changeView exprId="deadlineId" view="expired" exprhost="ddmHost"/>
+            <ddm:changeView exprId="deadlineId" view="DataTestExpired" exprHost="ddmHost"/>
         </onentry>
         <transition event="1000MsTick" cond="hideDate &lt; globals.now()" target="final"/>
     </state>
     <state id="canceled">
         <onentry>
-            <ddm:changeView exprId="deadlineId" view="canceled" exprhost="ddmHost"/>
+            <ddm:changeView exprId="deadlineId" view="DataTestCanceled" exprHost="ddmHost"/>
             <assign location="hideDate" expr="new Date(new Date().getTime() + 1000 * 60 * 60 * 24 * 7)"/>
         </onentry>
         <transition event="1000MsTick" cond="hideDate &lt; globals.now()" target="final"/>
     </state>
 <final id="final">
     <onentry>
-            <ddm:changeView exprId="deadlineId" view="invisible" exprhost="ddmHost"/>
+            <ddm:changeView exprId="deadlineId" view="false" exprHost="ddmHost"/>
     </onentry>
 </final>
 </scxml>

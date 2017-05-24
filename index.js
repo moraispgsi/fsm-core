@@ -5,12 +5,16 @@
  * This module is the core for modeling Finite-state machines using SCXML. It is simply a database that can be used in
  * the versioning of SCXML Finite-state machine models. This module also validates the SCXML.
  **/
-//  ______   ______     __    __           ______     ______     ______     ______
-// /\  ___\ /\  ___\   /\ "-./  \         /\  ___\   /\  __ \   /\  == \   /\  ___\
-// \ \  __\ \ \___  \  \ \ \-./\ \        \ \ \____  \ \ \/\ \  \ \  __<   \ \  __\
-//  \ \_\    \/\_____\  \ \_\ \ \_\        \ \_____\  \ \_____\  \ \_\ \_\  \ \_____\
-//   \/_/     \/_____/   \/_/  \/_/         \/_____/   \/_____/   \/_/ /_/   \/_____/
-//
+
+//    ad88
+//   d8"
+//   88
+// MM88MMM  ,adPPYba,  88,dPYba,,adPYba,              ,adPPYba,   ,adPPYba,   8b,dPPYba,   ,adPPYba,
+//   88     I8[    ""  88P'   "88"    "8a  aaaaaaaa  a8"     ""  a8"     "8a  88P'   "Y8  a8P_____88
+//   88      `"Y8ba,   88      88      88  """"""""  8b          8b       d8  88          8PP"""""""
+//   88     aa    ]8I  88      88      88            "8a,   ,aa  "8a,   ,a8"  88          "8b,   ,aa
+//   88     `"YbbdP"'  88      88      88             `"Ybbd8"'   `"YbbdP"'   88           `"Ybbd8"'
+
 
  /**
  * Uses the sequelize library to connect to a database using the information given, a database library as to be
