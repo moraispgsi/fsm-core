@@ -76,6 +76,7 @@ require('./../index')('mysql', '127.0.0.1', 'root', 'root', 'mydatabase').then(f
 
         yield meta.setScxml(version.id, scxml);
         yield meta.seal(version.id);
+        console.log("DONE");
 
     }).catch((err)=>{
         console.log(err);

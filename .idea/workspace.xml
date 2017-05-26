@@ -2,8 +2,23 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="a3b16e93-389a-47cc-bea8-547fa515eb36" name="Default" comment="">
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/examples/namespaces.js" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/node_modules/debug/bower.json" afterPath="" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/examples/deadline.js" afterPath="$PROJECT_DIR$/examples/deadline.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/index.js" afterPath="$PROJECT_DIR$/index.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/node_modules/debug/.npmignore" afterPath="$PROJECT_DIR$/node_modules/debug/.npmignore" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/node_modules/debug/CHANGELOG.md" afterPath="$PROJECT_DIR$/node_modules/debug/CHANGELOG.md" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/node_modules/debug/README.md" afterPath="$PROJECT_DIR$/node_modules/debug/README.md" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/node_modules/debug/component.json" afterPath="$PROJECT_DIR$/node_modules/debug/component.json" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/node_modules/debug/package.json" afterPath="$PROJECT_DIR$/node_modules/debug/package.json" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/node_modules/debug/src/browser.js" afterPath="$PROJECT_DIR$/node_modules/debug/src/browser.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/node_modules/debug/src/debug.js" afterPath="$PROJECT_DIR$/node_modules/debug/src/debug.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/node_modules/debug/src/node.js" afterPath="$PROJECT_DIR$/node_modules/debug/src/node.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/node_modules/ms/README.md" afterPath="$PROJECT_DIR$/node_modules/ms/README.md" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/node_modules/ms/index.js" afterPath="$PROJECT_DIR$/node_modules/ms/index.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/node_modules/ms/package.json" afterPath="$PROJECT_DIR$/node_modules/ms/package.json" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/package.json" afterPath="$PROJECT_DIR$/package.json" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -21,40 +36,20 @@
   <component name="ExecutionTargetManager" SELECTED_TARGET="default_target" />
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="deadline.js" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/examples/deadline.js">
+      <file leaf-file-name="namespaces.js" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/examples/namespaces.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="279">
-              <caret line="75" column="0" lean-forward="false" selection-start-line="75" selection-start-column="0" selection-end-line="75" selection-end-column="0" />
+            <state relative-caret-position="153">
+              <caret line="22" column="54" lean-forward="false" selection-start-line="22" selection-start-column="54" selection-end-line="22" selection-end-column="54" />
               <folding>
-                <marker date="1495649816913" expanded="true" signature="395:3409" ph="..." />
-                <marker date="1495649816913" expanded="true" signature="435:3409" ph="..." />
-                <marker date="1495649816913" expanded="true" signature="479:863" ph="..." />
-                <marker date="1495649816913" expanded="true" signature="865:3263" ph="..." />
-                <marker date="1495649816913" expanded="true" signature="898:1232" ph="..." />
-                <marker date="1495649816913" expanded="true" signature="950:1215" ph="..." />
-                <marker date="1495649816913" expanded="true" signature="1258:2275" ph="..." />
-                <marker date="1495649816913" expanded="true" signature="1280:1393" ph="..." />
-                <marker date="1495649816913" expanded="true" signature="1513:1689" ph="..." />
-                <marker date="1495649816913" expanded="true" signature="2302:2637" ph="..." />
-                <marker date="1495649816913" expanded="true" signature="2320:2526" ph="..." />
-                <marker date="1495649816913" expanded="true" signature="2662:2895" ph="..." />
-                <marker date="1495649816913" expanded="true" signature="2680:2791" ph="..." />
-                <marker date="1495649816913" expanded="true" signature="2921:3261" ph="..." />
-                <marker date="1495649816913" expanded="true" signature="2939:3157" ph="..." />
-                <marker date="1495649816913" expanded="true" signature="3280:3400" ph="..." />
-                <marker date="1495649816913" expanded="true" signature="3294:3391" ph="..." />
+                <marker date="1495766430195" expanded="true" signature="413:1025" ph="..." />
+                <marker date="1495766430195" expanded="true" signature="488:543" ph="..." />
+                <marker date="1495766430195" expanded="true" signature="569:910" ph="..." />
+                <marker date="1495766430195" expanded="true" signature="591:749" ph="..." />
+                <marker date="1495766430195" expanded="true" signature="869:894" ph="..." />
+                <marker date="1495766430195" expanded="true" signature="934:1016" ph="..." />
+                <marker date="1495766430195" expanded="true" signature="952:1003" ph="..." />
               </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="scxml.xsd" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/xmlSchemas/scxml.xsd">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1105">
-              <caret line="65" column="17" lean-forward="false" selection-start-line="65" selection-start-column="17" selection-end-line="65" selection-end-column="17" />
-              <folding />
             </state>
           </provider>
         </entry>
@@ -62,8 +57,8 @@
       <file leaf-file-name="index.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/index.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="3808">
-              <caret line="224" column="32" lean-forward="false" selection-start-line="224" selection-start-column="32" selection-end-line="224" selection-end-column="32" />
+            <state relative-caret-position="119">
+              <caret line="39" column="0" lean-forward="true" selection-start-line="39" selection-start-column="0" selection-end-line="39" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -121,6 +116,7 @@
         <option value="$PROJECT_DIR$/xmlSchemas/scxml.xsd" />
         <option value="$PROJECT_DIR$/index.js" />
         <option value="$PROJECT_DIR$/examples/deadline.js" />
+        <option value="$PROJECT_DIR$/examples/namespaces.js" />
       </list>
     </option>
   </component>
@@ -337,7 +333,7 @@
       <workItem from="1494861322322" duration="7902000" />
       <workItem from="1494956404625" duration="39862000" />
       <workItem from="1495328007830" duration="23708000" />
-      <workItem from="1495729143697" duration="1839000" />
+      <workItem from="1495729143697" duration="4274000" />
     </task>
     <task id="LOCAL-00001" summary="createState return only the state instead of an object">
       <created>1488240569779</created>
@@ -392,11 +388,10 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="284634000" />
+    <option name="totallyTimeSpent" value="287069000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1370" height="744" extended-state="0" />
-    <editor active="true" />
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.22597598" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
@@ -405,7 +400,7 @@
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="npm" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.33504274" sideWeight="0.48809522" order="9" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.33504274" sideWeight="0.48809522" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="true" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
@@ -441,13 +436,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/package.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="238">
-          <caret line="14" column="26" lean-forward="false" selection-start-line="14" selection-start-column="26" selection-end-line="14" selection-end-column="26" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/index.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
@@ -658,44 +646,60 @@
     <entry file="file://$PROJECT_DIR$/examples/example1.js" />
     <entry file="file://$PROJECT_DIR$/examples/example2.js" />
     <entry file="file://$PROJECT_DIR$/examples/example4.js" />
-    <entry file="file://$PROJECT_DIR$/index.js">
+    <entry file="file://$PROJECT_DIR$/examples/deadline.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="3808">
-          <caret line="224" column="32" lean-forward="false" selection-start-line="224" selection-start-column="32" selection-end-line="224" selection-end-column="32" />
-          <folding />
+        <state relative-caret-position="194">
+          <caret line="78" column="0" lean-forward="false" selection-start-line="78" selection-start-column="0" selection-end-line="78" selection-end-column="0" />
+          <folding>
+            <marker date="1495766409506" expanded="true" signature="395:3409" ph="..." />
+            <marker date="1495766409506" expanded="true" signature="435:3409" ph="..." />
+            <marker date="1495766409506" expanded="true" signature="479:863" ph="..." />
+            <marker date="1495766409506" expanded="true" signature="865:3263" ph="..." />
+            <marker date="1495766409506" expanded="true" signature="898:1232" ph="..." />
+            <marker date="1495766409506" expanded="true" signature="950:1215" ph="..." />
+            <marker date="1495766409506" expanded="true" signature="1258:2275" ph="..." />
+            <marker date="1495766409506" expanded="true" signature="1280:1393" ph="..." />
+            <marker date="1495766409506" expanded="true" signature="1513:1689" ph="..." />
+            <marker date="1495766409506" expanded="true" signature="2302:2637" ph="..." />
+            <marker date="1495766409506" expanded="true" signature="2320:2526" ph="..." />
+            <marker date="1495766409506" expanded="true" signature="2662:2895" ph="..." />
+            <marker date="1495766409506" expanded="true" signature="2680:2791" ph="..." />
+            <marker date="1495766409506" expanded="true" signature="2921:3261" ph="..." />
+            <marker date="1495766409506" expanded="true" signature="2939:3157" ph="..." />
+            <marker date="1495766409506" expanded="true" signature="3280:3400" ph="..." />
+            <marker date="1495766409506" expanded="true" signature="3294:3391" ph="..." />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/xmlSchemas/scxml.xsd">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1105">
+        <state relative-caret-position="17">
           <caret line="65" column="17" lean-forward="false" selection-start-line="65" selection-start-column="17" selection-end-line="65" selection-end-column="17" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/examples/deadline.js">
+    <entry file="file://$PROJECT_DIR$/index.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="279">
-          <caret line="75" column="0" lean-forward="false" selection-start-line="75" selection-start-column="0" selection-end-line="75" selection-end-column="0" />
+        <state relative-caret-position="119">
+          <caret line="39" column="0" lean-forward="true" selection-start-line="39" selection-start-column="0" selection-end-line="39" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/examples/namespaces.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="153">
+          <caret line="22" column="54" lean-forward="false" selection-start-line="22" selection-start-column="54" selection-end-line="22" selection-end-column="54" />
           <folding>
-            <marker date="1495649816913" expanded="true" signature="395:3409" ph="..." />
-            <marker date="1495649816913" expanded="true" signature="435:3409" ph="..." />
-            <marker date="1495649816913" expanded="true" signature="479:863" ph="..." />
-            <marker date="1495649816913" expanded="true" signature="865:3263" ph="..." />
-            <marker date="1495649816913" expanded="true" signature="898:1232" ph="..." />
-            <marker date="1495649816913" expanded="true" signature="950:1215" ph="..." />
-            <marker date="1495649816913" expanded="true" signature="1258:2275" ph="..." />
-            <marker date="1495649816913" expanded="true" signature="1280:1393" ph="..." />
-            <marker date="1495649816913" expanded="true" signature="1513:1689" ph="..." />
-            <marker date="1495649816913" expanded="true" signature="2302:2637" ph="..." />
-            <marker date="1495649816913" expanded="true" signature="2320:2526" ph="..." />
-            <marker date="1495649816913" expanded="true" signature="2662:2895" ph="..." />
-            <marker date="1495649816913" expanded="true" signature="2680:2791" ph="..." />
-            <marker date="1495649816913" expanded="true" signature="2921:3261" ph="..." />
-            <marker date="1495649816913" expanded="true" signature="2939:3157" ph="..." />
-            <marker date="1495649816913" expanded="true" signature="3280:3400" ph="..." />
-            <marker date="1495649816913" expanded="true" signature="3294:3391" ph="..." />
+            <marker date="1495766430195" expanded="true" signature="413:1025" ph="..." />
+            <marker date="1495766430195" expanded="true" signature="488:543" ph="..." />
+            <marker date="1495766430195" expanded="true" signature="569:910" ph="..." />
+            <marker date="1495766430195" expanded="true" signature="591:749" ph="..." />
+            <marker date="1495766430195" expanded="true" signature="869:894" ph="..." />
+            <marker date="1495766430195" expanded="true" signature="934:1016" ph="..." />
+            <marker date="1495766430195" expanded="true" signature="952:1003" ph="..." />
           </folding>
         </state>
       </provider>

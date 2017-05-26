@@ -38,11 +38,16 @@
  */
 module.exports = function (dialect, host, user, password, database, config) {
 
+
     //Load dependencies
     let co = require('co');                //For a easier promise handling experience
     let Sequelize = require('sequelize');  //For a ORM for the database
     const fs = require('fs');              //For file reading
     const xmllint = require('xmllint');    //For SCXML Validations
+    let debug = require('debug')('core');
+
+
+    debug("starting core");
 
     return co(function*() {
 
@@ -64,6 +69,7 @@ module.exports = function (dialect, host, user, password, database, config) {
         meta.moduleName = 'fsm-core'; //The name of the module
         meta.model = {};              //Stores the model definitions
 
+        debug("starting database model definition");
         /**
          * This table holds the finite-state machines declarations, each row represent a finite-state machine
          * @type {Object} Model table definition
@@ -88,6 +94,7 @@ module.exports = function (dialect, host, user, password, database, config) {
             underscoredAll: false
         });
 
+        debug("creating operations");
         /**
          * Verifies if a version is sealed
          * @param versionID the version ID
@@ -131,6 +138,7 @@ module.exports = function (dialect, host, user, password, database, config) {
             return co(function*(){
                 let fsm = yield meta.model.fsm.findById(fsmID);
                 if(!fsm) {
+                    debug("version not found");
                     throw new Error("version not found");
                 }
                 return fsm.dataValues;
@@ -146,6 +154,7 @@ module.exports = function (dialect, host, user, password, database, config) {
             return co(function*(){
                 let version = yield meta.model.version.findById(versionID);
                 if(!version) {
+                    debug("version not found");
                     throw new Error("version not found");
                 }
                 return version.dataValues;
@@ -167,6 +176,7 @@ module.exports = function (dialect, host, user, password, database, config) {
                     order: [ [ 'createdAt', 'DESC' ] ]
                 });
                 if (!version) {
+                    debug("version not found");
                     throw new Error('version not found');
                 }
                 return version.dataValues;
@@ -187,6 +197,7 @@ module.exports = function (dialect, host, user, password, database, config) {
                     order: [ [ 'createdAt', 'DESC' ] ]
                 });
                 if (!version) {
+                    debug("version not found");
                     throw new Error('version not found');
                 }
                 return version.dataValues;
@@ -267,14 +278,17 @@ module.exports = function (dialect, host, user, password, database, config) {
             return co(function*() {
                 let fsm = yield meta.model.fsm.findById(fsmID);
                 if (!fsm) {
+                    debug("FSM not found");
                     throw new Error('FSM not found');
                 }
                 let versions = yield meta.model.version.findAll({where: {fsmID: fsm.dataValues.id}});
                 if (versions.length > 1) {
+                    debug("FSM has more than one version");
                     throw new Error('FSM has more than one version');
                 }
                 //Fms has at least one version therefor the array has one version
                 if (versions[0].dataValues.isSealed) {
+                    debug("fsm version is sealed");
                     throw new Error('fsm version is sealed');
                 }
                 //Cascade deletion
@@ -292,10 +306,12 @@ module.exports = function (dialect, host, user, password, database, config) {
                 let version = yield meta.model.version.findById(versionID);
 
                 if (!version) {
+                    debug("version not found");
                     throw new Error('version not found');
                 }
 
                 if (version.dataValues.isSealed) {
+                    debug("fsm version is sealed");
                     throw new Error('fsm version is sealed');
                 }
 
@@ -326,6 +342,7 @@ module.exports = function (dialect, host, user, password, database, config) {
                 let versionValues = version.dataValues;
 
                 if (versionValues.isSealed) {
+                    debug("Version is already sealed.");
                     throw new Error("Version is already sealed.");
                 }
 
@@ -348,6 +365,7 @@ module.exports = function (dialect, host, user, password, database, config) {
                 let version = yield meta.model.version.findById(versionID);
                 let versionValues = version.dataValues;
                 if (versionValues.isSealed) {
+                    debug("Version is already sealed.");
                     throw new Error("Version is already sealed.");
                 }
 
@@ -374,6 +392,7 @@ module.exports = function (dialect, host, user, password, database, config) {
                 let version = yield meta.getLatestFsmVersion(fsmID);
                 let isVersionSealed = yield meta.isVersionSealed(version.id);
                 if(!isVersionSealed) {
+                    debug("The latest version must be sealed");
                     throw new Error("The latest version must be sealed");
                 }
                 let scxml = version.dataValues.scxml;
@@ -412,12 +431,14 @@ module.exports = function (dialect, host, user, password, database, config) {
 
                 let errors = xmllint.validateXML(opts).errors;
                 if(errors) {
+                    debug(errors);
                     throw new Error(errors);
                 }
 
             });
         };
 
+        debug("creating relationships");
         //Creating the table relationships
         meta.model.version.belongsTo(meta.model.fsm, {foreignKey: 'fsmID', constraints: false, onDelete: 'CASCADE'});
         meta.model.version.belongsTo(meta.model.version, {
@@ -426,6 +447,7 @@ module.exports = function (dialect, host, user, password, database, config) {
             onDelete: 'CASCADE'
         });
 
+        debug("synchronizing with the database");
         yield sequelize.sync();
         return meta;
 
