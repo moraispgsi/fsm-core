@@ -15,7 +15,7 @@ require('./../index')('mysql', '127.0.0.1', 'root', 'root', 'mydatabase').then(f
     xmlns:ddm="https://insticc.org/DDM"
     initial="uninitialized">
     <datamodel>
-        <data id="ddmHost"       expr="'http://10.0.0.220:5003'"/>
+        <data id="ddmHost"       expr="'http://10.0.0.209:5003'"/>
         <data id="date"          expr="null"/>
         <data id="hasExtension"  expr="false"/>
         <data id="extensionDate" expr="null"/>
