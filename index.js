@@ -274,7 +274,7 @@ module.exports = function (dialect, host, user, password, database, config) {
          * @param fsmID the Finite-State machine id
          * @returns {Promise} A promise to remove the Finite-State machine model
          */
-        meta.removeFSMModel = function (fsmID) {
+        meta.removeFSM = function (fsmID) {
             return co(function*() {
                 let fsm = yield meta.model.fsm.findById(fsmID);
                 if (!fsm) {
@@ -382,7 +382,7 @@ module.exports = function (dialect, host, user, password, database, config) {
         };
 
         /**
-         * Creates a new version from of a finite-state machine. The new version will reference the old one. The
+         * Creates a new version of a finite-state machine. The new version will reference the old one. The
          * latest version must be sealed
          * @param fsmID The id of the finite-state machine to create a new version of
          * @returns {Promise} A Promise to create a new version of the FSM model return the version.
@@ -395,11 +395,10 @@ module.exports = function (dialect, host, user, password, database, config) {
                     debug("The latest version must be sealed");
                     throw new Error("The latest version must be sealed");
                 }
-                let scxml = version.dataValues.scxml;
                 let newVersion = yield meta.model.version.create({
-                    fsmID: version.dataValues.fsmID,
-                    parentVersionID: version.dataValues.id,
-                    scxml: scxml
+                    fsmID: version.fsmID,
+                    parentVersionID: version.id,
+                    scxml:  version.scxml
                 });
                 return newVersion.dataValues;
             });

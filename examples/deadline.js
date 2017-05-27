@@ -3,7 +3,7 @@
  */
 
 
-require('./../index')('mysql', '127.0.0.1', 'root', 'root', 'mydatabase').then(function (meta) {
+require('./../index')('mysql', 'db4free.net', 'moraispgsi', '123456', 'fsmengine',{logging: false, port: 3307}).then(function (meta) {
     let co = require("co");
     co(function*(){
 
