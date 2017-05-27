@@ -10,7 +10,7 @@ The repository created is composed of two database tables:
 
 ## Code Example
 ```javascript
-require('./../index')('mysql', 'host', 'user', 'password', 'mydatabase', {logging: false}).then(function (meta) {
+require('index')('mysql', 'host', 'user', 'password', 'mydatabase', {logging: false}).then(function (meta) {
     let co = require("co");
     co(function*(){
         let data = yield meta.createFSM("myfsm");
