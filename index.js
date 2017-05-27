@@ -111,6 +111,22 @@ module.exports = function (dialect, host, user, password, database, config) {
         };
 
         /**
+         * Gets all the finite-state machines
+         * @returns {*} A promise to return an array with all the finite-state machines
+         */
+        meta.getAllFsms = function () {
+            return co(function*(){
+                let fsms= yield meta.model.fsm.findAll();
+                if (fsms) {
+                    fsms.map((fsm)=> {
+                        return fsm.dataValues
+                    });
+                }
+                return fsms ? fsms : [];
+            });
+        };
+
+        /**
          * Gets a finite-state machine by its name
          * @param name the name of the finite-state machine
          * @returns {*} Returns a promise to return the finite-state machine
@@ -142,6 +158,22 @@ module.exports = function (dialect, host, user, password, database, config) {
                     throw new Error("version not found");
                 }
                 return fsm.dataValues;
+            });
+        };
+
+        /**
+         * Get all the versions
+         * @returns {*} A promise to return an array with all the versions
+         */
+        meta.getAllVersions = function () {
+            return co(function*(){
+                let versions = yield meta.model.version.findAll();
+                if (versions) {
+                    versions.map((version)=> {
+                        return version.dataValues
+                    });
+                }
+                return versions ? versions : [];
             });
         };
 
