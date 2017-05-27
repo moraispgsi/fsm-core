@@ -415,11 +415,11 @@ module.exports = function (dialect, host, user, password, database, config) {
             return co(function*(){
 
                 let xsdFiles = [];
-                let xmlxsd = fs.readFileSync('xmlSchemas/xml.xsd','utf8')
+                let xmlxsd = fs.readFileSync(__dirname+'xmlSchemas/xml.xsd','utf8')
 
                 //Using a flattened scxml.xsd file from https://www.w3.org/2011/04/SCXML/scxml.xsd
                 //The flattening was done using oXygen XML Editor in Tools > Flatten Schema
-                let scxmlxsd = fs.readFileSync('xmlSchemas/scxml.xsd','utf8')
+                let scxmlxsd = fs.readFileSync(__dirname+'xmlSchemas/scxml.xsd','utf8')
                 xsdFiles.push(xmlxsd);
                 xsdFiles.push(scxmlxsd);
 

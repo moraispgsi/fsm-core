@@ -3,9 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="a3b16e93-389a-47cc-bea8-547fa515eb36" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/examples/deadline.js" afterPath="$PROJECT_DIR$/examples/deadline.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/index.js" afterPath="$PROJECT_DIR$/index.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/package.json" afterPath="$PROJECT_DIR$/package.json" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -82,8 +80,8 @@
       <file leaf-file-name="index.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/index.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="258">
-              <caret line="402" column="35" lean-forward="false" selection-start-line="402" selection-start-column="35" selection-end-line="402" selection-end-column="35" />
+            <state relative-caret-position="34">
+              <caret line="423" column="39" lean-forward="false" selection-start-line="423" selection-start-column="39" selection-end-line="423" selection-end-column="39" />
               <folding>
                 <element signature="e#1#269#0" expanded="false" />
                 <element signature="e#271#281#0" expanded="false" />
@@ -165,18 +163,13 @@
                 <element signature="e#13314#13376#0" expanded="false" />
                 <element signature="e#13415#13680#0" expanded="false" />
                 <element signature="e#13722#14379#0" expanded="false" />
-                <element signature="e#13758#14367#0" expanded="false" />
                 <element signature="e#13937#14080#0" expanded="false" />
-                <element signature="e#14231#14286#0" expanded="false" />
                 <element signature="e#14288#14350#0" expanded="false" />
                 <element signature="e#14390#14741#0" expanded="false" />
                 <element signature="e#15466#15785#0" expanded="false" />
-                <element signature="e#15830#16663#0" expanded="false" />
-                <element signature="e#15865#16651#0" expanded="false" />
-                <element signature="e#15994#16076#0" expanded="false" />
-                <element signature="e#16355#16444#0" expanded="false" />
-                <element signature="e#16537#16636#0" expanded="false" />
-                <element signature="e#16925#17043#0" expanded="false" />
+                <element signature="e#16375#16464#0" expanded="false" />
+                <element signature="e#16557#16656#0" expanded="false" />
+                <element signature="e#16945#17063#0" expanded="false" />
               </folding>
             </state>
           </provider>
@@ -437,7 +430,7 @@
       <workItem from="1494861322322" duration="7902000" />
       <workItem from="1494956404625" duration="39862000" />
       <workItem from="1495328007830" duration="23708000" />
-      <workItem from="1495729143697" duration="15283000" />
+      <workItem from="1495729143697" duration="16595000" />
     </task>
     <task id="LOCAL-00001" summary="createState return only the state instead of an object">
       <created>1488240569779</created>
@@ -495,14 +488,22 @@
       <option name="project" value="LOCAL" />
       <updated>1495774795341</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="newVersion() bug correction">
+      <created>1495914306144</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1495914306144</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="298078000" />
+    <option name="totallyTimeSpent" value="299390000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-7" y="0" width="1370" height="735" extended-state="0" />
+    <editor active="true" />
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.22597598" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
@@ -511,7 +512,7 @@
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="npm" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.4809028" sideWeight="0.48809522" order="9" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.4809028" sideWeight="0.48809522" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="true" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
@@ -559,7 +560,8 @@
     <MESSAGE value="query methods" />
     <MESSAGE value="end simulation" />
     <MESSAGE value="travis.yml" />
-    <option name="LAST_COMMIT_MESSAGE" value="travis.yml" />
+    <MESSAGE value="newVersion() bug correction" />
+    <option name="LAST_COMMIT_MESSAGE" value="newVersion() bug correction" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -831,8 +833,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/index.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="258">
-          <caret line="402" column="35" lean-forward="false" selection-start-line="402" selection-start-column="35" selection-end-line="402" selection-end-column="35" />
+        <state relative-caret-position="34">
+          <caret line="423" column="39" lean-forward="false" selection-start-line="423" selection-start-column="39" selection-end-line="423" selection-end-column="39" />
           <folding>
             <element signature="e#1#269#0" expanded="false" />
             <element signature="e#271#281#0" expanded="false" />
@@ -914,18 +916,13 @@
             <element signature="e#13314#13376#0" expanded="false" />
             <element signature="e#13415#13680#0" expanded="false" />
             <element signature="e#13722#14379#0" expanded="false" />
-            <element signature="e#13758#14367#0" expanded="false" />
             <element signature="e#13937#14080#0" expanded="false" />
-            <element signature="e#14231#14286#0" expanded="false" />
             <element signature="e#14288#14350#0" expanded="false" />
             <element signature="e#14390#14741#0" expanded="false" />
             <element signature="e#15466#15785#0" expanded="false" />
-            <element signature="e#15830#16663#0" expanded="false" />
-            <element signature="e#15865#16651#0" expanded="false" />
-            <element signature="e#15994#16076#0" expanded="false" />
-            <element signature="e#16355#16444#0" expanded="false" />
-            <element signature="e#16537#16636#0" expanded="false" />
-            <element signature="e#16925#17043#0" expanded="false" />
+            <element signature="e#16375#16464#0" expanded="false" />
+            <element signature="e#16557#16656#0" expanded="false" />
+            <element signature="e#16945#17063#0" expanded="false" />
           </folding>
         </state>
       </provider>
