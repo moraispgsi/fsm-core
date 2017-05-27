@@ -62,15 +62,15 @@ $ npm install --save tedious // MSSQL
   - getFsmSealedVersions(fsmID)
 - Creates a new Finite-state machine model.
   - createFSM(name)
-- Removes a Finite-State machine model if there is only one version and that version is not sealed
+- Removes a finite-State machine model if there is only one version and that version is not sealed
   - removeFSM(fsmID)
-- Removes a Finite-State machine model version if the version is not sealed
-  - removeFSMModelVersion(versionID)
-- Sets the current scxml for a FSM model version
+- Removes a finite-State machine model version if the version is not sealed
+  - removeFSMVersion(versionID)
+- Sets the current SCXML for a FSM model version
   - setScxml(versionID, scxml)
-- Seals a FSM model version if it is not already sealed and the scxml of the version is valid
+- Seals a FSM model version if it is not already sealed and the SCXML of the version is valid
   - seal(versionID)
-- Creates a new version from of a finite-state machine. The new version will reference the old one. The latest version must be sealed
+- Creates a new version of a finite-state machine. The new version will reference the old one. The latest version must be sealed
   - newVersion(fsmID)
 - Validates a SCXML string
   - validateSCXML(scxml)
