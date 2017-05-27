@@ -2,7 +2,7 @@
 
 ## Synopsis
 
-This module creates a very simple repository for SCXML files in a database. It uses the library sequelize.js in order to provide support for several database servers like MySQL, MongoDB and others. The module also provides a very simple linear version system for realtime environments. 
+This module creates a very simple repository for SCXML files in a database. It uses the library sequelize.js in order to provide support for several database servers like MySQL, PostgreSQL and others. The module also provides a very simple linear version system for realtime environments. 
 
 The repository created is composed of two database tables:
 - FsmCoreFsm //Each row is a finite-state machine model
