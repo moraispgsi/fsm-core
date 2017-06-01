@@ -3,8 +3,8 @@
   <component name="ChangeListManager">
     <list default="true" id="a3b16e93-389a-47cc-bea8-547fa515eb36" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/fsm-core.todo" afterPath="$PROJECT_DIR$/fsm-core.todo" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/index.js" afterPath="$PROJECT_DIR$/index.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/test/core-test.js" afterPath="$PROJECT_DIR$/test/core-test.js" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -32,27 +32,28 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="index.js" pinned="false" current-in-tab="false">
+      <file leaf-file-name="index.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/index.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-302">
-              <caret line="441" column="34" lean-forward="true" selection-start-line="441" selection-start-column="34" selection-end-line="441" selection-end-column="34" />
+            <state relative-caret-position="34">
+              <caret line="394" column="20" lean-forward="false" selection-start-line="394" selection-start-column="19" selection-end-line="394" selection-end-column="21" />
               <folding>
                 <element signature="e#1#269#0" expanded="false" />
                 <element signature="e#807#1615#0" expanded="false" />
-                <element signature="e#17812#17930#0" expanded="false" />
-                <marker date="1496343942655" expanded="true" signature="17368:17540" ph="..." />
+                <element signature="e#17972#18090#0" expanded="false" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="core-test.js" pinned="false" current-in-tab="true">
+      <file leaf-file-name="core-test.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/test/core-test.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-64">
-              <caret line="252" column="36" lean-forward="false" selection-start-line="252" selection-start-column="36" selection-end-line="252" selection-end-column="36" />
-              <folding />
+            <state relative-caret-position="888">
+              <caret line="266" column="0" lean-forward="false" selection-start-line="266" selection-start-column="0" selection-end-line="266" selection-end-column="0" />
+              <folding>
+                <marker date="1496344807805" expanded="true" signature="3626:10960" ph="{...}" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -131,8 +132,8 @@
         <option value="$PROJECT_DIR$/.travis.yml" />
         <option value="$PROJECT_DIR$/README.md" />
         <option value="$PROJECT_DIR$/package.json" />
-        <option value="$PROJECT_DIR$/index.js" />
         <option value="$PROJECT_DIR$/test/core-test.js" />
+        <option value="$PROJECT_DIR$/index.js" />
       </list>
     </option>
   </component>
@@ -216,7 +217,7 @@
   </component>
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../FSM Engine RESTful/fsm-engine-restful" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../FSM Engine/fsm-engine" />
     <property name="nodejs_interpreter_path" value="C:/Program Files/nodejs/node" />
     <property name="HbShouldOpenHtmlAsHb" value="" />
     <property name="js.eslint.eslintPackage" value="" />
@@ -352,7 +353,7 @@
       <workItem from="1494956404625" duration="39862000" />
       <workItem from="1495328007830" duration="23708000" />
       <workItem from="1495729143697" duration="23045000" />
-      <workItem from="1496244218021" duration="49802000" />
+      <workItem from="1496244218021" duration="51448000" />
     </task>
     <task id="LOCAL-00001" summary="createState return only the state instead of an object">
       <created>1488240569779</created>
@@ -508,11 +509,18 @@
       <option name="project" value="LOCAL" />
       <updated>1496326840428</updated>
     </task>
-    <option name="localTasksCounter" value="23" />
+    <task id="LOCAL-00023" summary="More unit tests">
+      <created>1496344866238</created>
+      <option name="number" value="00023" />
+      <option name="presentableId" value="LOCAL-00023" />
+      <option name="project" value="LOCAL" />
+      <updated>1496344866239</updated>
+    </task>
+    <option name="localTasksCounter" value="24" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="355642000" />
+    <option name="totallyTimeSpent" value="357288000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
@@ -579,7 +587,8 @@
     <MESSAGE value="tests" />
     <MESSAGE value="medal in the readme" />
     <MESSAGE value="test" />
-    <option name="LAST_COMMIT_MESSAGE" value="test" />
+    <MESSAGE value="More unit tests" />
+    <option name="LAST_COMMIT_MESSAGE" value="More unit tests" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -849,24 +858,25 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/index.js">
+    <entry file="file://$PROJECT_DIR$/test/core-test.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-302">
-          <caret line="441" column="34" lean-forward="true" selection-start-line="441" selection-start-column="34" selection-end-line="441" selection-end-column="34" />
+        <state relative-caret-position="888">
+          <caret line="266" column="0" lean-forward="false" selection-start-line="266" selection-start-column="0" selection-end-line="266" selection-end-column="0" />
           <folding>
-            <element signature="e#1#269#0" expanded="false" />
-            <element signature="e#807#1615#0" expanded="false" />
-            <element signature="e#17812#17930#0" expanded="false" />
-            <marker date="1496343942655" expanded="true" signature="17368:17540" ph="..." />
+            <marker date="1496344807805" expanded="true" signature="3626:10960" ph="{...}" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/test/core-test.js">
+    <entry file="file://$PROJECT_DIR$/index.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-64">
-          <caret line="252" column="36" lean-forward="false" selection-start-line="252" selection-start-column="36" selection-end-line="252" selection-end-column="36" />
-          <folding />
+        <state relative-caret-position="34">
+          <caret line="394" column="20" lean-forward="false" selection-start-line="394" selection-start-column="19" selection-end-line="394" selection-end-column="21" />
+          <folding>
+            <element signature="e#1#269#0" expanded="false" />
+            <element signature="e#807#1615#0" expanded="false" />
+            <element signature="e#17972#18090#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
