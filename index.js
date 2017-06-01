@@ -402,7 +402,7 @@ module.exports = function (dialect, host, user, password, database, config) {
                 }
 
                 //Validate the SCXML
-                yield meta.validateSCXML(versionValues.scxml);
+                meta.validateSCXML(versionValues.scxml);
 
                 yield meta.model.version.update({
                     isSealed: true,
@@ -441,32 +441,28 @@ module.exports = function (dialect, host, user, password, database, config) {
          * The validation is done using the xmllint npm library
          * https://github.com/kripken/xml.js/issues/8
          * @param {String} scxml A string with the SCXML document to validate
-         * @returns {Promise} A Promise that validates the SCXML string
          */
         meta.validateSCXML = function(scxml){
-            return co(function*(){
 
-                let xsdFiles = [];
-                let xmlxsd = fs.readFileSync(__dirname+'/xmlSchemas/xml.xsd','utf8');
+            let xsdFiles = [];
+            let xmlxsd = fs.readFileSync(__dirname+'/xmlSchemas/xml.xsd','utf8');
 
-                //Using a flattened scxml.xsd file from https://www.w3.org/2011/04/SCXML/scxml.xsd
-                //The flattening was done using oXygen XML Editor in Tools > Flatten Schema
-                let scxmlxsd = fs.readFileSync(__dirname+'/xmlSchemas/scxml.xsd','utf8');
-                xsdFiles.push(xmlxsd);
-                xsdFiles.push(scxmlxsd);
+            //Using a flattened scxml.xsd file from https://www.w3.org/2011/04/SCXML/scxml.xsd
+            //The flattening was done using oXygen XML Editor in Tools > Flatten Schema
+            let scxmlxsd = fs.readFileSync(__dirname+'/xmlSchemas/scxml.xsd','utf8');
+            xsdFiles.push(xmlxsd);
+            xsdFiles.push(scxmlxsd);
 
-                let opts = {
-                    xml: scxml,
-                    schema: xsdFiles,
-                };
+            let opts = {
+                xml: scxml,
+                schema: xsdFiles,
+            };
 
-                let errors = xmllint.validateXML(opts).errors;
-                if(errors) {
-                    debug(errors);
-                    throw new Error(errors);
-                }
-
-            });
+            let errors = xmllint.validateXML(opts).errors;
+            if(errors) {
+                // debug(errors);
+                throw new Error(errors);
+            }
         };
 
         debug("creating relationships");

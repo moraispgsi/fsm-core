@@ -4,7 +4,7 @@
   "description": "This module is composed of software that allows us to formally create and define deterministic Finite State Transducers.",
   "main": "index.js",
   "scripts": {
-    "test": "mocha  --timeout 15000"
+    "test": "mocha  --timeout 105000"
   },
   "author": "Ricardo Morais",
   "license": "ISC",
