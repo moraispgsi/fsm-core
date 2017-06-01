@@ -4,12 +4,13 @@
   "description": "This module is composed of software that allows us to formally create and define deterministic Finite State Transducers.",
   "main": "index.js",
   "scripts": {
-    "test": "mocha --timeout 15000"
+    "test": "npm run compile && mocha --compilers js:babel-core/register --timeout 15000"
   },
   "author": "Ricardo Morais",
   "license": "ISC",
   "dependencies": {
-    "babel": "^6.23.0",
+    "babel-polyfill": "^6.23.0",
+    "babel-runtime": "^6.23.0",
     "co": "^4.6.0",
     "debug": "^2.6.8",
     "mysql": "^2.13.0",
@@ -22,7 +23,9 @@
     "url": "https://github.com/moraispgsi/fsm-core.git"
   },
   "devDependencies": {
-    "jest": "^20.0.4",
+    "babel-core": "^6.24.1",
+    "babel-plugin-transform-runtime": "^6.23.0",
+    "babel-preset-es2015": "^6.24.1",
     "mocha": "^3.4.2"
   }
 }

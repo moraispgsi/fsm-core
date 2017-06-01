@@ -5,10 +5,19 @@ let indexPath = path.join(__dirname, '../index.js');
 let co = require('co');
 let init = require(indexPath);
 
+
+let dbhost = process.env.DATABASE_HOST;
+let dbport = process.env.DATABASE_PORT;
+let dbname = process.env.DATABASE_NAME;
+let dbuser = process.env.DATABASE_USER;
+let dbpass = process.env.DATABASE_PASSWORD;
+let dialect = process.env.DIALECT;
+
+
 describe('This suite tests the database model definition', () => {
     it('Should be able to insert and remove new fsm', (done) => {
         co(function*(){
-            let meta = yield init('mysql', 'db4free.net', 'moraispgsi', '123456', 'fsmengine', {logging: false, port: 3307});
+            let meta = yield init(dialect, dbhost, dbname, dbpass, dbname, {logging: false, port: dbport});
             yield meta.model.fsm.destroy({
                 where: {
                     name: "testingFiniteStateMachine"
@@ -33,7 +42,7 @@ describe('This suite tests the database model definition', () => {
 
     it('Should be able to insert and remove new version', (done) => {
         co(function*(){
-            let meta = yield init('mysql', 'db4free.net', 'moraispgsi', '123456', 'fsmengine', {logging: false, port: 3307});
+            let meta = yield init(dialect, dbhost, dbname, dbpass, dbname, {logging: false, port: dbport});
 
             yield meta.model.fsm.destroy({
                 where: {
@@ -90,7 +99,7 @@ describe('This suite tests the database model definition', () => {
         it('Create a state-machine', (done) => {
             co(function*(){
                 let init = require(indexPath);
-                let meta = yield init('mysql', 'db4free.net', 'moraispgsi', '123456', 'fsmengine', {logging: false, port: 3307});
+                let meta = yield init(dialect, dbhost, dbname, dbpass, dbname, {logging: false, port: dbport});
                 let data = yield meta.createFSM("testingFiniteStateMachine").then();
 
                 expect(data.hasOwnProperty("fsm")).toBeTruthy();
@@ -125,7 +134,7 @@ describe('This suite tests the database model definition', () => {
         it('Create new version ', (done) => {
 
             co(function*(){
-                let meta = yield init('mysql', 'db4free.net', 'moraispgsi', '123456', 'fsmengine', {logging: false, port: 3307});
+                let meta = yield init(dialect, dbhost, dbname, dbpass, dbname, {logging: false, port: dbport});
                 let data1 = yield meta.createFSM("testingFiniteStateMachine").then();
 
                 expect(data1.hasOwnProperty("fsm")).toBeTruthy();
