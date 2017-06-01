@@ -118,7 +118,7 @@ module.exports = function (dialect, host, user, password, database, config) {
             return co(function*(){
                 let fsms= yield meta.model.fsm.findAll();
                 if (fsms) {
-                    fsms.map((fsm)=> {
+                    fsms = fsms.map((fsm)=> {
                         return fsm.dataValues
                     });
                 }
@@ -169,7 +169,7 @@ module.exports = function (dialect, host, user, password, database, config) {
             return co(function*(){
                 let versions = yield meta.model.version.findAll();
                 if (versions) {
-                    versions.map((version)=> {
+                    versions = versions.map((version)=> {
                         return version.dataValues
                     });
                 }

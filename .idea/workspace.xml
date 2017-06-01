@@ -4,7 +4,6 @@
     <list default="true" id="a3b16e93-389a-47cc-bea8-547fa515eb36" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/index.js" afterPath="$PROJECT_DIR$/index.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/package.json" afterPath="$PROJECT_DIR$/package.json" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/test/core-test.js" afterPath="$PROJECT_DIR$/test/core-test.js" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
@@ -36,13 +35,13 @@
       <file leaf-file-name="index.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/index.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="170">
-              <caret line="46" column="0" lean-forward="false" selection-start-line="46" selection-start-column="0" selection-end-line="46" selection-end-column="0" />
+            <state relative-caret-position="-302">
+              <caret line="441" column="34" lean-forward="true" selection-start-line="441" selection-start-column="34" selection-end-line="441" selection-end-column="34" />
               <folding>
                 <element signature="e#1#269#0" expanded="false" />
                 <element signature="e#807#1615#0" expanded="false" />
-                <element signature="e#17794#17912#0" expanded="false" />
-                <marker date="1496325924744" expanded="true" signature="17350:17522" ph="..." />
+                <element signature="e#17812#17930#0" expanded="false" />
+                <marker date="1496343942655" expanded="true" signature="17368:17540" ph="..." />
               </folding>
             </state>
           </provider>
@@ -51,8 +50,8 @@
       <file leaf-file-name="core-test.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/test/core-test.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="323">
-              <caret line="189" column="2" lean-forward="false" selection-start-line="189" selection-start-column="2" selection-end-line="189" selection-end-column="2" />
+            <state relative-caret-position="-64">
+              <caret line="252" column="36" lean-forward="false" selection-start-line="252" selection-start-column="36" selection-end-line="252" selection-end-column="36" />
               <folding />
             </state>
           </provider>
@@ -353,7 +352,7 @@
       <workItem from="1494956404625" duration="39862000" />
       <workItem from="1495328007830" duration="23708000" />
       <workItem from="1495729143697" duration="23045000" />
-      <workItem from="1496244218021" duration="45374000" />
+      <workItem from="1496244218021" duration="49802000" />
     </task>
     <task id="LOCAL-00001" summary="createState return only the state instead of an object">
       <created>1488240569779</created>
@@ -502,11 +501,18 @@
       <option name="project" value="LOCAL" />
       <updated>1496317823685</updated>
     </task>
-    <option name="localTasksCounter" value="22" />
+    <task id="LOCAL-00022" summary="test">
+      <created>1496326840428</created>
+      <option name="number" value="00022" />
+      <option name="presentableId" value="LOCAL-00022" />
+      <option name="project" value="LOCAL" />
+      <updated>1496326840428</updated>
+    </task>
+    <option name="localTasksCounter" value="23" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="351214000" />
+    <option name="totallyTimeSpent" value="355642000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
@@ -572,7 +578,8 @@
     <MESSAGE value="first tests" />
     <MESSAGE value="tests" />
     <MESSAGE value="medal in the readme" />
-    <option name="LAST_COMMIT_MESSAGE" value="medal in the readme" />
+    <MESSAGE value="test" />
+    <option name="LAST_COMMIT_MESSAGE" value="test" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -810,14 +817,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/.travis.yml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="34">
-          <caret line="2" column="0" lean-forward="false" selection-start-line="2" selection-start-column="0" selection-end-line="2" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/README.md">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="261">
@@ -834,6 +833,14 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/.travis.yml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="34">
+          <caret line="2" column="0" lean-forward="false" selection-start-line="2" selection-start-column="0" selection-end-line="2" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/package.json">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="102">
@@ -844,21 +851,21 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/index.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="170">
-          <caret line="46" column="0" lean-forward="false" selection-start-line="46" selection-start-column="0" selection-end-line="46" selection-end-column="0" />
+        <state relative-caret-position="-302">
+          <caret line="441" column="34" lean-forward="true" selection-start-line="441" selection-start-column="34" selection-end-line="441" selection-end-column="34" />
           <folding>
             <element signature="e#1#269#0" expanded="false" />
             <element signature="e#807#1615#0" expanded="false" />
-            <element signature="e#17794#17912#0" expanded="false" />
-            <marker date="1496325924744" expanded="true" signature="17350:17522" ph="..." />
+            <element signature="e#17812#17930#0" expanded="false" />
+            <marker date="1496343942655" expanded="true" signature="17368:17540" ph="..." />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/test/core-test.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="323">
-          <caret line="189" column="2" lean-forward="false" selection-start-line="189" selection-start-column="2" selection-end-line="189" selection-end-column="2" />
+        <state relative-caret-position="-64">
+          <caret line="252" column="36" lean-forward="false" selection-start-line="252" selection-start-column="36" selection-end-line="252" selection-end-column="36" />
           <folding />
         </state>
       </provider>

@@ -134,7 +134,7 @@ describe('This suit tests the core functions of the module', () => {
         }).then();
     });
 
-    it('Create new version ', (done) => {
+    it('Create a finite-state machine set the SCXML, seal a version and create a new version ', (done) => {
 
         co(function*(){
             let meta = yield init(dialect, dbhost, dbuser, dbpass, dbname, {logging: false, port: dbport});
@@ -152,16 +152,29 @@ describe('This suit tests the core functions of the module', () => {
             expect(data1.version.hasOwnProperty("createdAt")).toBeTruthy();
             expect(data1.version.hasOwnProperty("updatedAt")).toBeTruthy();
 
-            //Can't test the validateSCXML
+            //Can't test the validateSCXML, redefining it
             meta.validateSCXML = function(){};
-            yield meta.setScxml(data1.version.id,"<scxml xmlns=\"http://www.w3.org/2005/07/scxml\" version=\"1.0\" datamodel=\"ecmascript\"> </scxml>").then();
 
+            let scxml = "<scxml xmlns=\"http://www.w3.org/2005/07/scxml\" version=\"1.0\" datamodel=\"ecmascript\"> </scxml>";
+            yield meta.setScxml(data1.version.id, scxml).then();
             yield meta.seal(data1.version.id).then();
             let data2 = yield meta.newVersion(data1.fsm.id).then();
             expect(data2.hasOwnProperty("id")).toBeTruthy();
             expect(data2.hasOwnProperty("fsmID")).toBeTruthy();
             expect(data2.hasOwnProperty("createdAt")).toBeTruthy();
             expect(data2.hasOwnProperty("updatedAt")).toBeTruthy();
+
+            let retrievedVersion = yield meta.model.version.findById(data2.id);
+            expect(retrievedVersion.dataValues.hasOwnProperty("id")).toBeTruthy();
+            expect(retrievedVersion.dataValues.hasOwnProperty("isSealed")).toBeTruthy();
+            expect(retrievedVersion.dataValues.hasOwnProperty("scxml")).toBeTruthy();
+            expect(retrievedVersion.dataValues.hasOwnProperty("parentVersionID")).toBeTruthy();
+            expect(retrievedVersion.dataValues.hasOwnProperty("fsmID")).toBeTruthy();
+            expect(retrievedVersion.dataValues.hasOwnProperty("createdAt")).toBeTruthy();
+            expect(retrievedVersion.dataValues.hasOwnProperty("updatedAt")).toBeTruthy();
+
+            expect(retrievedVersion.dataValues.scxml).toEqual(scxml);
+            expect(retrievedVersion.dataValues.isSealed).toEqual(false);
 
             //Clean up
             yield meta.model.version.destroy({
@@ -187,4 +200,71 @@ describe('This suit tests the core functions of the module', () => {
 
         }).then();
     });
+
+    it('Testing getters', (done) => {
+
+        co(function*() {
+            let meta = yield init(dialect, dbhost, dbuser, dbpass, dbname, {logging: false, port: dbport});
+            yield meta.model.fsm.destroy({
+                where: {
+                    name: "testingFiniteStateMachine"
+                }
+            });
+            let data1 = yield meta.createFSM("testingFiniteStateMachine").then();
+
+            expect(data1.hasOwnProperty("fsm")).toBeTruthy();
+            expect(data1.fsm.hasOwnProperty("id")).toBeTruthy();
+            expect(data1.fsm.hasOwnProperty("name")).toBeTruthy();
+            expect(data1.fsm.hasOwnProperty("createdAt")).toBeTruthy();
+            expect(data1.fsm.hasOwnProperty("updatedAt")).toBeTruthy();
+
+            expect(data1.hasOwnProperty("version")).toBeTruthy();
+            expect(data1.version.hasOwnProperty("id")).toBeTruthy();
+            expect(data1.version.hasOwnProperty("fsmID")).toBeTruthy();
+            expect(data1.version.hasOwnProperty("createdAt")).toBeTruthy();
+            expect(data1.version.hasOwnProperty("updatedAt")).toBeTruthy();
+
+            let fsm = yield meta.getFsmByName("testingFiniteStateMachine");
+            expect(fsm.hasOwnProperty("id")).toBeTruthy();
+            expect(fsm.hasOwnProperty("name")).toBeTruthy();
+            expect(fsm.hasOwnProperty("createdAt")).toBeTruthy();
+            expect(fsm.hasOwnProperty("updatedAt")).toBeTruthy();
+            expect(fsm.name).toEqual("testingFiniteStateMachine");
+
+            fsm = yield meta.getFsmById(fsm.id);
+            expect(fsm.hasOwnProperty("id")).toBeTruthy();
+            expect(fsm.hasOwnProperty("name")).toBeTruthy();
+            expect(fsm.hasOwnProperty("createdAt")).toBeTruthy();
+            expect(fsm.hasOwnProperty("updatedAt")).toBeTruthy();
+            expect(fsm.name).toEqual("testingFiniteStateMachine");
+
+            let fsms = yield meta.getAllFsms();
+            expect(fsms.filter((fsm)=> fsm.id === data1.fsm.id).length === 1).toBeTruthy();
+
+            let versions = yield meta.getAllVersions();
+            expect(versions.filter((version)=> version.id === data1.version.id).length === 1).toBeTruthy();
+
+            let version = yield meta.getVersionById(data1.version.id);
+            expect(data1.version.id === version.id).toBeTruthy();
+
+            version = yield meta.getLatestFsmVersion(data1.fsm.id);
+            expect(data1.version.id === version.id).toBeTruthy();
+
+            yield meta.model.version.destroy({
+                where: {
+                    id: data1.version.id
+                }
+            }).then();
+
+            yield meta.model.fsm.destroy({
+                where: {
+                    id: data1.fsm.id
+                }
+            }).then();
+
+            meta.sequelize.close();
+            done();
+
+        }).then();
+    })
 });
