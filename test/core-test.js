@@ -17,7 +17,7 @@ let dialect = process.env.DIALECT;
 describe('This suite tests the database model definition', () => {
     it('Should be able to insert and remove new fsm', (done) => {
         co(function*(){
-            let meta = yield init(dialect, dbhost, dbname, dbpass, dbname, {logging: false, port: dbport});
+            let meta = yield init(dialect, dbhost, dbuser, dbpass, dbname, {logging: false, port: dbport});
             yield meta.model.fsm.destroy({
                 where: {
                     name: "testingFiniteStateMachine"
@@ -42,7 +42,7 @@ describe('This suite tests the database model definition', () => {
 
     it('Should be able to insert and remove new version', (done) => {
         co(function*(){
-            let meta = yield init(dialect, dbhost, dbname, dbpass, dbname, {logging: false, port: dbport});
+            let meta = yield init(dialect, dbhost, dbuser, dbpass, dbname, {logging: false, port: dbport});
 
             yield meta.model.fsm.destroy({
                 where: {
@@ -99,7 +99,7 @@ describe('This suite tests the database model definition', () => {
         it('Create a state-machine', (done) => {
             co(function*(){
                 let init = require(indexPath);
-                let meta = yield init(dialect, dbhost, dbname, dbpass, dbname, {logging: false, port: dbport});
+                let meta = yield init(dialect, dbhost, dbuser, dbpass, dbname, {logging: false, port: dbport});
                 let data = yield meta.createFSM("testingFiniteStateMachine").then();
 
                 expect(data.hasOwnProperty("fsm")).toBeTruthy();
@@ -134,7 +134,7 @@ describe('This suite tests the database model definition', () => {
         it('Create new version ', (done) => {
 
             co(function*(){
-                let meta = yield init(dialect, dbhost, dbname, dbpass, dbname, {logging: false, port: dbport});
+                let meta = yield init(dialect, dbhost, dbuser, dbpass, dbname, {logging: false, port: dbport});
                 let data1 = yield meta.createFSM("testingFiniteStateMachine").then();
 
                 expect(data1.hasOwnProperty("fsm")).toBeTruthy();
