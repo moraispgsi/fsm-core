@@ -13,6 +13,7 @@
     "babel-runtime": "^6.23.0",
     "co": "^4.6.0",
     "debug": "^2.6.8",
+    "expectations": "^0.7.1",
     "mysql": "^2.13.0",
     "path": "^0.12.7",
     "sequelize": "^3.30.4",
