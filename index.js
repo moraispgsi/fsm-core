@@ -402,7 +402,10 @@ module.exports = function (dialect, host, user, password, database, config) {
                 }
 
                 //Validate the SCXML
-                meta.validateSCXML(versionValues.scxml);
+                let isValid = meta.validateSCXML(versionValues.scxml);
+                if(!isValid){
+                    throw new Error("Version is not valid");
+                }
 
                 yield meta.model.version.update({
                     isSealed: true,
@@ -463,8 +466,9 @@ module.exports = function (dialect, host, user, password, database, config) {
                 let errors = xmllint.validateXML(opts).errors;
                 if(errors) {
                     debug(errors);
-                    throw new Error(errors);
+                    return false;
                 }
+                return true;
 
             } catch(err) {
                 throw new Error(err);

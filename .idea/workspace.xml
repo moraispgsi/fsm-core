@@ -3,7 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="a3b16e93-389a-47cc-bea8-547fa515eb36" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/fsm-core.todo" afterPath="$PROJECT_DIR$/fsm-core.todo" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/index.js" afterPath="$PROJECT_DIR$/index.js" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
@@ -35,12 +34,12 @@
       <file leaf-file-name="index.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/index.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="34">
-              <caret line="394" column="20" lean-forward="false" selection-start-line="394" selection-start-column="19" selection-end-line="394" selection-end-column="21" />
+            <state relative-caret-position="267">
+              <caret line="408" column="0" lean-forward="true" selection-start-line="408" selection-start-column="0" selection-end-line="408" selection-end-column="0" />
               <folding>
                 <element signature="e#1#269#0" expanded="false" />
                 <element signature="e#807#1615#0" expanded="false" />
-                <element signature="e#17972#18090#0" expanded="false" />
+                <element signature="e#18113#18231#0" expanded="false" />
               </folding>
             </state>
           </provider>
@@ -353,7 +352,7 @@
       <workItem from="1494956404625" duration="39862000" />
       <workItem from="1495328007830" duration="23708000" />
       <workItem from="1495729143697" duration="23045000" />
-      <workItem from="1496244218021" duration="51448000" />
+      <workItem from="1496244218021" duration="52138000" />
     </task>
     <task id="LOCAL-00001" summary="createState return only the state instead of an object">
       <created>1488240569779</created>
@@ -516,14 +515,22 @@
       <option name="project" value="LOCAL" />
       <updated>1496344866239</updated>
     </task>
-    <option name="localTasksCounter" value="24" />
+    <task id="LOCAL-00024" summary="small fixes">
+      <created>1496355726953</created>
+      <option name="number" value="00024" />
+      <option name="presentableId" value="LOCAL-00024" />
+      <option name="project" value="LOCAL" />
+      <updated>1496355726953</updated>
+    </task>
+    <option name="localTasksCounter" value="25" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="357288000" />
+    <option name="totallyTimeSpent" value="357978000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
+    <editor active="true" />
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.22395833" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
@@ -532,7 +539,7 @@
       <window_info id="npm" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.36923078" sideWeight="0.48809522" order="9" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.36923078" sideWeight="0.48809522" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="true" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
@@ -588,7 +595,8 @@
     <MESSAGE value="medal in the readme" />
     <MESSAGE value="test" />
     <MESSAGE value="More unit tests" />
-    <option name="LAST_COMMIT_MESSAGE" value="More unit tests" />
+    <MESSAGE value="small fixes" />
+    <option name="LAST_COMMIT_MESSAGE" value="small fixes" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -870,12 +878,12 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/index.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="34">
-          <caret line="394" column="20" lean-forward="false" selection-start-line="394" selection-start-column="19" selection-end-line="394" selection-end-column="21" />
+        <state relative-caret-position="267">
+          <caret line="408" column="0" lean-forward="true" selection-start-line="408" selection-start-column="0" selection-end-line="408" selection-end-column="0" />
           <folding>
             <element signature="e#1#269#0" expanded="false" />
             <element signature="e#807#1615#0" expanded="false" />
-            <element signature="e#17972#18090#0" expanded="false" />
+            <element signature="e#18113#18231#0" expanded="false" />
           </folding>
         </state>
       </provider>
