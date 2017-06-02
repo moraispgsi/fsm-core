@@ -447,7 +447,7 @@ module.exports = function (dialect, host, user, password, database, config) {
          */
         meta.validateSCXML = function(scxml){
             return new Promise(function(resolve, reject) {
-                validator.validateXML(scxml, 'xmlSchemas/scxml.xsd', function(err, result) {
+                validator.validateXML(scxml, __dirname + '/xmlSchemas/scxml.xsd', function(err, result) {
                     if (err) {
                         reject(err);
                     }
