@@ -44,7 +44,7 @@ module.exports = function (dialect, host, user, password, database, config) {
     let Sequelize = require('sequelize');  //For a ORM for the database
     let fs = require('fs');              //For file reading
     let debug = require('debug')('core');
-    let xmllint = require('xmllint');    //For SCXML Validations
+    let validator = require('xsd-schema-validator');
 
 
     debug("starting core");
@@ -447,7 +447,6 @@ module.exports = function (dialect, host, user, password, database, config) {
          */
         meta.validateSCXML = function(scxml){
             return new Promise(function(resolve, reject) {
-                let validator = require('xsd-schema-validator');
                 validator.validateXML(scxml, 'xmlSchemas/scxml.xsd', function(err, result) {
                     if (err) {
                         reject(err);
