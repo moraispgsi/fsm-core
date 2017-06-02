@@ -15,7 +15,6 @@
 //   88     aa    ]8I  88      88      88            "8a,   ,aa  "8a,   ,a8"  88          "8b,   ,aa
 //   88     `"YbbdP"'  88      88      88             `"Ybbd8"'   `"YbbdP"'   88           `"Ybbd8"'
 
-
  /**
  * Uses the sequelize library to connect to a database using the information given, a database library as to be
  * installed and its type should be sent as the dialect
@@ -62,7 +61,6 @@ module.exports = function (dialect, host, user, password, database, config) {
 
         //Setup sequelize with the database parameters received
         let sequelize = new Sequelize(database, user, password, config);
-
         let tablePrefix = 'FSMCore';  //The prefix of every table in the database
         let meta = {};                //The module is stored in this object
         meta.sequelize = sequelize;   //Store an initialized sequelize.js instance
@@ -72,7 +70,7 @@ module.exports = function (dialect, host, user, password, database, config) {
         debug("starting database model definition");
         /**
          * This table holds the finite-state machines declarations, each row represent a finite-state machine
-         * @type {Object} Model table definition
+         * @type {Object}
          */
         meta.model.fsm = sequelize.define(tablePrefix + 'Fsm', {
             name: {type: Sequelize.STRING, allowNull: false, unique: true},
@@ -84,7 +82,7 @@ module.exports = function (dialect, host, user, password, database, config) {
         /**
          * This table holds the finite-state machines version, each row represent a version of a
          * finite-state machine model
-         * @type {Object} Model table definition
+         * @type {Object}
          */
         meta.model.version = sequelize.define(tablePrefix + 'Version', {
             isSealed: {type: Sequelize.BOOLEAN, allowNull: false, defaultValue: false},
@@ -98,7 +96,8 @@ module.exports = function (dialect, host, user, password, database, config) {
         /**
          * Verifies if a version is sealed
          * @param versionID the version ID
-         * @returns {*} Returns a promise to return a boolean value
+         * @method isVersionSealed
+         * @returns {Promise} Returns a promise to return a boolean value
          */
         meta.isVersionSealed = function (versionID) {
             return co(function*(){
@@ -110,9 +109,12 @@ module.exports = function (dialect, host, user, password, database, config) {
             });
         };
 
+
+
         /**
          * Gets all the finite-state machines
-         * @returns {*} A promise to return an array with all the finite-state machines
+         * @method getAllFsms
+         * @returns {Promise} A promise to return an array with all the finite-state machines
          */
         meta.getAllFsms = function () {
             return co(function*(){
@@ -129,7 +131,8 @@ module.exports = function (dialect, host, user, password, database, config) {
         /**
          * Gets a finite-state machine by its name
          * @param name the name of the finite-state machine
-         * @returns {*} Returns a promise to return the finite-state machine
+         * @method getFsmByName
+         * @returns {Promise} Returns a promise to return the finite-state machine
          */
         meta.getFsmByName = function (name) {
             return co(function*(){
@@ -148,7 +151,8 @@ module.exports = function (dialect, host, user, password, database, config) {
         /**
          * Finds a finite-state machine by ID
          * @param fsmID The ID of the finite-state machine
-         * @returns {*} A promise to return the finite-state machine
+         * @method getFsmById
+         * @returns {Promise} A promise to return the finite-state machine
          */
         meta.getFsmById = function (fsmID) {
             return co(function*(){
@@ -163,7 +167,8 @@ module.exports = function (dialect, host, user, password, database, config) {
 
         /**
          * Get all the versions
-         * @returns {*} A promise to return an array with all the versions
+         * @method getAllVersions
+         * @returns {Promise} A promise to return an array with all the versions
          */
         meta.getAllVersions = function () {
             return co(function*(){
@@ -180,7 +185,8 @@ module.exports = function (dialect, host, user, password, database, config) {
         /**
          * Finds a version by ID
          * @param versionID The ID of the version
-         * @returns {*} A promise to return the version
+         * @method getVersionById
+         * @returns {Promise} A promise to return the version
          */
         meta.getVersionById = function (versionID) {
             return co(function*(){
@@ -196,7 +202,8 @@ module.exports = function (dialect, host, user, password, database, config) {
         /**
          * Returns the latest sealed finite-state machine version
          * @param fsmID the id of the finite-state machine
-         * @returns {*} Returns a promise to return the latest sealed version
+         * @method getLatestSealedFsmVersion
+         * @returns {Promise} Returns a promise to return the latest sealed version
          */
         meta.getLatestSealedFsmVersion = function (fsmID) {
             return co(function*(){
@@ -218,7 +225,8 @@ module.exports = function (dialect, host, user, password, database, config) {
         /**
          * Returns the latest finite-state machine version
          * @param fsmID the id of the finite-state machine
-         * @returns {*} Returns a promise to return the latest sealed version
+         * @method getLatestFsmVersion
+         * @returns {Promise} Returns a promise to return the latest sealed version
          */
         meta.getLatestFsmVersion = function (fsmID) {
             return co(function*(){
@@ -239,7 +247,8 @@ module.exports = function (dialect, host, user, password, database, config) {
         /**
          * Gets all the versions of a finite-state machine
          * @param fsmID the finite-state machine id
-         * @returns an Array of versions
+         * @method getFsmVersions
+         * @returns {Array} an Array of versions
          */
         meta.getFsmVersions = function (fsmID) {
             return co(function*(){
@@ -263,7 +272,8 @@ module.exports = function (dialect, host, user, password, database, config) {
         /**
          * Gets all the versions that are sealed of a finite-state machine
          * @param fsmID the finite-state machine id
-         * @returns an Array of versions
+         * @method getFsmSealedVersions
+         * @returns {Array} an Array of versions
          */
         meta.getFsmSealedVersions = function (fsmID) {
             return co(function*(){
@@ -288,6 +298,7 @@ module.exports = function (dialect, host, user, password, database, config) {
         /**
          * Creates a new Finite-state machine model.
          * @param name The name of the finite-state machine model
+         * @method createFSM
          * @returns {Promise} A promise to create a finite-state machine model and return an object with
          * a fsm property and a version property which is the first unsealed version
          */
@@ -304,6 +315,7 @@ module.exports = function (dialect, host, user, password, database, config) {
         /**
          * Removes a Finite-State machine model if there is only one version and that version is not sealed
          * @param fsmID the Finite-State machine id
+         * @method removeFSM
          * @returns {Promise} A promise to remove the Finite-State machine model
          */
         meta.removeFSM = function (fsmID) {
@@ -331,6 +343,7 @@ module.exports = function (dialect, host, user, password, database, config) {
         /**
          * Removes a Finite-State machine model version if the version is not sealed
          * @param versionID The id of the Finite-State machine model version
+         * @method removeFSMModelVersion
          * @returns {Promise} A promise to remove the Finite-State machine model version
          */
         meta.removeFSMModelVersion = function (versionID) {
@@ -366,6 +379,7 @@ module.exports = function (dialect, host, user, password, database, config) {
          * Sets the current scxml for a FSM model version
          * @param versionID The id of the FSM model version
          * @param scxml A string SCXML
+         * @method setScxml
          * @returns {Promise} A Promise to set SCXML of the FSM model version
          */
         meta.setScxml = function (versionID, scxml) {
@@ -389,6 +403,7 @@ module.exports = function (dialect, host, user, password, database, config) {
         /**
          * Seals a FSM model version if it is not already sealed and the scxml of the version is valid
          * @param versionID The id of the FSM model version
+         * @method seal
          * @returns {Promise} A Promise to seal the version and return the new version
          */
         meta.seal = function (versionID) {
@@ -420,6 +435,7 @@ module.exports = function (dialect, host, user, password, database, config) {
          * Creates a new version of a finite-state machine. The new version will reference the old one. The
          * latest version must be sealed
          * @param fsmID The id of the finite-state machine to create a new version of
+         * @method newVersion
          * @returns {Promise} A Promise to create a new version of the FSM model return the version.
          */
         meta.newVersion = function (fsmID) {
@@ -443,13 +459,19 @@ module.exports = function (dialect, host, user, password, database, config) {
          * Validates a SCXML string
          * The validation is done using the xmllint npm library
          * https://github.com/kripken/xml.js/issues/8
+         * @method validateSCXML
          * @param {String} scxml A string with the SCXML document to validate
          */
         meta.validateSCXML = function(scxml){
             return new Promise(function(resolve, reject) {
+                if(scxml === "") {
+                    reject("scxml is empty");
+                    return;
+                }
                 validator.validateXML(scxml, __dirname + '/xmlSchemas/scxml.xsd', function(err, result) {
                     if (err) {
                         reject(err);
+                        return;
                     }
                     resolve(result.valid);
                 })
