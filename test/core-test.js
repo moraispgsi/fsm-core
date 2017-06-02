@@ -152,9 +152,6 @@ describe('This suit tests the core functions of the module', () => {
             expect(data1.version.hasOwnProperty("createdAt")).toBeTruthy();
             expect(data1.version.hasOwnProperty("updatedAt")).toBeTruthy();
 
-            //Can't test the validateSCXML, redefining it
-            meta.validateSCXML = function(){};
-
             let scxml = "<scxml xmlns=\"http://www.w3.org/2005/07/scxml\" version=\"1.0\" datamodel=\"ecmascript\"> </scxml>";
             yield meta.setScxml(data1.version.id, scxml).then();
             yield meta.seal(data1.version.id).then();

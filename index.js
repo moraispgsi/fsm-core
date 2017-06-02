@@ -402,7 +402,7 @@ module.exports = function (dialect, host, user, password, database, config) {
                 }
 
                 //Validate the SCXML
-                let isValid = meta.validateSCXML(versionValues.scxml);
+                let isValid = yield meta.validateSCXML(versionValues.scxml);
                 if(!isValid){
                     throw new Error("Version is not valid");
                 }
@@ -446,33 +446,15 @@ module.exports = function (dialect, host, user, password, database, config) {
          * @param {String} scxml A string with the SCXML document to validate
          */
         meta.validateSCXML = function(scxml){
-
-            try {
-
-                let xsdFiles = [];
-                let xmlxsd = fs.readFileSync(__dirname+'/xmlSchemas/xml.xsd','utf8');
-
-                //Using a flattened scxml.xsd file from https://www.w3.org/2011/04/SCXML/scxml.xsd
-                //The flattening was done using oXygen XML Editor in Tools > Flatten Schema
-                let scxmlxsd = fs.readFileSync(__dirname+'/xmlSchemas/scxml.xsd','utf8');
-                xsdFiles.push(xmlxsd);
-                xsdFiles.push(scxmlxsd);
-
-                let opts = {
-                    xml: scxml,
-                    schema: xsdFiles,
-                };
-
-                let errors = xmllint.validateXML(opts).errors;
-                if(errors) {
-                    debug(errors);
-                    return false;
-                }
-                return true;
-
-            } catch(err) {
-                throw new Error(err);
-            }
+            return new Promise(function(resolve, reject) {
+                let validator = require('xsd-schema-validator');
+                validator.validateXML(scxml, 'xmlSchemas/scxml.xsd', function(err, result) {
+                    if (err) {
+                        reject(err);
+                    }
+                    resolve(result.valid);
+                })
+            });
         };
 
         debug("creating relationships");
