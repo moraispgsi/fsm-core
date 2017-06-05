@@ -33,9 +33,9 @@ This module is extended to the fsm-engine module, which consumes the repository 
 
 ## Installation
 
-git clone the repository  
+link the git repository in the dependencies of the package.json file
 npm install  
-Uses the sequelize library to connect to a database using the information given, a database library as to be installed and its type should be sent as the dialect  
+This module uses the sequelize library to connect to a database using the information given, a database library as to be installed and its type should be sent as the dialect  
 
   One of the following libraries will suffice:  
 $ npm install --save pg pg-hstore  
