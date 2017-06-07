@@ -2,34 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="a3b16e93-389a-47cc-bea8-547fa515eb36" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/out/fonts/OpenSans-Bold-webfont.eot" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/out/fonts/OpenSans-Bold-webfont.woff" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/out/fonts/OpenSans-BoldItalic-webfont.eot" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/out/fonts/OpenSans-BoldItalic-webfont.woff" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/out/fonts/OpenSans-Italic-webfont.eot" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/out/fonts/OpenSans-Italic-webfont.woff" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/out/fonts/OpenSans-Light-webfont.eot" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/out/fonts/OpenSans-Light-webfont.woff" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/out/fonts/OpenSans-LightItalic-webfont.eot" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/out/fonts/OpenSans-LightItalic-webfont.woff" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/out/fonts/OpenSans-Regular-webfont.eot" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/out/fonts/OpenSans-Regular-webfont.woff" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/out/fonts/OpenSans-Bold-webfont.svg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/out/fonts/OpenSans-BoldItalic-webfont.svg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/out/fonts/OpenSans-Italic-webfont.svg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/out/fonts/OpenSans-Light-webfont.svg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/out/fonts/OpenSans-LightItalic-webfont.svg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/out/fonts/OpenSans-Regular-webfont.svg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/out/global.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/out/index.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/out/index.js.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/out/scripts/linenumber.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/out/scripts/prettify/Apache-License-2.0.txt" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/out/scripts/prettify/lang-css.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/out/scripts/prettify/prettify.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/out/styles/jsdoc-default.css" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/out/styles/prettify-jsdoc.css" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/out/styles/prettify-tomorrow.css" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
@@ -48,85 +20,15 @@
   <component name="ExecutionTargetManager" SELECTED_TARGET="default_target" />
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name=".travis.yml" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/.travis.yml">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="34">
-              <caret line="2" column="0" lean-forward="false" selection-start-line="2" selection-start-column="0" selection-end-line="2" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="index.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/index.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-2648">
+            <state relative-caret-position="-2614">
               <caret line="322" column="32" lean-forward="false" selection-start-line="322" selection-start-column="32" selection-end-line="322" selection-end-column="32" />
               <folding>
                 <element signature="e#1#269#0" expanded="false" />
                 <element signature="e#18273#18391#0" expanded="false" />
               </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="index.html" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/out/index.html">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-204">
-              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="index.js.html" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/out/index.js.html">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="0">
-              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="core-test.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/test/core-test.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-1305">
-              <caret line="153" column="0" lean-forward="false" selection-start-line="153" selection-start-column="0" selection-end-line="153" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="scxml.xsd" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/xmlSchemas/scxml.xsd">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-11531">
-              <caret line="72" column="20" lean-forward="false" selection-start-line="72" selection-start-column="20" selection-end-line="72" selection-end-column="20" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="package.json" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/package.json">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="85">
-              <caret line="19" column="0" lean-forward="false" selection-start-line="19" selection-start-column="0" selection-end-line="19" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="README.md" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/README.md">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="261">
-              <caret line="79" column="8" lean-forward="false" selection-start-line="79" selection-start-column="8" selection-end-line="79" selection-end-column="8" />
-              <folding />
             </state>
           </provider>
         </entry>
@@ -237,7 +139,6 @@
           </PATH>
         </subPane>
       </pane>
-      <pane id="Scratches" />
       <pane id="Scope">
         <subPane subId="Project Files">
           <PATH>
@@ -250,27 +151,14 @@
               <option name="myItemType" value="" />
             </PATH_ELEMENT>
           </PATH>
-          <PATH>
-            <PATH_ELEMENT USER_OBJECT="Root">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT USER_OBJECT="fsm-core">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT USER_OBJECT="out">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
-            </PATH_ELEMENT>
-          </PATH>
         </subPane>
       </pane>
+      <pane id="Scratches" />
     </panes>
   </component>
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../FSM Engine/fsm-engine" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="nodejs_interpreter_path" value="C:/Program Files/nodejs/node" />
     <property name="HbShouldOpenHtmlAsHb" value="" />
     <property name="js.eslint.eslintPackage" value="" />
@@ -406,7 +294,9 @@
       <workItem from="1494956404625" duration="39862000" />
       <workItem from="1495328007830" duration="23708000" />
       <workItem from="1495729143697" duration="23045000" />
-      <workItem from="1496244218021" duration="66134000" />
+      <workItem from="1496244218021" duration="66751000" />
+      <workItem from="1496473151132" duration="151000" />
+      <workItem from="1496866813581" duration="1252000" />
     </task>
     <task id="LOCAL-00001" summary="createState return only the state instead of an object">
       <created>1488240569779</created>
@@ -611,16 +501,23 @@
       <option name="project" value="LOCAL" />
       <updated>1496446713319</updated>
     </task>
-    <option name="localTasksCounter" value="30" />
+    <task id="LOCAL-00030" summary="jsdoc">
+      <created>1496446856464</created>
+      <option name="number" value="00030" />
+      <option name="presentableId" value="LOCAL-00030" />
+      <option name="project" value="LOCAL" />
+      <updated>1496446856464</updated>
+    </task>
+    <option name="localTasksCounter" value="31" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="371974000" />
+    <option name="totallyTimeSpent" value="373994000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
     <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.22395833" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.22321428" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32478634" sideWeight="0.5089286" order="10" side_tool="true" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
@@ -832,27 +729,12 @@
     <entry file="file://$PROJECT_DIR$/examples/example4.js" />
     <entry file="file://$PROJECT_DIR$/examples/deadline.js" />
     <entry file="file://$PROJECT_DIR$/examples/namespaces.js" />
-    <entry file="file://$PROJECT_DIR$/teste1.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="102">
-          <caret line="6" column="20" lean-forward="false" selection-start-line="6" selection-start-column="20" selection-end-line="6" selection-end-column="20" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/__tests__/testAdd.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="17">
-          <caret line="3" column="0" lean-forward="false" selection-start-line="3" selection-start-column="0" selection-end-line="3" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/teste1.js" />
+    <entry file="file://$PROJECT_DIR$/__tests__/testAdd.js" />
     <entry file="file://$USER_HOME$/Documents/Student_Counter/Student_Counter/__tests__/class.crud.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="71">
           <caret line="136" column="55" lean-forward="false" selection-start-line="136" selection-start-column="55" selection-end-line="136" selection-end-column="55" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -860,7 +742,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="51">
           <caret line="3" column="0" lean-forward="false" selection-start-line="3" selection-start-column="0" selection-end-line="3" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -868,7 +749,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -876,29 +756,20 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="405">
           <caret line="91" column="14" lean-forward="false" selection-start-line="91" selection-start-column="14" selection-end-line="91" selection-end-column="14" />
-          <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/test/test.test.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="51">
-          <caret line="5" column="0" lean-forward="true" selection-start-line="5" selection-start-column="0" selection-end-line="5" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/test/test.test.js" />
     <entry file="file://$PROJECT_DIR$/.babelrc">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="136">
           <caret line="8" column="0" lean-forward="false" selection-start-line="8" selection-start-column="0" selection-end-line="8" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/README.md">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="261">
+        <state relative-caret-position="1343">
           <caret line="79" column="8" lean-forward="false" selection-start-line="79" selection-start-column="8" selection-end-line="79" selection-end-column="8" />
           <folding />
         </state>
@@ -908,6 +779,37 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="117">
           <caret line="72" column="6" lean-forward="false" selection-start-line="72" selection-start-column="6" selection-end-line="72" selection-end-column="6" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/trysomething.js" />
+    <entry file="file://$PROJECT_DIR$/build/config.gypi">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/test/core-test.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1262">
+          <caret line="153" column="0" lean-forward="false" selection-start-line="153" selection-start-column="0" selection-end-line="153" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/xmlSchemas/scxml.xsd">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="284">
+          <caret line="72" column="20" lean-forward="false" selection-start-line="72" selection-start-column="20" selection-end-line="72" selection-end-column="20" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/package.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="284">
+          <caret line="19" column="0" lean-forward="false" selection-start-line="19" selection-start-column="0" selection-end-line="19" selection-end-column="0" />
           <folding />
         </state>
       </provider>
@@ -920,49 +822,9 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/trysomething.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="68">
-          <caret line="4" column="18" lean-forward="false" selection-start-line="4" selection-start-column="18" selection-end-line="4" selection-end-column="18" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/package.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="85">
-          <caret line="19" column="0" lean-forward="false" selection-start-line="19" selection-start-column="0" selection-end-line="19" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/test/core-test.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1305">
-          <caret line="153" column="0" lean-forward="false" selection-start-line="153" selection-start-column="0" selection-end-line="153" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/xmlSchemas/scxml.xsd">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-11531">
-          <caret line="72" column="20" lean-forward="false" selection-start-line="72" selection-start-column="20" selection-end-line="72" selection-end-column="20" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/build/config.gypi">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/out/index.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-204">
+        <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding />
         </state>
@@ -970,7 +832,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/out/index.js.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
+        <state relative-caret-position="-289">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding />
         </state>
@@ -978,7 +840,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/index.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-2648">
+        <state relative-caret-position="-2614">
           <caret line="322" column="32" lean-forward="false" selection-start-line="322" selection-start-column="32" selection-end-line="322" selection-end-column="32" />
           <folding>
             <element signature="e#1#269#0" expanded="false" />
