@@ -1,5 +1,5 @@
 let co = require("co");
-let core = require("./repository")();
+let core = require("./index")();
 let debug = require("debug")("test");
 
 co(function*(){
@@ -9,6 +9,7 @@ co(function*(){
         yield core.addMachine("keynote");
         yield core.removeMachine("deadline");
         yield core.sealVersion("keynote", "version1");
+        yield core.addInstance("keynote", "version1");
         yield core.removeMachine("keynote");
         // yield repository.addVersion("keynote");
         debug(core.getManifest());
