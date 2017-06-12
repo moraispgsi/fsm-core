@@ -1,21 +1,21 @@
 let co = require("co");
-let repository = require("./repository")();
+let core = require("./repository")();
 let debug = require("debug")("test");
 
 co(function*(){
     try {
-        yield repository.init();
-        yield repository.addMachine("deadline");
-        yield repository.addMachine("keynote");
-        yield repository.removeMachine("deadline");
-        yield repository.sealVersion("keynote", "version1");
-        yield repository.addVersion("keynote");
-        debug(repository.getManifest());
-        debug(repository.getMachinesKeys());
-        yield repository.removeMachine("deadline");
-        yield repository.removeMachine("keynote");
-        debug(repository.getManifest());
-        debug(repository.getMachinesKeys());
+        let repository = yield core.init();
+        yield core.addMachine("deadline");
+        yield core.addMachine("keynote");
+        yield core.removeMachine("deadline");
+        yield core.sealVersion("keynote", "version1");
+        yield core.removeMachine("keynote");
+        // yield repository.addVersion("keynote");
+        debug(core.getManifest());
+        debug(core.getMachinesKeys());
+        // yield repository.removeMachine("keynote");
+        debug(core.getManifest());
+        debug(core.getMachinesKeys());
     } catch (err) {
         debug("ERROR %s", err);
     }
