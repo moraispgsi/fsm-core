@@ -204,7 +204,7 @@ module.exports = function(repositoryPath) {
         jsonfile.writeFileSync(manifestPath, manifest, {spaces: 2});
         if(withCommit) {
             return _commit(null, ["manifest.json"],
-                "Changed the manifest file" || message);
+               message || "Changed the manifest file");
         }
     }
 
@@ -229,7 +229,7 @@ module.exports = function(repositoryPath) {
         jsonfile.writeFileSync(configPath, config, {spaces: 2});
         if(withCommit) {
             return _commit(null, ["config.json"],
-                "Changed the config file" || message);
+                message || "Changed the config file");
         }
     }
 
@@ -405,9 +405,11 @@ module.exports = function(repositoryPath) {
     /**
      * Update the version info.json file using a JavasScript Object
      * @method setVersionInfo
+     * @param {String} machineName The name of the machine
+     * @param {String} versionKey The key of the version
+     * @param {Object} info The info Object to save
      * @param {boolean} withCommit If true commits the changes to the repository
      * @param {String} message If supplied it is used as the message for the commit
-     * @param {Object} info The info Object to save
      * @returns {Promise} If withCommit is true, the function returns a Promise
      */
     function setVersionInfo(machineName, versionKey, info, withCommit, message) {
@@ -428,7 +430,7 @@ module.exports = function(repositoryPath) {
 
         if(withCommit) {
             return _commit(null, [route],
-                "Changed the info for the " + versionKey + " of the '" + machineName + "' machine" || message);
+                message || "Changed the info for the " + versionKey + " of the '" + machineName + "' machine" );
         }
 
     }
@@ -561,17 +563,17 @@ module.exports = function(repositoryPath) {
     /**
      * Validates SCXML markup as a string
      * @method isSCXMLValid
-     * @param {String} scxml A string with the SCXML document to validate
+     * @param {String} model A string with the SCXML document to validate
      * @returns {Promise} True if the SCXML is valid false otherwise
      */
-    function isSCXMLValid(scxml){
+    function isSCXMLValid(model){
         return new Promise(function(resolve, reject) {
-            if(scxml === "") {
-                reject("SCXML is empty");
+            if(model === "") {
+                reject("Model is empty");
                 return;
             }
 
-            validator.validateXML(scxml, __dirname + '/xmlSchemas/scxml.xsd', function(err, result) {
+            validator.validateXML(model, __dirname + '/xmlSchemas/scxml.xsd', function(err, result) {
                 if (err) {
                     reject(err);
                     return;
@@ -678,7 +680,7 @@ module.exports = function(repositoryPath) {
 
         if(withCommit) {
             return _commit(null, [route],
-                "Changed the info for the " + instanceKey + " of the " + versionKey + " of the '" + machineName + "' machine");
+                message || "Changed the info for the " + instanceKey + " of the " + versionKey + " of the '" + machineName + "' machine");
         }
 
     }
