@@ -336,7 +336,7 @@ module.exports = function(repositoryPath) {
     /**
      * Get the keys of all of the versions of machine in the repository
      * @method getVersionsKeys
-     * @param {String} machineName The name of the machine to get the version's names
+     * @param {String} machineName The name of the machine to get the version's keys
      * @returns {Array} An array with all the version's keys of the machine
      */
     function getVersionsKeys(machineName) {
@@ -584,11 +584,11 @@ module.exports = function(repositoryPath) {
     }
 
     /**
-     * Gets the keys of all of the instances of a version of machine in the repository
+     * Gets the keys of all of the instances of a version of the machine in the repository
      * @method getInstancesKeys
-     * @param {String} machineName The name of the machine to get the instances's names
-     * @param {String} versionKey The key of the version to get the instances's names
-     * @returns {Array} An array with all the version's keys of the machine
+     * @param {String} machineName The name of the machine to get the instances's keys
+     * @param {String} versionKey The key of the version to get the instances's keys
+     * @returns {Array} An array with all the instance's keys of the the version
      */
     function getInstancesKeys(machineName, versionKey){
 
@@ -604,7 +604,7 @@ module.exports = function(repositoryPath) {
             throw new Error("Version does not exists");
         }
 
-        return Object.keys(machine.instances);
+        return Object.keys(version.instances);
     }
 
     /**
@@ -629,7 +629,7 @@ module.exports = function(repositoryPath) {
             throw new Error("Version does not exists");
         }
 
-        let instance = machine.instances[instanceKey];
+        let instance = version.instances[instanceKey];
         if (!instance) {
             throw new Error("Instance does not exists");
         }
@@ -680,14 +680,15 @@ module.exports = function(repositoryPath) {
 
         if(withCommit) {
             return _commit(null, [route],
-                message || "Changed the info for the " + instanceKey + " of the " + versionKey + " of the '" + machineName + "' machine");
+                message || "Changed the info for the " + instanceKey + " of the " +
+                versionKey + " of the '" + machineName + "' machine");
         }
 
     }
 
     /**
      * Add a new instance to a version of a machine
-     * @method addVersion
+     * @method addInstance
      * @param {String} machineName The name of the machine
      * @param {String} versionKey The key of the version
      * @returns {Promise} The instance key
@@ -715,19 +716,22 @@ module.exports = function(repositoryPath) {
 
             let newInstanceKey = "instance" + (Object.keys(version.instances).length + 1);
             let instanceDirPath = version.route + "/instances/" + newInstanceKey;
+            let instanceSnapshotsDirPath = instanceDirPath + "/snapshots";
             version.instances[newInstanceKey] = {
-                "route": instanceDirPath
+                "route": instanceDirPath,
+                "snapshots": {}
             };
 
             let infoFile = instanceDirPath + "/info.json";
 
             debug("Creating the directories");
             fs.mkdirSync(repositoryPath + "/" + instanceDirPath);
+            fs.mkdirSync(repositoryPath + "/" + instanceSnapshotsDirPath);
 
             debug("Creating the instance info.json file");
             let info = {
                 "hasStarted": false,
-                "hasEnded": false 
+                "hasEnded": false
             };
             jsonfile.writeFileSync(repositoryPath + "/" + infoFile, info);
 
@@ -737,6 +741,156 @@ module.exports = function(repositoryPath) {
                 "Created the "+newInstanceKey+" for the "+versionKey+" of the '" + machineName + "' machine");
 
             return newInstanceKey;
+        });
+    }
+
+    /**
+     * Gets the keys of all of the snapshots of the instance of a version of the machine in the repository
+     * @method getSnapshotsKeys
+     * @param {String} machineName The name of the machine to get the snapshots's keys
+     * @param {String} versionKey The key of the version to get the snapshots's keys
+     * @param {String} instanceKey The key of the instance to get the snapshot's keys
+     * @returns {Array} An array with all the snapshot's keys of the instance
+     */
+    function getSnapshotsKeys(machineName, versionKey, instanceKey){
+
+        let manifest = getManifest();
+
+        let machine = manifest.machines[machineName];
+        if (!machine) {
+            throw new Error("Machine does not exists");
+        }
+
+        let version = machine.versions[versionKey];
+        if (!version) {
+            throw new Error("Version does not exists");
+        }
+
+        let instance = version.instance[instanceKey];
+        if (!instance) {
+            throw new Error("Instance does not exists");
+        }
+
+        return Object.keys(instance.snapshots);
+    }
+
+    /**
+     * Retrieve the snapshot's directory path
+     * @method getSnapshotRoute
+     * @param {String} machineName The name of the machine
+     * @param {String} versionKey The key of the version
+     * @param {String} instanceKey The key of the instance
+     * @param {String} snapshotKey The key of the snapshot
+     * @returns {String} The route
+     */
+    function getSnapshotRoute(machineName, versionKey, instanceKey, snapshotKey){
+
+        let manifest = getManifest();
+
+        let machine = manifest.machines[machineName];
+        if (!machine) {
+            throw new Error("Machine does not exists");
+        }
+
+        let version = machine.versions[versionKey];
+        if (!version) {
+            throw new Error("Version does not exists");
+        }
+
+        let instance = version.instances[instanceKey];
+        if (!instance) {
+            throw new Error("Instance does not exists");
+        }
+
+        let snapshot = instance.snapshots[snapshotKey];
+        if (!snapshot) {
+            throw new Error("Snapshot does not exists");
+        }
+
+        return snapshot.route;
+    }
+
+    /**
+     * Retrieve the snapshot's info.json path
+     * @method getSnapshotInfoRoute
+     * @param {String} machineName The name of the machine
+     * @param {String} versionKey The key of the version
+     * @param {String} instanceKey The key of the instance
+     * @param {String} snapshotKey The key of the snapshot
+     * @returns {String} The route
+     */
+    function getSnapshotInfoRoute(machineName, versionKey, instanceKey, snapshotKey) {
+        return getSnapshotRoute(machineName, versionKey, instanceKey, snapshotKey) + "/info.json";
+    }
+
+    /**
+     * Retrieve the snapshot's info.json file as a JavasScript Object
+     * @method getSnapshotInfo
+     * @param {String} machineName The name of the machine
+     * @param {String} versionKey The key of the version
+     * @param {String} instanceKey The key of the instance
+     * @param {String} snapshotKey The key of the snapshot
+     * @returns {Object} The info Object
+     */
+    function getSnapshotInfo(machineName, versionKey, instanceKey, snapshotKey) {
+        let route = getSnapshotInfoRoute(machineName, versionKey, instanceKey, snapshotKey);
+        return jsonfile.readFileSync(repositoryPath + "/" + route);
+    }
+
+    /**
+     * Add a new snapshot to an instance of a version of a machine
+     * @method addSnapshot
+     * @param {String} machineName The name of the machine
+     * @param {String} versionKey The key of the version
+     * @param {String} instanceKey The key of the instance
+     * @param {Object} info The info Object
+     * @returns {Promise} The instance key
+     */
+    function addSnapshot(machineName, versionKey, instanceKey, info) {
+
+        return co(function*() {
+            debug("Adding a new snapshot to the " + instanceKey + " of the " + versionKey + " of the '" + machineName + "' machine");
+            let manifest = getManifest();
+
+            let machine = manifest.machines[machineName];
+            if (!machine) {
+                throw new Error("Machine does not exists");
+            }
+
+            let version = machine.versions[versionKey];
+            if (!version) {
+                throw new Error("Version does not exists");
+            }
+
+            let instance = version.instances[instanceKey];
+            if (!instance) {
+                throw new Error("Instance does not exists");
+            }
+
+            let newSnapshotKey = "snapshot" + (Object.keys(instance.snapshots).length + 1);
+            let snapshotDirPath = instance.route + "/snapshots/" + newSnapshotKey;
+            instance.snapshots[newSnapshotKey] = {
+                "route": snapshotDirPath
+            };
+
+            let infoFile = snapshotDirPath + "/info.json";
+
+            debug("Creating the directories");
+            fs.mkdirSync(repositoryPath + "/" + snapshotDirPath);
+
+            debug("Creating the snapshot info.json file");
+            let info = {
+
+            };
+            jsonfile.writeFileSync(repositoryPath + "/" + infoFile, info);
+
+            debug("Setting the manifest");
+            setManifest(manifest);
+            yield _commit(null, ["manifest.json", infoFile],
+                "Created the "+newSnapshotKey+" for the "+instanceKey+" of the "+
+                versionKey+" of the '" + machineName + "' machine");
+
+            return newSnapshotKey;
         });
     }
 
@@ -769,6 +923,12 @@ module.exports = function(repositoryPath) {
         getInstanceInfoRoute  :getInstanceInfoRoute,
         getInstanceInfo       :getInstanceInfo,
         setInstanceInfo       :setInstanceInfo,
-        addInstance           :addInstance
+        addInstance           :addInstance,
+        //////////////////////////////
+        getSnapshotsKeys      :getSnapshotsKeys,
+        getSnapshotRoute      :getSnapshotRoute,
+        getSnapshotInfoRoute  :getSnapshotInfoRoute,
+        getSnapshotInfo       :getSnapshotInfo,
+        addSnapshot           :addSnapshot
     };
 };
