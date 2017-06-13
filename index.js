@@ -419,7 +419,7 @@ module.exports = function(repositoryPath) {
         let route = getVersionInfoRoute(machineName, versionKey);
         let previousInfo = jsonfile.readFileSync(repositoryPath + "/" + route);
         if(previousInfo.isSealed) {
-            throw new Error("The version is already sealed.")
+            throw new Error("Cannot change the version SCXML because the version is sealed.")
         }
 
         jsonfile.writeFileSync(repositoryPath + "/" + route, info, {spaces: 2});
@@ -550,7 +550,7 @@ module.exports = function(repositoryPath) {
         let route = getVersionInfoRoute(machineName, versionKey);
         let previousInfo = jsonfile.readFileSync(repositoryPath + "/" + route);
         if(previousInfo.isSealed) {
-            throw new Error("The version is already sealed.")
+            throw new Error("Cannot change the version SCXML because the version is sealed.")
         }
         let modelRoute = getVersionModelRoute(machineName, versionKey);
         fs.writeFileSync(repositoryPath + "/" + modelRoute, model);
