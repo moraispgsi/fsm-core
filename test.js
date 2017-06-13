@@ -13,10 +13,10 @@ co(function*(){
         yield core.removeMachine("keynote");
         // yield repository.addVersion("keynote");
         debug(core.getManifest());
-        debug(core.getMachinesKeys());
+        debug(core.getMachinesNames());
         // yield repository.removeMachine("keynote");
         debug(core.getManifest());
-        debug(core.getMachinesKeys());
+        debug(core.getMachinesNames());
     } catch (err) {
         debug("ERROR %s", err);
     }

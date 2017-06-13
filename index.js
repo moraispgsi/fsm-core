@@ -24,6 +24,8 @@ module.exports = function(repositoryPath) {
     let manifestPath = repositoryPath + "/manifest.json";
     let configPath = repositoryPath + "/config.json";
 
+    debug("Using path %s", repositoryPath);
+
     /**
      * Initializes the repository connection
      * @method init
@@ -413,19 +415,13 @@ module.exports = function(repositoryPath) {
      * @returns {Promise} If withCommit is true, the function returns a Promise
      */
     function setVersionInfo(machineName, versionKey, info, withCommit, message) {
-        let manifest = getManifest();
 
-        let machine = manifest.machines[machineName];
-        if (!machine) {
-            throw new Error("Machine does not exists");
+        let route = getVersionInfoRoute(machineName, versionKey);
+        let previousInfo = jsonfile.readFileSync(repositoryPath + "/" + route);
+        if(previousInfo.isSealed) {
+            throw new Error("The version is already sealed.")
         }
 
-        let version = machine.versions[versionKey];
-        if (!version) {
-            throw new Error("Version does not exists");
-        }
-
-        let route = version.route + "/info.json";
         jsonfile.writeFileSync(repositoryPath + "/" + route, info, {spaces: 2});
 
         if(withCommit) {
@@ -766,7 +762,7 @@ module.exports = function(repositoryPath) {
             throw new Error("Version does not exists");
         }
 
-        let instance = version.instance[instanceKey];
+        let instance = version.instances[instanceKey];
         if (!instance) {
             throw new Error("Instance does not exists");
         }
@@ -902,7 +898,7 @@ module.exports = function(repositoryPath) {
         getConfig             :getConfig,
         setConfig             :setConfig,
         //////////////////////////////
-        getMachinesKeys       :getMachinesNames,
+        getMachinesNames       :getMachinesNames,
         addMachine            :addMachine,
         removeMachine         :removeMachine,
         //////////////////////////////
