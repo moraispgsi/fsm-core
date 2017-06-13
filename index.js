@@ -547,11 +547,16 @@ module.exports = function(repositoryPath) {
      */
     function setVersionSCXML(machineName, versionKey, model, withCommit, message) {
 
-        let route = getVersionModelRoute(machineName, versionKey);
-        fs.writeFileSync(repositoryPath + "/" + route, model);
+        let route = getVersionInfoRoute(machineName, versionKey);
+        let previousInfo = jsonfile.readFileSync(repositoryPath + "/" + route);
+        if(previousInfo.isSealed) {
+            throw new Error("The version is already sealed.")
+        }
+        let modelRoute = getVersionModelRoute(machineName, versionKey);
+        fs.writeFileSync(repositoryPath + "/" + modelRoute, model);
 
         if(withCommit) {
-            return _commit(null, [route],
+            return _commit(null, [modelRoute],
                 "Changed the model.scxml for the " + versionKey + " of the '" + machineName + "' machine");
         }
     }
