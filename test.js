@@ -1,10 +1,11 @@
 let co = require("co");
-let core = require("./index")();
+let Core = require("./index2")();
 let debug = require("debug")("test");
 
 co(function*(){
     try {
-        let repository = yield core.init();
+        let core = new Core();
+        yield core.init();
         yield core.addMachine("deadline");
         yield core.addMachine("keynote");
         yield core.removeMachine("deadline");

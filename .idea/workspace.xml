@@ -2,8 +2,35 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="a3b16e93-389a-47cc-bea8-547fa515eb36" name="Default" comment="">
+      <change type="DELETED" beforePath="$PROJECT_DIR$/node_modules/buffer-shims/index.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/node_modules/buffer-shims/license.md" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/node_modules/buffer-shims/package.json" afterPath="" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.babelrc" afterPath="$PROJECT_DIR$/.babelrc" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/watcherTasks.xml" afterPath="$PROJECT_DIR$/.idea/watcherTasks.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/index.js" afterPath="$PROJECT_DIR$/index.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/node_modules/babel-cli/.npmignore" afterPath="$PROJECT_DIR$/node_modules/babel-cli/.npmignore" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/node_modules/babel-cli/bin/babel-doctor.js" afterPath="$PROJECT_DIR$/node_modules/babel-cli/bin/babel-doctor.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/node_modules/babel-cli/bin/babel-external-helpers.js" afterPath="$PROJECT_DIR$/node_modules/babel-cli/bin/babel-external-helpers.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/node_modules/babel-cli/bin/babel.js" afterPath="$PROJECT_DIR$/node_modules/babel-cli/bin/babel.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/node_modules/babel-cli/index.js" afterPath="$PROJECT_DIR$/node_modules/babel-cli/index.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/node_modules/babel-cli/lib/babel-node.js" afterPath="$PROJECT_DIR$/node_modules/babel-cli/lib/babel-node.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/node_modules/babel-cli/lib/babel/file.js" afterPath="$PROJECT_DIR$/node_modules/babel-cli/lib/babel/file.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/node_modules/babel-cli/lib/babel/util.js" afterPath="$PROJECT_DIR$/node_modules/babel-cli/lib/babel/util.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/node_modules/babel-cli/scripts/bootstrap.sh" afterPath="$PROJECT_DIR$/node_modules/babel-cli/scripts/bootstrap.sh" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/node_modules/readdirp/node_modules/readable-stream/.npmignore" afterPath="$PROJECT_DIR$/node_modules/readdirp/node_modules/readable-stream/.npmignore" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/node_modules/readdirp/node_modules/readable-stream/GOVERNANCE.md" afterPath="$PROJECT_DIR$/node_modules/readdirp/node_modules/readable-stream/GOVERNANCE.md" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/node_modules/readdirp/node_modules/readable-stream/LICENSE" afterPath="$PROJECT_DIR$/node_modules/readdirp/node_modules/readable-stream/LICENSE" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/node_modules/readdirp/node_modules/readable-stream/doc/wg-meetings/2015-01-30.md" afterPath="$PROJECT_DIR$/node_modules/readdirp/node_modules/readable-stream/doc/wg-meetings/2015-01-30.md" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/node_modules/readdirp/node_modules/readable-stream/lib/_stream_duplex.js" afterPath="$PROJECT_DIR$/node_modules/readdirp/node_modules/readable-stream/lib/_stream_duplex.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/node_modules/readdirp/node_modules/readable-stream/lib/_stream_passthrough.js" afterPath="$PROJECT_DIR$/node_modules/readdirp/node_modules/readable-stream/lib/_stream_passthrough.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/node_modules/readdirp/node_modules/readable-stream/lib/_stream_readable.js" afterPath="$PROJECT_DIR$/node_modules/readdirp/node_modules/readable-stream/lib/_stream_readable.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/node_modules/readdirp/node_modules/readable-stream/lib/internal/streams/stream-browser.js" afterPath="$PROJECT_DIR$/node_modules/readdirp/node_modules/readable-stream/lib/internal/streams/stream-browser.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/node_modules/readdirp/node_modules/readable-stream/lib/internal/streams/stream.js" afterPath="$PROJECT_DIR$/node_modules/readdirp/node_modules/readable-stream/lib/internal/streams/stream.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/node_modules/readdirp/node_modules/readable-stream/passthrough.js" afterPath="$PROJECT_DIR$/node_modules/readdirp/node_modules/readable-stream/passthrough.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/node_modules/readdirp/node_modules/string_decoder/LICENSE" afterPath="$PROJECT_DIR$/node_modules/readdirp/node_modules/string_decoder/LICENSE" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/node_modules/readdirp/node_modules/string_decoder/README.md" afterPath="$PROJECT_DIR$/node_modules/readdirp/node_modules/string_decoder/README.md" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/package.json" afterPath="$PROJECT_DIR$/package.json" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/test.js" afterPath="$PROJECT_DIR$/test.js" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -24,22 +51,41 @@
       <file leaf-file-name="test.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/test.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="136">
-              <caret line="8" column="32" lean-forward="false" selection-start-line="8" selection-start-column="32" selection-end-line="8" selection-end-column="32" />
+            <state relative-caret-position="-100">
+              <caret line="2" column="36" lean-forward="false" selection-start-line="2" selection-start-column="36" selection-end-line="2" selection-end-column="36" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="index.js" pinned="false" current-in-tab="true">
+      <file leaf-file-name=".babelrc" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/.babelrc">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="170">
+              <caret line="10" column="0" lean-forward="true" selection-start-line="10" selection-start-column="0" selection-end-line="10" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="package.json" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/package.json">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="112">
+              <caret line="12" column="31" lean-forward="false" selection-start-line="12" selection-start-column="31" selection-end-line="12" selection-end-column="31" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="index.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/index.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-39">
-              <caret line="552" column="37" lean-forward="true" selection-start-line="552" selection-start-column="37" selection-end-line="552" selection-end-column="37" />
+            <state relative-caret-position="0">
+              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
               <folding>
                 <element signature="e#1101#1522#0" expanded="false" />
                 <element signature="e#1811#2218#0" expanded="false" />
-                <element signature="e#2787#3596#0" expanded="false" />
                 <element signature="e#3759#4702#0" expanded="false" />
                 <element signature="e#4861#5372#0" expanded="false" />
                 <element signature="e#5527#5927#0" expanded="false" />
@@ -72,6 +118,18 @@
                 <element signature="e#29907#30013#0" expanded="false" />
                 <element signature="e#30487#30655#0" expanded="false" />
                 <element signature="e#31098#32770#0" expanded="false" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="index2.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/index2.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="170">
+              <caret line="76" column="6" lean-forward="false" selection-start-line="76" selection-start-column="6" selection-end-line="76" selection-end-column="6" />
+              <folding>
+                <element signature="e#362#392#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -133,7 +191,6 @@
         <option value="$PROJECT_DIR$/__tests__/test.test.js" />
         <option value="$PROJECT_DIR$/test/test.test.js" />
         <option value="$PROJECT_DIR$/test/model-test.js" />
-        <option value="$PROJECT_DIR$/.babelrc" />
         <option value="$PROJECT_DIR$/.travis.yml" />
         <option value="$PROJECT_DIR$/README.md" />
         <option value="$PROJECT_DIR$/trysomething.js" />
@@ -141,13 +198,14 @@
         <option value="$PROJECT_DIR$/base.scxml" />
         <option value="$PROJECT_DIR$/repo/manifest.json" />
         <option value="$PROJECT_DIR$/test/core-test.js" />
-        <option value="$PROJECT_DIR$/index2.js" />
         <option value="$PROJECT_DIR$/node_modules/xsd-schema-validator/lib/validator.js" />
         <option value="$PROJECT_DIR$/.gitignore" />
         <option value="$PROJECT_DIR$/repository.js" />
-        <option value="$PROJECT_DIR$/package.json" />
-        <option value="$PROJECT_DIR$/test.js" />
         <option value="$PROJECT_DIR$/index.js" />
+        <option value="$PROJECT_DIR$/test.js" />
+        <option value="$PROJECT_DIR$/index2.js" />
+        <option value="$PROJECT_DIR$/package.json" />
+        <option value="$PROJECT_DIR$/.babelrc" />
       </list>
     </option>
   </component>
@@ -189,7 +247,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scratches" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -218,18 +275,19 @@
           </PATH>
         </subPane>
       </pane>
+      <pane id="Scratches" />
     </panes>
   </component>
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/node_modules/babel-cli/bin/babel.js" />
     <property name="nodejs_interpreter_path" value="C:/Program Files/nodejs/node" />
     <property name="HbShouldOpenHtmlAsHb" value="" />
     <property name="js.eslint.eslintPackage" value="" />
     <property name="js-jscs-nodeInterpreter" value="C:\Program Files\nodejs\node.exe" />
     <property name="js.last.introduce.type" value="CONST" />
     <property name="jsx.switch.disabled" value="true" />
-    <property name="settings.editor.selected.configurable" value="preferences.general" />
+    <property name="settings.editor.selected.configurable" value="watcher.settings" />
     <property name="Git.Branch.Popup.ShowAllRemotes" value="true" />
   </component>
   <component name="RecentsManager">
@@ -365,7 +423,8 @@
       <workItem from="1497118833719" duration="34440000" />
       <workItem from="1497158190939" duration="5878000" />
       <workItem from="1497236461587" duration="13267000" />
-      <workItem from="1497320171660" duration="9990000" />
+      <workItem from="1497320171660" duration="10677000" />
+      <workItem from="1497559810836" duration="4151000" />
     </task>
     <task id="LOCAL-00001" summary="createState return only the state instead of an object">
       <created>1488240569779</created>
@@ -626,11 +685,18 @@
       <option name="project" value="LOCAL" />
       <updated>1497389296939</updated>
     </task>
-    <option name="localTasksCounter" value="38" />
+    <task id="LOCAL-00038" summary="minor fixes">
+      <created>1497389600640</created>
+      <option name="number" value="00038" />
+      <option name="presentableId" value="LOCAL-00038" />
+      <option name="project" value="LOCAL" />
+      <updated>1497389600640</updated>
+    </task>
+    <option name="localTasksCounter" value="39" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="440126000" />
+    <option name="totallyTimeSpent" value="444964000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
@@ -638,13 +704,14 @@
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.22321428" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32478634" sideWeight="0.5089286" order="10" side_tool="true" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32991454" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32991454" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="npm" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.2854701" sideWeight="0.48809522" order="9" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="true" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.0017094017" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -652,7 +719,6 @@
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="TypeScript" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32991454" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
     </layout>
   </component>
@@ -728,7 +794,7 @@
           <option name="timeStamp" value="11" />
         </line-breakpoint>
       </breakpoints>
-      <option name="time" value="31" />
+      <option name="time" value="32" />
     </breakpoint-manager>
     <watches-manager />
   </component>
@@ -783,13 +849,6 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/test/test.test.js" />
-    <entry file="file://$PROJECT_DIR$/.babelrc">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="136">
-          <caret line="8" column="0" lean-forward="false" selection-start-line="8" selection-start-column="0" selection-end-line="8" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/README.md">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1343">
@@ -876,7 +935,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/index2.js" />
     <entry file="file://$PROJECT_DIR$/base.scxml">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="68">
@@ -902,7 +960,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -913,7 +970,6 @@
           <folding>
             <element signature="e#1101#1522#0" expanded="false" />
             <element signature="e#1811#2218#0" expanded="false" />
-            <element signature="e#2787#3596#0" expanded="false" />
             <element signature="e#3759#4702#0" expanded="false" />
             <element signature="e#4861#5372#0" expanded="false" />
             <element signature="e#5527#5927#0" expanded="false" />
@@ -957,30 +1013,13 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/package.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="68">
-          <caret line="10" column="18" lean-forward="false" selection-start-line="10" selection-start-column="18" selection-end-line="10" selection-end-column="18" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/test.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="136">
-          <caret line="8" column="32" lean-forward="false" selection-start-line="8" selection-start-column="32" selection-end-line="8" selection-end-column="32" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/index.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-39">
-          <caret line="552" column="37" lean-forward="true" selection-start-line="552" selection-start-column="37" selection-end-line="552" selection-end-column="37" />
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
             <element signature="e#1101#1522#0" expanded="false" />
             <element signature="e#1811#2218#0" expanded="false" />
-            <element signature="e#2787#3596#0" expanded="false" />
             <element signature="e#3759#4702#0" expanded="false" />
             <element signature="e#4861#5372#0" expanded="false" />
             <element signature="e#5527#5927#0" expanded="false" />
@@ -1017,5 +1056,54 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/index2.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="170">
+          <caret line="76" column="6" lean-forward="false" selection-start-line="76" selection-start-column="6" selection-end-line="76" selection-end-column="6" />
+          <folding>
+            <element signature="e#362#392#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/test.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-100">
+          <caret line="2" column="36" lean-forward="false" selection-start-line="2" selection-start-column="36" selection-end-line="2" selection-end-column="36" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/package.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="112">
+          <caret line="12" column="31" lean-forward="false" selection-start-line="12" selection-start-column="31" selection-end-line="12" selection-end-column="31" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/.babelrc">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="170">
+          <caret line="10" column="0" lean-forward="true" selection-start-line="10" selection-start-column="0" selection-end-line="10" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+  </component>
+  <component name="masterDetails">
+    <states>
+      <state key="ScopeChooserConfigurable.UI">
+        <settings>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+    </states>
   </component>
 </project>
