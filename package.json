@@ -1,7 +1,7 @@
 {
   "private": true,
   "name": "fsm-core",
-  "version": "0.0.0",
+  "version": "1.0.12",
   "description": "",
   "repository": "moraispgsi/fsm-core",
   "author": "Ricardo Morais <moraispgsi@gmail.com> (https://www.INSTICC.org)",
@@ -43,6 +43,7 @@
     "babel-preset-latest": "^6.16.0",
     "babel-preset-stage-0": "^6.16.0",
     "babel-register": "^6.16.3",
+    "bs-html-injector": "^3.0.3",
     "chai": "^4.0.0-canary.1",
     "coveralls": "^2.11.14",
     "del": "^2.2.2",
