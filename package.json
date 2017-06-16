@@ -32,7 +32,8 @@
     "jsonfile": "^3.0.0",
     "nodegit": "^0.18.3",
     "path": "^0.12.7",
-    "rimraf": "^2.6.1"
+    "rimraf": "^2.6.1",
+    "xsd-schema-validator": "^0.5.0"
   },
   "devDependencies": {
     "babel-cli": "^6.16.0",
@@ -52,8 +53,7 @@
     "mocha": "^3.1.2",
     "rollup": "^0.36.3",
     "rollup-plugin-babel": "^2.6.1",
-    "sinon": "^2.0.0-pre.3",
-    "xsd-schema-validator": "^0.5.0"
+    "sinon": "^2.0.0-pre.3"
   },
   "scripts": {
     "lint": "eslint src test tools",
