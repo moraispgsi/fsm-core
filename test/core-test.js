@@ -1,50 +1,48 @@
-require('expectations');
+import expectations from 'expectations';
 let path = require("path");
-let Sequelize = require("sequelize");
-let indexPath = path.join(__dirname, '../index.js');
 let co = require('co');
-let init = require(indexPath);
+import {describe, it} from "mocha";
+import rimraf from "rimraf";
+import Core from "../src/index";
 
 describe('This suite tests the repository interface', () => {
-    it('Should be able to add and remove machines', (done) => {
-        co(function*(){
+  it('Should be able to add and remove machines, seal a version, add a version, create an instance and add a snapshot', (done) => {
 
+    co(function*(){
+      try {
+        let core = new Core("./test/repo");
+        yield core.init();
+        yield core.addMachine("deadline");
+        yield core.addMachine("keynote");
+        yield core.removeMachine("deadline");
+        yield core.sealVersion("keynote", "version1");
+        yield core.addInstance("keynote", "version1");
+        yield core.addSnapshot("keynote", "version1", "instance1", {});
+        yield core.addVersion("keynote");
+        core.getManifest();
+        core.getMachinesNames();
+        yield core.removeMachine("keynote");
 
-            done();
+        done();
+
+        yield new Promise((resolve, reject) => {
+          rimraf("./test/repo", () => {
+            resolve();
+          });
         }).then();
-    });
 
-    it('Should be able to insert and remove a version', (done) => {
-        co(function*(){
+      } catch (err) {
 
-
-            done();
+        yield new Promise((resolve, reject) => {
+          rimraf("./test/repo", () => {
+            resolve();
+          });
         }).then();
-    });
-});
 
-describe('This suit tests the core functions of the module', () => {
+        throw Error(err);
+      }
 
-    it('Create a state-machine', (done) => {
-        co(function*(){
+    }).then();
+  });
 
-
-            done();
-        }).then();
-    });
-
-    it('Create a finite-state machine set the SCXML, seal a version and create a new version ', (done) => {
-        co(function*(){
-
-
-
-            done();
-        }).then();
-    });
-
-    it('Testing getters', (done) => {
-        co(function*() {
-
-        }).then();
-    })
-});
+}).timeout(5000);;
