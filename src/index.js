@@ -19,14 +19,16 @@ let debug = debugStart("core");
 
 export default class Core {
 
-    constructor(repositoryPath = __dirname + "/repo"){
+    constructor(repositoryPath = __dirname + "/repo", name = "default", email ="None"){
         this.repositoryPath = repositoryPath;
         this.machinesDirPath = repositoryPath + "/machines";
         this.manifestPath = repositoryPath + "/manifest.json";
         this.configPath = repositoryPath + "/config.json";
+        this.hasRemote = false;
+        this.name = name;
+        this.email = email;
         debug("Using path %s", repositoryPath);
     }
-
 
     /**
      * Initializes the repository connection
@@ -42,6 +44,116 @@ export default class Core {
             debug("Repository not found.");
             repo = await this._createRepository();
         }
+
+        debug("Repository is ready");
+        return repo;
+    }
+
+    /**
+     * Initializes the repository connection using ssh password
+     * @method initRemoteGitPlaintext
+     * @param {String} cloneURL The URL of the remote repository
+     * @param user username to use to authenticate.
+     * @param password password to use to authenticate.
+     * @returns {Promise} Repository connection
+     */
+    async initRemoteGitPlaintext(cloneURL, user, password){
+
+        // Simple object to store clone options.
+        let cloneOptions = {};
+        // This is a required callback for OS X machines.  There is a known issue
+        // with libgit2 being able to verify certificates from GitHub.
+        cloneOptions.fetchOpts = {
+            callbacks: {
+                certificateCheck: function() { return 1; },
+                credentials: function () {
+                    nodegit.Cred.userpassPlaintextNew(user, password);
+                }
+            }
+        };
+
+        // Invoke the clone operation and store the returned Promise.
+        let cloneRepository = nodegit.Clone(cloneURL, this.repositoryPath, cloneOptions);
+
+        // If the repository already exists, the clone above will fail.  You can simply
+        // open the repository in this case to continue execution.
+        let errorAndAttemptOpen = () => {
+            return nodegit.Repository.open(this.repositoryPath);
+        };
+
+        let repo = await cloneRepository.catch(errorAndAttemptOpen);
+        this.hasRemote = true;
+        this.user = user;
+        this.password = password;
+
+        //todo - Check the integrity of the repository
+
+        debug("Repository is ready");
+        return repo;
+    }
+
+    /**
+     * Initializes the repository connection using ssh password
+     * @method initRemoteGitSSH
+     * @param {String} cloneURL The URL of the remote repository
+     * @param publicKey The public key of the credential.
+     * @param privateKey The private key of the credential.
+     * @param passphrase The passphrase of the credential.
+     * @returns {Promise} Repository connection
+     */
+    async initRemoteGitSSH(cloneURL, publicKey, privateKey, passphrase){
+
+        debug("Initializing");
+        // Simple object to store clone options.
+        let cloneOptions = {};
+        // This is a required callback for OS X machines.  There is a known issue
+        // with libgit2 being able to verify certificates from GitHub.
+        cloneOptions = {
+            fetchOpts: {
+                callbacks: {
+                    certificateCheck: function() {
+                        return 1;
+                    },
+                    credentials: function(url, userName) {
+                        console.log(userName);
+                        console.log(publicKey);
+                        console.log(privateKey);
+                        console.log(passphrase);
+                        return nodegit.Cred.sshKeyNew(
+                            userName,
+                            publicKey,
+                            privateKey,
+                            passphrase);
+                    }
+                }
+            }
+        };
+
+        debug("Cloning");
+        // Invoke the clone operation and store the returned Promise.
+        let cloneRepository = nodegit.Clone(cloneURL, this.repositoryPath, cloneOptions);
+
+        // If the repository already exists, the clone above will fail.  You can simply
+        // open the repository in this case to continue execution.
+
+        let errorAndAttemptOpen = async (err) => {
+            debug(err);
+            debug("Checking if the repository was already cloned");
+            let repository = await nodegit.Repository.open(this.repositoryPath);
+            await repository.fetchAll(cloneOptions.fetchOpts);
+            return repository.mergeBranches("master", "origin/master");
+        }
+
+        let repo = await cloneRepository.catch(errorAndAttemptOpen);
+
+        debug("Cloned successfully");
+
+        this.hasRemote = true;
+        this.hasRemoteSSH = true;
+        this.publicKey = publicKey;
+        this.privateKey = privateKey;
+        this.passphrase = passphrase;
+        //todo - Check the integrity of the repository
 
         debug("Repository is ready");
         return repo;
@@ -90,10 +202,49 @@ export default class Core {
         }
 
         debug("Creating main files");
-        let signature = nodegit.Signature.default(repo);
+        let signature = nodegit.Signature.now(this.name, this.email);
+
 
         debug("Commiting");
+
         await repo.createCommitOnHead(pathsToStage, signature, signature, message || "Automatic initialization");
+
+        debug("Pushing");
+        console.log(this.hasRemoteSSH);
+        if(this.hasRemote){
+
+            if(this.hasRemoteSSH) {
+                let remote = await repo.getRemote("origin");
+                //
+                remote.connect(nodegit.Enums.DIRECTION.PUSH);
+
+                await remote.push(["refs/heads/master:refs/heads/master"], {
+                    callbacks: {
+                        certificateCheck: function() { return 1; },
+                        credentials: (url, userName) => {
+                            return nodegit.Cred.sshKeyNew(userName, this.publicKey, this.privateKey, this.passphrase);
+                        }
+                    },
+                });
+
+
+            } else {
+
+                let remote = await repo.getRemote("origin");
+                await remote.push(["refs/heads/master:refs/heads/master"], {
+                    callbacks: {
+                        certificateCheck: function() { return 1; },
+                        credentials: (url, userName) => {
+                            return NodeGit.Cred.userpassPlaintextNew(this.user, this.password);
+                        }
+                    },
+                });
+
+            }
+
+            debug("Changes were pushed");
+
+        }
     }
 
     /**
@@ -636,7 +787,7 @@ export default class Core {
      * @returns {String} The route
      */
     getInstanceInfoRoute(machineName, versionKey, instanceKey) {
-        return getInstanceRoute(machineName, versionKey, instanceKey) + "/info.json";
+        return this.getInstanceRoute(machineName, versionKey, instanceKey) + "/info.json";
     }
 
     /**
@@ -648,7 +799,7 @@ export default class Core {
      * @returns {Object} The info Object
      */
     getInstanceInfo(machineName, versionKey, instanceKey) {
-        let route = getInstanceInfoRoute(machineName, versionKey, instanceKey);
+        let route = this.getInstanceInfoRoute(machineName, versionKey, instanceKey);
         return jsonfile.readFileSync(this.repositoryPath + "/" + route);
     }
 
@@ -665,7 +816,7 @@ export default class Core {
      */
     async setInstanceInfo(machineName, versionKey, instanceKey, info, withCommit = false, message = null) {
 
-        let route = getInstanceInfoRoute(machineName, versionKey, instanceKey);
+        let route = this.getInstanceInfoRoute(machineName, versionKey, instanceKey);
         jsonfile.writeFileSync(this.repositoryPath + "/" + route, info, {spaces: 2});
 
         if(withCommit) {
