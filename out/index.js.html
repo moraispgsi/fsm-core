@@ -26,502 +26,1835 @@
     
     <section>
         <article>
-            <pre class="prettyprint source linenums"><code>
+            <pre class="prettyprint source linenums"><code>'use strict';
+
+function _interopDefault (ex) { return (ex &amp;&amp; (typeof ex === 'object') &amp;&amp; 'default' in ex) ? ex['default'] : ex; }
+
+var _Object$keys = _interopDefault(require('babel-runtime/core-js/object/keys'));
+var _Promise = _interopDefault(require('babel-runtime/core-js/promise'));
+var _getIterator = _interopDefault(require('babel-runtime/core-js/get-iterator'));
+var _regeneratorRuntime = _interopDefault(require('babel-runtime/regenerator'));
+var _asyncToGenerator = _interopDefault(require('babel-runtime/helpers/asyncToGenerator'));
+var _classCallCheck = _interopDefault(require('babel-runtime/helpers/classCallCheck'));
+var _createClass = _interopDefault(require('babel-runtime/helpers/createClass'));
+var nodegit = _interopDefault(require('nodegit'));
+var fs = _interopDefault(require('fs-extra'));
+var jsonfile = _interopDefault(require('jsonfile'));
+var rimraf = _interopDefault(require('rimraf'));
+var debugStart = _interopDefault(require('debug'));
+var validator = _interopDefault(require('xsd-schema-validator'));
+
+//  .d888
+// d88P'
+// 888
+// 888888.d8888b 88888b.d88b.        .d8888b .d88b. 888d888 .d88b.
+// 888   88K     888 '888 '88b      d88P'   d88''88b888P'  d8P  Y8b
+// 888   'Y8888b.888  888  888888888888     888  888888    88888888
+// 888        X88888  888  888      Y88b.   Y88..88P888    Y8b.
+// 888    88888P'888  888  888       'Y8888P 'Y88P' 888     'Y8888
+
+var debug = debugStart('core');
+
 /**
- * Created by Ricardo Morais on 25/02/2017.
- *
- * This module is the core for modeling Finite-state machines using SCXML. It is simply a database that can be used in
- * the versioning of SCXML Finite-state machine models. This module also validates the SCXML.
- **/
-
-//    ad88
-//   d8"
-//   88
-// MM88MMM  ,adPPYba,  88,dPYba,,adPYba,              ,adPPYba,   ,adPPYba,   8b,dPPYba,   ,adPPYba,
-//   88     I8[    ""  88P'   "88"    "8a  aaaaaaaa  a8"     ""  a8"     "8a  88P'   "Y8  a8P_____88
-//   88      `"Y8ba,   88      88      88  """"""""  8b          8b       d8  88          8PP"""""""
-//   88     aa    ]8I  88      88      88            "8a,   ,aa  "8a,   ,a8"  88          "8b,   ,aa
-//   88     `"YbbdP"'  88      88      88             `"Ybbd8"'   `"YbbdP"'   88           `"Ybbd8"'
-
- /**
- * Uses the sequelize library to connect to a database using the information given, a database library as to be
- * installed and its type should be sent as the dialect
- *
- * # One of the following libraries will suffice:
- * $ npm install --save pg pg-hstore
- * $ npm install --save mysql2
- * $ npm install --save sqlite3
- * $ npm install --save tedious // MSSQL
- *
- * The dialect should be one of the following
- * dialect: 'mysql'|'sqlite'|'postgres'|'mssql',
- *
- * @param dialect A string representing the database technology 'mysql'|'sqlite'|'postgres'|'mssql'
- * @param host The host of the database
- * @param user The user
- * @param password The user password
- * @param database The name of the database
- * @returns {Promise} Returns a promise that will return an object interface for this module
+ * The core
  */
-module.exports = function (dialect, host, user, password, database, config) {
+
+var Core = function () {
+    function Core() {
+        var repositoryPath = arguments.length > 0 &amp;&amp; arguments[0] !== undefined ? arguments[0] : __dirname + '/repo';
+        var name = arguments.length > 1 &amp;&amp; arguments[1] !== undefined ? arguments[1] : 'default';
+        var email = arguments.length > 2 &amp;&amp; arguments[2] !== undefined ? arguments[2] : 'None';
+
+        _classCallCheck(this, Core);
+
+        this.repositoryPath = repositoryPath;
+        this.machinesDirPath = repositoryPath + '/machines';
+        this.manifestPath = repositoryPath + '/manifest.json';
+        this.configPath = repositoryPath + '/config.json';
+        this.hasRemote = false;
+        this.name = name;
+        this.email = email;
+        debug('Using path %s', repositoryPath);
+    }
+
+    /**
+     * Initializes the repository connection
+     * @method init
+     * @returns {Promise} Repository connection
+     */
 
 
-    //Load dependencies
-    let co = require('co');                //For a easier promise handling experience
-    let Sequelize = require('sequelize');  //For a ORM for the database
-    let fs = require('fs');              //For file reading
-    let debug = require('debug')('core');
-    let validator = require('xsd-schema-validator');
+    _createClass(Core, [{
+        key: 'init',
+        value: function () {
+            var _ref = _asyncToGenerator(_regeneratorRuntime.mark(function _callee() {
+                var repo;
+                return _regeneratorRuntime.wrap(function _callee$(_context) {
+                    while (1) {
+                        switch (_context.prev = _context.next) {
+                            case 0:
+                                debug('Checking if there is a repository');
+                                repo = void 0;
+                                _context.prev = 2;
+                                _context.next = 5;
+                                return nodegit.Repository.open(this.repositoryPath);
 
+                            case 5:
+                                repo = _context.sent;
+                                _context.next = 14;
+                                break;
 
-    debug("starting core");
+                            case 8:
+                                _context.prev = 8;
+                                _context.t0 = _context['catch'](2);
 
-    return co(function*() {
+                                debug('Repository not found.');
+                                _context.next = 13;
+                                return this._createRepository();
 
-        config = config || {};
-        config.host = host;
-        config.dialect = dialect;
-        config.pool = {
-            max: 5,
-            min: 0,
-            idle: 10000
-        };
+                            case 13:
+                                repo = _context.sent;
 
-        //Setup sequelize with the database parameters received
-        let sequelize = new Sequelize(database, user, password, config);
-        let tablePrefix = 'FSMCore';  //The prefix of every table in the database
-        let meta = {};                //The module is stored in this object
-        meta.sequelize = sequelize;   //Store an initialized sequelize.js instance
-        meta.moduleName = 'fsm-core'; //The name of the module
-        meta.model = {};              //Stores the model definitions
+                            case 14:
 
-        debug("starting database model definition");
-        /**
-         * This table holds the finite-state machines declarations, each row represent a finite-state machine
-         * @type {Object}
-         */
-        meta.model.fsm = sequelize.define(tablePrefix + 'Fsm', {
-            name: {type: Sequelize.STRING, allowNull: false, unique: true},
-        }, {
-            freezeTableName: true,
-            underscoredAll: false
-        });
+                                debug('Repository is ready');
+                                return _context.abrupt('return', repo);
 
-        /**
-         * This table holds the finite-state machines version, each row represent a version of a
-         * finite-state machine model
-         * @type {Object}
-         */
-        meta.model.version = sequelize.define(tablePrefix + 'Version', {
-            isSealed: {type: Sequelize.BOOLEAN, allowNull: false, defaultValue: false},
-            scxml: {type: Sequelize.TEXT, allowNull: true}
-        }, {
-            freezeTableName: true,
-            underscoredAll: false
-        });
-
-        debug("creating operations");
-        /**
-         * Verifies if a version is sealed
-         * @param versionID the version ID
-         * @method isVersionSealed
-         * @returns {Promise} Returns a promise to return a boolean value
-         */
-        meta.isVersionSealed = function (versionID) {
-            return co(function*(){
-                let version = yield meta.model.version.findById(versionID);
-                if (!version) {
-                    throw new Error('version not found');
-                }
-                return version.dataValues.isSealed;
-            });
-        };
-
-
-
-        /**
-         * Gets all the finite-state machines
-         * @method getAllFsms
-         * @returns {Promise} A promise to return an array with all the finite-state machines
-         */
-        meta.getAllFsms = function () {
-            return co(function*(){
-                let fsms= yield meta.model.fsm.findAll();
-                if (fsms) {
-                    fsms = fsms.map((fsm)=> {
-                        return fsm.dataValues
-                    });
-                }
-                return fsms ? fsms : [];
-            });
-        };
-
-        /**
-         * Gets a finite-state machine by its name
-         * @param name the name of the finite-state machine
-         * @method getFsmByName
-         * @returns {Promise} Returns a promise to return the finite-state machine
-         */
-        meta.getFsmByName = function (name) {
-            return co(function*(){
-                let fsm = yield meta.model.fsm.findOne({
-                    where: {
-                        name: name
+                            case 16:
+                            case 'end':
+                                return _context.stop();
+                        }
                     }
-                });
-                if (!fsm) {
-                    throw new Error('fsm not found');
-                }
-                return fsm.dataValues;
-            });
-        };
+                }, _callee, this, [[2, 8]]);
+            }));
+
+            function init() {
+                return _ref.apply(this, arguments);
+            }
+
+            return init;
+        }()
 
         /**
-         * Finds a finite-state machine by ID
-         * @param fsmID The ID of the finite-state machine
-         * @method getFsmById
-         * @returns {Promise} A promise to return the finite-state machine
+         * Initializes the repository connection using ssh password
+         * @method initRemoteGitPlaintext
+         * @param {String} cloneURL The URL of the remote repository
+         * @param user username to use to authenticate.
+         * @param password password to use to authenticate.
+         * @returns {Promise} Repository connection
          */
-        meta.getFsmById = function (fsmID) {
-            return co(function*(){
-                let fsm = yield meta.model.fsm.findById(fsmID);
-                if(!fsm) {
-                    debug("version not found");
-                    throw new Error("version not found");
-                }
-                return fsm.dataValues;
-            });
-        };
 
-        /**
-         * Get all the versions
-         * @method getAllVersions
-         * @returns {Promise} A promise to return an array with all the versions
-         */
-        meta.getAllVersions = function () {
-            return co(function*(){
-                let versions = yield meta.model.version.findAll();
-                if (versions) {
-                    versions = versions.map((version)=> {
-                        return version.dataValues
-                    });
-                }
-                return versions ? versions : [];
-            });
-        };
+    }, {
+        key: 'initRemoteGitPlaintext',
+        value: function () {
+            var _ref2 = _asyncToGenerator(_regeneratorRuntime.mark(function _callee2(cloneURL, user, password) {
+                var _this = this;
 
-        /**
-         * Finds a version by ID
-         * @param versionID The ID of the version
-         * @method getVersionById
-         * @returns {Promise} A promise to return the version
-         */
-        meta.getVersionById = function (versionID) {
-            return co(function*(){
-                let version = yield meta.model.version.findById(versionID);
-                if(!version) {
-                    debug("version not found");
-                    throw new Error("version not found");
-                }
-                return version.dataValues;
-            });
-        };
+                var cloneOptions, cloneRepository, errorAndAttemptOpen, repo;
+                return _regeneratorRuntime.wrap(function _callee2$(_context2) {
+                    while (1) {
+                        switch (_context2.prev = _context2.next) {
+                            case 0:
 
-        /**
-         * Returns the latest sealed finite-state machine version
-         * @param fsmID the id of the finite-state machine
-         * @method getLatestSealedFsmVersion
-         * @returns {Promise} Returns a promise to return the latest sealed version
-         */
-        meta.getLatestSealedFsmVersion = function (fsmID) {
-            return co(function*(){
-                let version = yield meta.model.version.findOne({
-                    where: {
-                        fsmID: fsmID,
-                        isSealed: true
-                    },
-                    order: [ [ 'createdAt', 'DESC' ] ]
-                });
-                if (!version) {
-                    debug("version not found");
-                    throw new Error('version not found');
-                }
-                return version.dataValues;
-            });
-        };
+                                // Simple object to store clone options.
+                                cloneOptions = {};
+                                // This is a required callback for OS X machines.  There is a known issue
+                                // with libgit2 being able to verify certificates from GitHub.
 
-        /**
-         * Returns the latest finite-state machine version
-         * @param fsmID the id of the finite-state machine
-         * @method getLatestFsmVersion
-         * @returns {Promise} Returns a promise to return the latest sealed version
-         */
-        meta.getLatestFsmVersion = function (fsmID) {
-            return co(function*(){
-                let version = yield meta.model.version.findOne({
-                    where: {
-                        fsmID: fsmID,
-                    },
-                    order: [ [ 'createdAt', 'DESC' ] ]
-                });
-                if (!version) {
-                    debug("version not found");
-                    throw new Error('version not found');
-                }
-                return version.dataValues;
-            });
-        };
+                                cloneOptions.fetchOpts = {
+                                    callbacks: {
+                                        certificateCheck: function certificateCheck() {
+                                            return 1;
+                                        },
+                                        credentials: function credentials() {
+                                            nodegit.Cred.userpassPlaintextNew(user, password);
+                                        }
+                                    }
+                                };
 
-        /**
-         * Gets all the versions of a finite-state machine
-         * @param fsmID the finite-state machine id
-         * @method getFsmVersions
-         * @returns {Array} an Array of versions
-         */
-        meta.getFsmVersions = function (fsmID) {
-            return co(function*(){
-                let versions = yield meta.model.version.findAll({
-                    where: {
-                        fsmID: fsmID
-                    },
-                });
-                if (!versions) {
-                    return [];
-                }
+                                // Invoke the clone operation and store the returned Promise.
+                                cloneRepository = nodegit.Clone(cloneURL, this.repositoryPath, cloneOptions);
 
-                versions = versions.map(function(version){
-                    return version.dataValues;
-                });
+                                // If the repository already exists, the clone above will fail.  You can simply
+                                // open the repository in this case to continue execution.
 
-                return versions;
-            });
-        };
+                                errorAndAttemptOpen = function errorAndAttemptOpen() {
+                                    return nodegit.Repository.open(_this.repositoryPath);
+                                };
 
-        /**
-         * Gets all the versions that are sealed of a finite-state machine
-         * @param fsmID the finite-state machine id
-         * @method getFsmSealedVersions
-         * @returns {Array} an Array of versions
-         */
-        meta.getFsmSealedVersions = function (fsmID) {
-            return co(function*(){
-                let versions = yield meta.model.version.findAll({
-                    where: {
-                        fsmID: fsmID,
-                        isSealed: true
-                    },
-                });
-                if (!versions) {
-                    return [];
-                }
+                                _context2.next = 6;
+                                return cloneRepository.catch(errorAndAttemptOpen);
 
-                versions = versions.map(function(version){
-                    return version.dataValues;
-                });
+                            case 6:
+                                repo = _context2.sent;
 
-                return versions;
-            });
-        };
+                                this.hasRemote = true;
+                                this.user = user;
+                                this.password = password;
 
-        /**
-         * Creates a new Finite-state machine model.
-         * @param name The name of the finite-state machine model
-         * @method createFSM
-         * @returns {Promise} A promise to create a finite-state machine model and return an object with
-         * a fsm property and a version property which is the first unsealed version
-         */
-        meta.createFSM = function (name) {
-            return sequelize.transaction(function (t) {
-                return co(function*() {
-                    let fsm = yield meta.model.fsm.create({name: name}, {transaction: t});
-                    let version = yield meta.model.version.create({fsmID: fsm.dataValues.id}, {transaction: t});
-                    return {fsm: fsm.dataValues, version: version.dataValues};
-                });
-            });
-        };
+                                //todo - Check the integrity of the repository
 
-        /**
-         * Removes a Finite-State machine model if there is only one version and that version is not sealed
-         * @param fsmID the Finite-State machine id
-         * @method removeFSM
-         * @returns {Promise} A promise to remove the Finite-State machine model
-         */
-        meta.removeFSM = function (fsmID) {
-            return co(function*() {
-                let fsm = yield meta.model.fsm.findById(fsmID);
-                if (!fsm) {
-                    debug("FSM not found");
-                    throw new Error('FSM not found');
-                }
-                let versions = yield meta.model.version.findAll({where: {fsmID: fsm.dataValues.id}});
-                if (versions.length > 1) {
-                    debug("FSM has more than one version");
-                    throw new Error('FSM has more than one version');
-                }
-                //Fms has at least one version therefor the array has one version
-                if (versions[0].dataValues.isSealed) {
-                    debug("fsm version is sealed");
-                    throw new Error('fsm version is sealed');
-                }
-                //Cascade deletion
-                yield fsm.destroy();
-            });
-        };
+                                debug('Repository is ready');
+                                return _context2.abrupt('return', repo);
 
-        /**
-         * Removes a Finite-State machine model version if the version is not sealed
-         * @param versionID The id of the Finite-State machine model version
-         * @method removeFSMModelVersion
-         * @returns {Promise} A promise to remove the Finite-State machine model version
-         */
-        meta.removeFSMModelVersion = function (versionID) {
-            return co(function*() {
-                let version = yield meta.model.version.findById(versionID);
-
-                if (!version) {
-                    debug("version not found");
-                    throw new Error('version not found');
-                }
-
-                if (version.dataValues.isSealed) {
-                    debug("fsm version is sealed");
-                    throw new Error('fsm version is sealed');
-                }
-
-                let fsm = meta.model.fsm.findOne({
-                    where: {
-                        id: version.dataValues.fsmID
+                            case 12:
+                            case 'end':
+                                return _context2.stop();
+                        }
                     }
-                });
-                //If the fsm has only one version, the fsm  must be removed
-                version.destroy();
-                let count = yield meta.model.version.count({where: {id: versionID}});
-                //There is only one version and the version is not sealed
-                if (count === 0) {
-                    fsm.destroy();
-                }
-            });
-        };
+                }, _callee2, this);
+            }));
+
+            function initRemoteGitPlaintext(_x4, _x5, _x6) {
+                return _ref2.apply(this, arguments);
+            }
+
+            return initRemoteGitPlaintext;
+        }()
 
         /**
-         * Sets the current scxml for a FSM model version
-         * @param versionID The id of the FSM model version
-         * @param scxml A string SCXML
-         * @method setScxml
-         * @returns {Promise} A Promise to set SCXML of the FSM model version
+         * Initializes the repository connection using ssh password
+         * @method initRemoteGitSSH
+         * @param {String} cloneURL The URL of the remote repository
+         * @param publicKey The public key of the credential.
+         * @param privateKey The private key of the credential.
+         * @param passphrase The passphrase of the credential.
+         * @returns {Promise} Repository connection
          */
-        meta.setScxml = function (versionID, scxml) {
-            return co(function*(){
-                let version = yield meta.model.version.findById(versionID);
-                let versionValues = version.dataValues;
 
-                if (versionValues.isSealed) {
-                    debug("Version is already sealed.");
-                    throw new Error("Version is already sealed.");
-                }
+    }, {
+        key: 'initRemoteGitSSH',
+        value: function () {
+            var _ref3 = _asyncToGenerator(_regeneratorRuntime.mark(function _callee4(cloneURL, publicKey, privateKey, passphrase) {
+                var _this2 = this;
 
-                yield meta.model.version.update({
-                    scxml: scxml,
-                }, {
-                    where: {id: versionID}
-                });
-            });
-        };
+                var cloneOptions, cloneRepository, errorAndAttemptOpen, repo;
+                return _regeneratorRuntime.wrap(function _callee4$(_context4) {
+                    while (1) {
+                        switch (_context4.prev = _context4.next) {
+                            case 0:
+
+                                debug('Initializing');
+                                // Simple object to store clone options.
+                                cloneOptions = {};
+                                // This is a required callback for OS X machines.  There is a known issue
+                                // with libgit2 being able to verify certificates from GitHub.
+
+                                cloneOptions = {
+                                    fetchOpts: {
+                                        callbacks: {
+                                            certificateCheck: function certificateCheck() {
+                                                return 1;
+                                            },
+                                            credentials: function credentials(url, userName) {
+                                                console.log(userName);
+                                                console.log(publicKey);
+                                                console.log(privateKey);
+                                                console.log(passphrase);
+                                                return nodegit.Cred.sshKeyNew(userName, publicKey, privateKey, passphrase);
+                                            }
+                                        }
+                                    }
+                                };
+
+                                debug('Cloning');
+                                // Invoke the clone operation and store the returned Promise.
+                                cloneRepository = nodegit.Clone(cloneURL, this.repositoryPath, cloneOptions);
+
+                                // If the repository already exists, the clone above will fail.  You can simply
+                                // open the repository in this case to continue execution.
+
+                                errorAndAttemptOpen = function () {
+                                    var _ref4 = _asyncToGenerator(_regeneratorRuntime.mark(function _callee3(err) {
+                                        var repository;
+                                        return _regeneratorRuntime.wrap(function _callee3$(_context3) {
+                                            while (1) {
+                                                switch (_context3.prev = _context3.next) {
+                                                    case 0:
+                                                        debug(err);
+                                                        debug('Checking if the repository was already cloned');
+                                                        _context3.next = 4;
+                                                        return nodegit.Repository.open(_this2.repositoryPath);
+
+                                                    case 4:
+                                                        repository = _context3.sent;
+                                                        _context3.next = 7;
+                                                        return repository.fetchAll(cloneOptions.fetchOpts);
+
+                                                    case 7:
+                                                        return _context3.abrupt('return', repository.mergeBranches('master', 'origin/master'));
+
+                                                    case 8:
+                                                    case 'end':
+                                                        return _context3.stop();
+                                                }
+                                            }
+                                        }, _callee3, _this2);
+                                    }));
+
+                                    return function errorAndAttemptOpen(_x11) {
+                                        return _ref4.apply(this, arguments);
+                                    };
+                                }();
+
+                                _context4.next = 8;
+                                return cloneRepository.catch(errorAndAttemptOpen);
+
+                            case 8:
+                                repo = _context4.sent;
+
+
+                                debug('Cloned successfully');
+
+                                this.hasRemote = true;
+                                this.hasRemoteSSH = true;
+                                this.publicKey = publicKey;
+                                this.privateKey = privateKey;
+                                this.passphrase = passphrase;
+                                //todo - Check the integrity of the repository
+
+                                debug('Repository is ready');
+                                return _context4.abrupt('return', repo);
+
+                            case 17:
+                            case 'end':
+                                return _context4.stop();
+                        }
+                    }
+                }, _callee4, this);
+            }));
+
+            function initRemoteGitSSH(_x7, _x8, _x9, _x10) {
+                return _ref3.apply(this, arguments);
+            }
+
+            return initRemoteGitSSH;
+        }()
 
         /**
-         * Seals a FSM model version if it is not already sealed and the scxml of the version is valid
-         * @param versionID The id of the FSM model version
-         * @method seal
-         * @returns {Promise} A Promise to seal the version and return the new version
+         * Recursively gather the paths of the files inside a directory path
+         * @method _getFiles
+         * @param {String} path The directory path to search
+         * @returns {Array} An Array of file paths belonging to the directory path provided
          */
-        meta.seal = function (versionID) {
-            return co(function*() {
 
-                let version = yield meta.model.version.findById(versionID);
-                let versionValues = version.dataValues;
-                if (versionValues.isSealed) {
-                    debug("Version is already sealed.");
-                    throw new Error("Version is already sealed.");
+    }, {
+        key: '_getFiles',
+        value: function _getFiles(path) {
+            var _this3 = this;
+
+            var files = [];
+            fs.readdirSync(path).forEach(function (file) {
+                var subpath = path + '/' + file;
+                if (fs.lstatSync(subpath).isDirectory()) {
+                    var filesReturned = _this3._getFiles(subpath);
+                    files = files.concat(filesReturned);
+                } else {
+                    files.push(path + '/' + file);
                 }
-
-                //Validate the SCXML
-                let isValid = yield meta.validateSCXML(versionValues.scxml);
-                if(!isValid){
-                    throw new Error("Version is not valid");
-                }
-
-                yield meta.model.version.update({
-                    isSealed: true,
-                }, {
-                    where: {id: versionID}
-                });
-
             });
-        };
+            return files;
+        }
 
         /**
-         * Creates a new version of a finite-state machine. The new version will reference the old one. The
-         * latest version must be sealed
-         * @param fsmID The id of the finite-state machine to create a new version of
-         * @method newVersion
-         * @returns {Promise} A Promise to create a new version of the FSM model return the version.
+         * Commit to the repository
+         * @method _commit
+         * @param {Repository} repo The repository connection object
+         * @param {Array} pathsToStage The array of file paths(relative to the repository) to be staged
+         * @param {String} message The message to go along with this commit
+         * @param {Array} pathsToUnstage The array of file paths(relative to the repository) to be un-staged
+         * @returns {Array} An Array of file paths belonging to the directory path provided
          */
-        meta.newVersion = function (fsmID) {
-            return co(function*(){
-                let version = yield meta.getLatestFsmVersion(fsmID);
-                let isVersionSealed = yield meta.isVersionSealed(version.id);
-                if(!isVersionSealed) {
-                    debug("The latest version must be sealed");
-                    throw new Error("The latest version must be sealed");
-                }
-                let newVersion = yield meta.model.version.create({
-                    fsmID: version.fsmID,
-                    parentVersionID: version.id,
-                    scxml:  version.scxml
-                });
-                return newVersion.dataValues;
-            });
-        };
+
+    }, {
+        key: '_commit',
+        value: function () {
+            var _ref5 = _asyncToGenerator(_regeneratorRuntime.mark(function _callee5(repo, pathsToStage) {
+                var _this4 = this;
+
+                var message = arguments.length > 2 &amp;&amp; arguments[2] !== undefined ? arguments[2] : null;
+                var pathsToUnstage = arguments.length > 3 &amp;&amp; arguments[3] !== undefined ? arguments[3] : [];
+
+                var index, _iteratorNormalCompletion, _didIteratorError, _iteratorError, _iterator, _step, file, signature, remote, _remote;
+
+                return _regeneratorRuntime.wrap(function _callee5$(_context5) {
+                    while (1) {
+                        switch (_context5.prev = _context5.next) {
+                            case 0:
+                                _context5.t0 = repo;
+
+                                if (_context5.t0) {
+                                    _context5.next = 5;
+                                    break;
+                                }
+
+                                _context5.next = 4;
+                                return nodegit.Repository.open(this.repositoryPath);
+
+                            case 4:
+                                _context5.t0 = _context5.sent;
+
+                            case 5:
+                                repo = _context5.t0;
+
+                                debug('Adding files to the index');
+                                _context5.next = 9;
+                                return repo.refreshIndex(this.repositoryPath + '/.git/index');
+
+                            case 9:
+                                index = _context5.sent;
+
+                                if (!(pathsToUnstage &amp;&amp; pathsToUnstage.length &amp;&amp; pathsToUnstage.length > 0)) {
+                                    _context5.next = 41;
+                                    break;
+                                }
+
+                                _iteratorNormalCompletion = true;
+                                _didIteratorError = false;
+                                _iteratorError = undefined;
+                                _context5.prev = 14;
+                                _iterator = _getIterator(pathsToUnstage);
+
+                            case 16:
+                                if (_iteratorNormalCompletion = (_step = _iterator.next()).done) {
+                                    _context5.next = 23;
+                                    break;
+                                }
+
+                                file = _step.value;
+                                _context5.next = 20;
+                                return index.removeByPath(file);
+
+                            case 20:
+                                _iteratorNormalCompletion = true;
+                                _context5.next = 16;
+                                break;
+
+                            case 23:
+                                _context5.next = 29;
+                                break;
+
+                            case 25:
+                                _context5.prev = 25;
+                                _context5.t1 = _context5['catch'](14);
+                                _didIteratorError = true;
+                                _iteratorError = _context5.t1;
+
+                            case 29:
+                                _context5.prev = 29;
+                                _context5.prev = 30;
+
+                                if (!_iteratorNormalCompletion &amp;&amp; _iterator.return) {
+                                    _iterator.return();
+                                }
+
+                            case 32:
+                                _context5.prev = 32;
+
+                                if (!_didIteratorError) {
+                                    _context5.next = 35;
+                                    break;
+                                }
+
+                                throw _iteratorError;
+
+                            case 35:
+                                return _context5.finish(32);
+
+                            case 36:
+                                return _context5.finish(29);
+
+                            case 37:
+                                _context5.next = 39;
+                                return index.write();
+
+                            case 39:
+                                _context5.next = 41;
+                                return index.writeTree();
+
+                            case 41:
+
+                                debug('Creating main files');
+                                signature = nodegit.Signature.now(this.name, this.email);
+
+
+                                debug('Commiting');
+
+                                _context5.next = 46;
+                                return repo.createCommitOnHead(pathsToStage, signature, signature, message || 'Automatic initialization');
+
+                            case 46:
+
+                                debug('Pushing');
+                                console.log(this.hasRemoteSSH);
+
+                                if (!this.hasRemote) {
+                                    _context5.next = 64;
+                                    break;
+                                }
+
+                                if (!this.hasRemoteSSH) {
+                                    _context5.next = 58;
+                                    break;
+                                }
+
+                                _context5.next = 52;
+                                return repo.getRemote('origin');
+
+                            case 52:
+                                remote = _context5.sent;
+
+                                //
+                                remote.connect(nodegit.Enums.DIRECTION.PUSH);
+
+                                _context5.next = 56;
+                                return remote.push(['refs/heads/master:refs/heads/master'], {
+                                    callbacks: {
+                                        certificateCheck: function certificateCheck() {
+                                            return 1;
+                                        },
+                                        credentials: function credentials(url, userName) {
+                                            return nodegit.Cred.sshKeyNew(userName, _this4.publicKey, _this4.privateKey, _this4.passphrase);
+                                        }
+                                    }
+                                });
+
+                            case 56:
+                                _context5.next = 63;
+                                break;
+
+                            case 58:
+                                _context5.next = 60;
+                                return repo.getRemote('origin');
+
+                            case 60:
+                                _remote = _context5.sent;
+                                _context5.next = 63;
+                                return _remote.push(['refs/heads/master:refs/heads/master'], {
+                                    callbacks: {
+                                        certificateCheck: function certificateCheck() {
+                                            return 1;
+                                        },
+                                        credentials: function credentials(url, userName) {
+                                            return NodeGit.Cred.userpassPlaintextNew(_this4.user, _this4.password);
+                                        }
+                                    }
+                                });
+
+                            case 63:
+
+                                debug('Changes were pushed');
+
+                            case 64:
+                            case 'end':
+                                return _context5.stop();
+                        }
+                    }
+                }, _callee5, this, [[14, 25, 29, 37], [30,, 32, 36]]);
+            }));
+
+            function _commit(_x12, _x13) {
+                return _ref5.apply(this, arguments);
+            }
+
+            return _commit;
+        }()
 
         /**
-         * Validates a SCXML string
-         * The validation is done using the xmllint npm library
-         * https://github.com/kripken/xml.js/issues/8
-         * @method validateSCXML
-         * @param {String} scxml A string with the SCXML document to validate
+         * Create a new repository
+         * @method _createRepository
+         * @returns {Promise} Repository connection
          */
-        meta.validateSCXML = function(scxml){
-            return new Promise(function(resolve, reject) {
-                if(scxml === "") {
-                    reject("scxml is empty");
+
+    }, {
+        key: '_createRepository',
+        value: function () {
+            var _ref6 = _asyncToGenerator(_regeneratorRuntime.mark(function _callee6() {
+                var _this5 = this;
+
+                var repo;
+                return _regeneratorRuntime.wrap(function _callee6$(_context6) {
+                    while (1) {
+                        switch (_context6.prev = _context6.next) {
+                            case 0:
+                                _context6.prev = 0;
+
+                                debug('Creating a new one');
+                                _context6.next = 4;
+                                return nodegit.Repository.init(this.repositoryPath, 0);
+
+                            case 4:
+                                repo = _context6.sent;
+
+                                debug('Connection established');
+                                debug('Creating main files');
+                                _context6.next = 9;
+                                return this._createManifest();
+
+                            case 9:
+                                _context6.next = 11;
+                                return this._createConfig();
+
+                            case 11:
+                                fs.mkdirSync(this.machinesDirPath);
+                                _context6.next = 14;
+                                return this._commit(repo, ['manifest.json', 'config.json']);
+
+                            case 14:
+                                debug('Repository was successfully created');
+                                return _context6.abrupt('return', repo);
+
+                            case 18:
+                                _context6.prev = 18;
+                                _context6.t0 = _context6['catch'](0);
+
+                                debug(_context6.t0);
+                                debug('Nuking the repository');
+                                _context6.next = 24;
+                                return new _Promise(function (resolve, reject) {
+                                    rimraf(_this5.repositoryPath, function () {
+                                        resolve();
+                                    });
+                                }).then();
+
+                            case 24:
+                                throw new Error(_context6.t0);
+
+                            case 25:
+                            case 'end':
+                                return _context6.stop();
+                        }
+                    }
+                }, _callee6, this, [[0, 18]]);
+            }));
+
+            function _createRepository() {
+                return _ref6.apply(this, arguments);
+            }
+
+            return _createRepository;
+        }()
+
+        /**
+         * Create the manifest file inside the repository
+         * @method _createManifest
+         * @returns {Promise}
+         */
+
+    }, {
+        key: '_createManifest',
+        value: function _createManifest() {
+            var file = this.repositoryPath + '/manifest.json';
+            var manifest = {
+                machines: {}
+            };
+
+            return new _Promise(function (resolve, reject) {
+                debug('Creating manifest file');
+                jsonfile.writeFile(file, manifest, function (err) {
+                    if (err) {
+                        debug('Failed to create the manifest file');
+                        reject(err);
+                        return;
+                    }
+                    resolve();
+                });
+            });
+        }
+
+        /**
+         * Create the config file inside the repository
+         * @method _createManifest
+         * @returns {Promise}
+         */
+
+    }, {
+        key: '_createConfig',
+        value: function _createConfig() {
+            var file = this.repositoryPath + '/config.json';
+            var config = {
+                simulation: false
+            };
+            return new _Promise(function (resolve, reject) {
+                jsonfile.writeFile(file, config, function (err) {
+                    if (err) {
+                        reject(err);
+                        return;
+                    }
+                    resolve();
+                });
+            });
+        }
+
+        /**
+         * Retrieve the repository path
+         * @method getRepositoryPath
+         * @returns {String} The path to the repository
+         */
+
+    }, {
+        key: 'getRepositoryPath',
+        value: function getRepositoryPath() {
+            return this.repositoryPath;
+        }
+
+        /**
+         * Retrieve the repository manifest.json file as a JavasScript Object
+         * @method getManifest
+         * @returns {Object} The manifest Object
+         */
+
+    }, {
+        key: 'getManifest',
+        value: function getManifest() {
+            return jsonfile.readFileSync(this.manifestPath);
+        }
+
+        /**
+         * Update the repository manifest.json file using a JavasScript Object
+         * @method setManifest
+         * @param {Object} manifest The manifest Object to save
+         * @param {boolean} withCommit If true commits the changes to the repository
+         * @param {String} message If supplied it is used as the message for the commit
+         * @returns {Promise} If withCommit is true, the function returns a Promise
+         */
+
+    }, {
+        key: 'setManifest',
+        value: function () {
+            var _ref7 = _asyncToGenerator(_regeneratorRuntime.mark(function _callee7(manifest) {
+                var withCommit = arguments.length > 1 &amp;&amp; arguments[1] !== undefined ? arguments[1] : false;
+                var message = arguments.length > 2 &amp;&amp; arguments[2] !== undefined ? arguments[2] : null;
+                return _regeneratorRuntime.wrap(function _callee7$(_context7) {
+                    while (1) {
+                        switch (_context7.prev = _context7.next) {
+                            case 0:
+                                jsonfile.writeFileSync(this.manifestPath, manifest, { spaces: 2 });
+
+                                if (!withCommit) {
+                                    _context7.next = 5;
+                                    break;
+                                }
+
+                                _context7.next = 4;
+                                return this._commit(null, ['manifest.json'], message || 'Changed the manifest file');
+
+                            case 4:
+                                return _context7.abrupt('return', _context7.sent);
+
+                            case 5:
+                            case 'end':
+                                return _context7.stop();
+                        }
+                    }
+                }, _callee7, this);
+            }));
+
+            function setManifest(_x16) {
+                return _ref7.apply(this, arguments);
+            }
+
+            return setManifest;
+        }()
+
+        /**
+         * Retrieve the repository config.json file as a JavasScript Object
+         * @method getConfig
+         * @returns {Object} The config Object
+         */
+
+    }, {
+        key: 'getConfig',
+        value: function getConfig() {
+            return jsonfile.readFileSync(this.configPath);
+        }
+
+        /**
+         * Update the repository config.json file using a JavasScript Object
+         * @method setConfig
+         * @param {Object} config The config Object to save
+         * @param {boolean} withCommit If true commits the changes to the repository
+         * @param {String} message If supplied it is used as the message for the commit
+         * @returns {Promise} If withCommit is true, the function returns a Promise
+         */
+
+    }, {
+        key: 'setConfig',
+        value: function () {
+            var _ref8 = _asyncToGenerator(_regeneratorRuntime.mark(function _callee8(config) {
+                var withCommit = arguments.length > 1 &amp;&amp; arguments[1] !== undefined ? arguments[1] : false;
+                var message = arguments.length > 2 &amp;&amp; arguments[2] !== undefined ? arguments[2] : null;
+                return _regeneratorRuntime.wrap(function _callee8$(_context8) {
+                    while (1) {
+                        switch (_context8.prev = _context8.next) {
+                            case 0:
+                                jsonfile.writeFileSync(this.configPath, config, { spaces: 2 });
+
+                                if (!withCommit) {
+                                    _context8.next = 5;
+                                    break;
+                                }
+
+                                _context8.next = 4;
+                                return this._commit(null, ['config.json'], message || 'Changed the config file');
+
+                            case 4:
+                                return _context8.abrupt('return', _context8.sent);
+
+                            case 5:
+                            case 'end':
+                                return _context8.stop();
+                        }
+                    }
+                }, _callee8, this);
+            }));
+
+            function setConfig(_x19) {
+                return _ref8.apply(this, arguments);
+            }
+
+            return setConfig;
+        }()
+
+        /**
+         * Get the names of all of the machines in the repository
+         * @method getMachinesNames
+         * @returns {Array} An array with all the machine's names
+         */
+
+    }, {
+        key: 'getMachinesNames',
+        value: function getMachinesNames() {
+            var manifest = this.getManifest();
+            return _Object$keys(manifest.machines);
+        }
+
+        /**
+         * Add a new machine to the repository
+         * @method addMachine
+         * @param {String} name The name of the new machine
+         * @returns {Promise}
+         */
+
+    }, {
+        key: 'addMachine',
+        value: function () {
+            var _ref9 = _asyncToGenerator(_regeneratorRuntime.mark(function _callee9(name) {
+                var manifest, machineDirPath, machineVersionsDirPath, version1DirPath, version1InstancesDirPath, modelFile, infoFile, infoVersion1;
+                return _regeneratorRuntime.wrap(function _callee9$(_context9) {
+                    while (1) {
+                        switch (_context9.prev = _context9.next) {
+                            case 0:
+                                debug('Adding a new machine with the name "%s"', name);
+                                manifest = this.getManifest();
+
+                                if (!manifest.machines[name]) {
+                                    _context9.next = 5;
+                                    break;
+                                }
+
+                                debug('Machine already exists');
+                                throw new Error('Machine already exists');
+
+                            case 5:
+
+                                manifest.machines[name] = {
+                                    route: 'machines/' + name,
+                                    'versions': {
+                                        'version1': {
+                                            'route': 'machines/' + name + '/versions/version1',
+                                            'instances': {}
+                                        }
+                                    }
+                                };
+
+                                machineDirPath = 'machines/' + name;
+                                machineVersionsDirPath = machineDirPath + '/versions';
+                                version1DirPath = machineVersionsDirPath + '/version1';
+                                version1InstancesDirPath = version1DirPath + '/instances';
+                                modelFile = version1DirPath + '/model.scxml';
+                                infoFile = version1DirPath + '/info.json';
+
+
+                                debug('Creating the directories');
+                                fs.mkdirSync(this.repositoryPath + '/' + machineDirPath);
+                                fs.mkdirSync(this.repositoryPath + '/' + machineVersionsDirPath);
+                                fs.mkdirSync(this.repositoryPath + '/' + version1DirPath);
+                                fs.mkdirSync(this.repositoryPath + '/' + version1InstancesDirPath);
+
+                                debug('Creating the base.scxml file');
+                                fs.copySync(__dirname + '/base.scxml', this.repositoryPath + '/' + modelFile);
+
+                                debug('Creating the version info.json file');
+                                infoVersion1 = { 'isSealed': false };
+
+                                jsonfile.writeFileSync(this.repositoryPath + '/' + infoFile, infoVersion1);
+
+                                debug('Setting the manifest');
+                                _context9.next = 25;
+                                return this.setManifest(manifest);
+
+                            case 25:
+                                _context9.next = 27;
+                                return this._commit(null, ['manifest.json', modelFile, infoFile], 'Added "' + name + '" machine');
+
+                            case 27:
+                                debug('A new machine with the name "%s" was successfully added', name);
+
+                            case 28:
+                            case 'end':
+                                return _context9.stop();
+                        }
+                    }
+                }, _callee9, this);
+            }));
+
+            function addMachine(_x22) {
+                return _ref9.apply(this, arguments);
+            }
+
+            return addMachine;
+        }()
+
+        /**
+         * Remove a machine from the repository
+         * @method removeMachine
+         * @param {String} name The name of the machine
+         * @returns {Promise}
+         */
+
+    }, {
+        key: 'removeMachine',
+        value: function () {
+            var _ref10 = _asyncToGenerator(_regeneratorRuntime.mark(function _callee10(name) {
+                var _this6 = this;
+
+                var manifest, machinePath, removedFileNames;
+                return _regeneratorRuntime.wrap(function _callee10$(_context10) {
+                    while (1) {
+                        switch (_context10.prev = _context10.next) {
+                            case 0:
+                                debug('Removing the machine');
+                                manifest = this.getManifest();
+
+                                if (manifest.machines[name]) {
+                                    _context10.next = 5;
+                                    break;
+                                }
+
+                                debug('Machine doesn\'t exists');
+                                return _context10.abrupt('return');
+
+                            case 5:
+                                machinePath = this.machinesDirPath + '/' + name;
+                                removedFileNames = this._getFiles(machinePath).map(function (f) {
+                                    return f.substring(_this6.repositoryPath.length + 1);
+                                });
+
+
+                                delete manifest.machines[name];
+                                _context10.next = 10;
+                                return new _Promise(function (resolve, reject) {
+                                    rimraf(_this6.machinesDirPath + '/' + name, function () {
+                                        resolve();
+                                    });
+                                }).then();
+
+                            case 10:
+
+                                debug('Setting the manifest');
+                                _context10.next = 13;
+                                return this.setManifest(manifest);
+
+                            case 13:
+                                _context10.next = 15;
+                                return this._commit(null, ['manifest.json'], 'Removed "' + name + '"  machine.', removedFileNames);
+
+                            case 15:
+                                return _context10.abrupt('return', _Object$keys(manifest.machines));
+
+                            case 16:
+                            case 'end':
+                                return _context10.stop();
+                        }
+                    }
+                }, _callee10, this);
+            }));
+
+            function removeMachine(_x23) {
+                return _ref10.apply(this, arguments);
+            }
+
+            return removeMachine;
+        }()
+
+        /**
+         * Get the keys of all of the versions of machine in the repository
+         * @method getVersionsKeys
+         * @param {String} machineName The name of the machine to get the version's keys
+         * @returns {Array} An array with all the version's keys of the machine
+         */
+
+    }, {
+        key: 'getVersionsKeys',
+        value: function getVersionsKeys(machineName) {
+            var manifest = this.getManifest();
+            if (!manifest.machines[machineName]) {
+                throw new Error('Machine does not exists');
+            }
+            return _Object$keys(manifest.machines[machineName].versions);
+        }
+
+        /**
+         * Retrieve the version directory path
+         * @method getVersionRoute
+         * @param {String} machineName The name of the machine
+         * @param {String} versionKey The key of the version
+         * @returns {String} The route
+         */
+
+    }, {
+        key: 'getVersionRoute',
+        value: function getVersionRoute(machineName, versionKey) {
+            var manifest = this.getManifest();
+
+            if (!manifest.machines[machineName]) {
+                throw new Error('Machine does not exists');
+            }
+
+            if (!manifest.machines[machineName].versions[versionKey]) {
+                throw new Error('Version does not exists');
+            }
+
+            return manifest.machines[machineName].versions[versionKey].route;
+        }
+
+        /**
+         * Retrieve the version's info.json file path
+         * @method getVersionInfoRoute
+         * @param {String} machineName The name of the machine
+         * @param {String} versionKey The key of the version
+         * @returns {String} The route
+         */
+
+    }, {
+        key: 'getVersionInfoRoute',
+        value: function getVersionInfoRoute(machineName, versionKey) {
+            return this.getVersionRoute(machineName, versionKey) + '/info.json';
+        }
+
+        /**
+         * Retrieve the version's model.scxml file path
+         * @method getVersionModelRoute
+         * @param {String} machineName The name of the machine
+         * @param {String} versionKey The key of the version
+         * @returns {String} The route
+         */
+
+    }, {
+        key: 'getVersionModelRoute',
+        value: function getVersionModelRoute(machineName, versionKey) {
+            return this.getVersionRoute(machineName, versionKey) + '/model.scxml';
+        }
+
+        /**
+         * Retrieve the version info.json file as a JavasScript Object
+         * @method getVersionInfo
+         * @param {String} machineName The name of the machine
+         * @param {String} versionKey The key of the version
+         * @returns {Object} The info Object
+         */
+
+    }, {
+        key: 'getVersionInfo',
+        value: function getVersionInfo(machineName, versionKey) {
+            var route = this.getVersionInfoRoute(machineName, versionKey);
+            return jsonfile.readFileSync(this.repositoryPath + '/' + route);
+        }
+
+        /**
+         * Update the version info.json file using a JavasScript Object
+         * @method setVersionInfo
+         * @param {String} machineName The name of the machine
+         * @param {String} versionKey The key of the version
+         * @param {Object} info The info Object to save
+         * @param {boolean} withCommit If true commits the changes to the repository
+         * @param {String} message If supplied it is used as the message for the commit
+         * @returns {Promise} If withCommit is true, the function returns a Promise
+         */
+
+    }, {
+        key: 'setVersionInfo',
+        value: function () {
+            var _ref11 = _asyncToGenerator(_regeneratorRuntime.mark(function _callee11(machineName, versionKey, info) {
+                var withCommit = arguments.length > 3 &amp;&amp; arguments[3] !== undefined ? arguments[3] : false;
+                var message = arguments.length > 4 &amp;&amp; arguments[4] !== undefined ? arguments[4] : null;
+                var route, previousInfo;
+                return _regeneratorRuntime.wrap(function _callee11$(_context11) {
+                    while (1) {
+                        switch (_context11.prev = _context11.next) {
+                            case 0:
+                                route = this.getVersionInfoRoute(machineName, versionKey);
+                                previousInfo = jsonfile.readFileSync(this.repositoryPath + '/' + route);
+
+                                if (!previousInfo.isSealed) {
+                                    _context11.next = 4;
+                                    break;
+                                }
+
+                                throw new Error('Cannot change the version SCXML because the version is sealed.');
+
+                            case 4:
+
+                                jsonfile.writeFileSync(this.repositoryPath + '/' + route, info, { spaces: 2 });
+
+                                if (!withCommit) {
+                                    _context11.next = 9;
+                                    break;
+                                }
+
+                                _context11.next = 8;
+                                return this._commit(null, [route], message || 'Changed the info for the ' + versionKey + ' of the "' + machineName + '" machine');
+
+                            case 8:
+                                return _context11.abrupt('return', _context11.sent);
+
+                            case 9:
+                            case 'end':
+                                return _context11.stop();
+                        }
+                    }
+                }, _callee11, this);
+            }));
+
+            function setVersionInfo(_x24, _x25, _x26) {
+                return _ref11.apply(this, arguments);
+            }
+
+            return setVersionInfo;
+        }()
+
+        /**
+         * Add a new version to a machine
+         * @method addVersion
+         * @param {String} machineName The name of the machine
+         * @returns {Promise} The version key
+         */
+
+    }, {
+        key: 'addVersion',
+        value: function () {
+            var _ref12 = _asyncToGenerator(_regeneratorRuntime.mark(function _callee12(machineName) {
+                var manifest, versions, versionKeys, lastVersionKey, lastVersion, lastVersionInfoFile, lastVersionInfo, lastVersionModelFile, newVersionKey, versionDirPath, versionInstancesDirPath, modelFile, infoFile, infoVersion;
+                return _regeneratorRuntime.wrap(function _callee12$(_context12) {
+                    while (1) {
+                        switch (_context12.prev = _context12.next) {
+                            case 0:
+
+                                debug('Adding a new version to the "' + machineName + '" machine');
+                                manifest = this.getManifest();
+
+                                if (manifest.machines[machineName]) {
+                                    _context12.next = 4;
+                                    break;
+                                }
+
+                                throw new Error('Machine does not exists');
+
+                            case 4:
+                                versions = manifest.machines[machineName].versions;
+                                versionKeys = _Object$keys(versions);
+                                lastVersionKey = versionKeys[versionKeys.length - 1];
+                                lastVersion = versions[lastVersionKey];
+                                lastVersionInfoFile = lastVersion.route + '/info.json';
+                                lastVersionInfo = jsonfile.readFileSync(this.repositoryPath + '/' + lastVersionInfoFile);
+                                lastVersionModelFile = lastVersion.route + '/model.scxml';
+
+                                if (lastVersionInfo.isSealed) {
+                                    _context12.next = 13;
+                                    break;
+                                }
+
+                                throw new Error('The last versions is not sealed yet');
+
+                            case 13:
+                                newVersionKey = 'version' + (versionKeys.length + 1);
+                                versionDirPath = manifest.machines[machineName].route + '/versions/' + newVersionKey;
+
+                                manifest.machines[machineName].versions[newVersionKey] = {
+                                    'route': versionDirPath,
+                                    'instances': {}
+                                };
+
+                                versionInstancesDirPath = versionDirPath + '/instances';
+                                modelFile = versionDirPath + '/model.scxml';
+                                infoFile = versionDirPath + '/info.json';
+
+
+                                debug('Creating the directories');
+                                fs.mkdirSync(this.repositoryPath + '/' + versionDirPath);
+                                fs.mkdirSync(this.repositoryPath + '/' + versionInstancesDirPath);
+
+                                debug('Copying the previous version\'s model.scxml');
+                                fs.copySync(this.repositoryPath + '/' + lastVersionModelFile, this.repositoryPath + '/' + modelFile);
+
+                                debug('Creating the version info.json file');
+                                infoVersion = { 'isSealed': false };
+
+                                jsonfile.writeFileSync(this.repositoryPath + '/' + infoFile, infoVersion);
+
+                                debug('Setting the manifest');
+                                _context12.next = 30;
+                                return this.setManifest(manifest);
+
+                            case 30:
+                                _context12.next = 32;
+                                return this._commit(null, ['manifest.json', modelFile, infoFile], 'Created the ' + newVersionKey + ' for the "' + machineName + '" machine');
+
+                            case 32:
+                                return _context12.abrupt('return', newVersionKey);
+
+                            case 33:
+                            case 'end':
+                                return _context12.stop();
+                        }
+                    }
+                }, _callee12, this);
+            }));
+
+            function addVersion(_x29) {
+                return _ref12.apply(this, arguments);
+            }
+
+            return addVersion;
+        }()
+
+        /**
+         * Seal a version of a machine
+         * @method addMachine
+         * @param {String} machineName The name of the machine
+         * @param {String} versionKey The key of the version
+         * @returns {Promise}
+         */
+
+    }, {
+        key: 'sealVersion',
+        value: function () {
+            var _ref13 = _asyncToGenerator(_regeneratorRuntime.mark(function _callee13(machineName, versionKey) {
+                var info, manifest, model, isValid;
+                return _regeneratorRuntime.wrap(function _callee13$(_context13) {
+                    while (1) {
+                        switch (_context13.prev = _context13.next) {
+                            case 0:
+                                debug('Attempting to seal the version "%s" of the machine "%s"', versionKey, machineName);
+                                _context13.next = 3;
+                                return this.getVersionInfo(machineName, versionKey);
+
+                            case 3:
+                                info = _context13.sent;
+
+                                if (!info.isSealed) {
+                                    _context13.next = 6;
+                                    break;
+                                }
+
+                                throw new Error('Version it already sealed');
+
+                            case 6:
+
+                                debug('Getting manifest');
+                                manifest = this.getManifest();
+                                model = this.getVersionSCXML(machineName, versionKey);
+                                _context13.next = 11;
+                                return this.isSCXMLValid(model);
+
+                            case 11:
+                                isValid = _context13.sent;
+
+                                if (isValid) {
+                                    _context13.next = 14;
+                                    break;
+                                }
+
+                                throw new Error('The model is not valid.');
+
+                            case 14:
+
+                                info.isSealed = true;
+                                _context13.next = 17;
+                                return this.setVersionInfo(machineName, versionKey, info);
+
+                            case 17:
+                                debug('The version "%s" of the machine "%s" was sealed successfully', versionKey, machineName);
+
+                            case 18:
+                            case 'end':
+                                return _context13.stop();
+                        }
+                    }
+                }, _callee13, this);
+            }));
+
+            function sealVersion(_x30, _x31) {
+                return _ref13.apply(this, arguments);
+            }
+
+            return sealVersion;
+        }()
+
+        /**
+         * Retrieve the version model.scxml file as a String
+         * @method getVersionSCXML
+         * @param {String} machineName The name of the machine
+         * @param {String} versionKey The key of the version
+         * @returns {String} The model
+         */
+
+    }, {
+        key: 'getVersionSCXML',
+        value: function getVersionSCXML(machineName, versionKey) {
+            var route = this.getVersionModelRoute(machineName, versionKey);
+            return fs.readFileSync(this.repositoryPath + '/' + route).toString('utf8');
+        }
+
+        /**
+         * Update the version model.scxml file using a String
+         * @method setVersionSCXML
+         * @param {String} model The model
+         * @param {String} machineName The name of the machine
+         * @param {String} versionKey The key of the version
+         * @param {boolean} withCommit If true commits the changes to the repository
+         * @param {String} message If supplied it is used as the message for the commit
+         * @returns {Promise} If withCommit is true, the function returns a Promise
+         */
+
+    }, {
+        key: 'setVersionSCXML',
+        value: function () {
+            var _ref14 = _asyncToGenerator(_regeneratorRuntime.mark(function _callee14(machineName, versionKey, model) {
+                var withCommit = arguments.length > 3 &amp;&amp; arguments[3] !== undefined ? arguments[3] : false;
+                var message = arguments.length > 4 &amp;&amp; arguments[4] !== undefined ? arguments[4] : null;
+                var route, previousInfo, modelRoute;
+                return _regeneratorRuntime.wrap(function _callee14$(_context14) {
+                    while (1) {
+                        switch (_context14.prev = _context14.next) {
+                            case 0:
+                                route = this.getVersionInfoRoute(machineName, versionKey);
+                                previousInfo = jsonfile.readFileSync(this.repositoryPath + '/' + route);
+
+                                if (!previousInfo.isSealed) {
+                                    _context14.next = 4;
+                                    break;
+                                }
+
+                                throw new Error('Cannot change the version SCXML because the version is sealed.');
+
+                            case 4:
+                                modelRoute = this.getVersionModelRoute(machineName, versionKey);
+
+                                fs.writeFileSync(this.repositoryPath + '/' + modelRoute, model);
+
+                                if (!withCommit) {
+                                    _context14.next = 10;
+                                    break;
+                                }
+
+                                _context14.next = 9;
+                                return this._commit(null, [modelRoute], message || 'Changed the model.scxml for the ' + versionKey + ' of the "' + machineName + '" machine');
+
+                            case 9:
+                                return _context14.abrupt('return', _context14.sent);
+
+                            case 10:
+                            case 'end':
+                                return _context14.stop();
+                        }
+                    }
+                }, _callee14, this);
+            }));
+
+            function setVersionSCXML(_x32, _x33, _x34) {
+                return _ref14.apply(this, arguments);
+            }
+
+            return setVersionSCXML;
+        }()
+
+        /**
+         * Validates SCXML markup as a string
+         * @method isSCXMLValid
+         * @param {String} model A string with the SCXML document to validate
+         * @returns {Promise} True if the SCXML is valid false otherwise
+         */
+
+    }, {
+        key: 'isSCXMLValid',
+        value: function isSCXMLValid(model) {
+            return new _Promise(function (resolve, reject) {
+                if (model === '') {
+                    reject('Model is empty');
                     return;
                 }
-                validator.validateXML(scxml, __dirname + '/xmlSchemas/scxml.xsd', function(err, result) {
+
+                validator.validateXML(model, __dirname + '/xmlSchemas/scxml.xsd', function (err, result) {
                     if (err) {
                         reject(err);
                         return;
                     }
                     resolve(result.valid);
-                })
+                });
             });
-        };
+        }
 
-        debug("creating relationships");
-        //Creating the table relationships
-        meta.model.version.belongsTo(meta.model.fsm, {foreignKey: 'fsmID', constraints: false, onDelete: 'CASCADE'});
-        meta.model.version.belongsTo(meta.model.version, {
-            foreignKey: 'parentVersionID',
-            constraints: false,
-            onDelete: 'CASCADE'
-        });
+        /**
+         * Gets the keys of all of the instances of a version of the machine in the repository
+         * @method getInstancesKeys
+         * @param {String} machineName The name of the machine to get the instances's keys
+         * @param {String} versionKey The key of the version to get the instances's keys
+         * @returns {Array} An array with all the instance's keys of the the version
+         */
 
-        debug("synchronizing with the database");
-        yield sequelize.sync();
-        return meta;
+    }, {
+        key: 'getInstancesKeys',
+        value: function getInstancesKeys(machineName, versionKey) {
 
-    });
+            var manifest = this.getManifest();
 
-};
+            var machine = manifest.machines[machineName];
+            if (!machine) {
+                throw new Error('Machine does not exists');
+            }
+
+            var version = machine.versions[versionKey];
+            if (!version) {
+                throw new Error('Version does not exists');
+            }
+
+            return _Object$keys(version.instances);
+        }
+
+        /**
+         * Retrieve the instance's directory path
+         * @method getInstanceRoute
+         * @param {String} machineName The name of the machine
+         * @param {String} versionKey The key of the version
+         * @param {String} instanceKey The key of the instance
+         * @returns {String} The route
+         */
+
+    }, {
+        key: 'getInstanceRoute',
+        value: function getInstanceRoute(machineName, versionKey, instanceKey) {
+
+            var manifest = this.getManifest();
+
+            var machine = manifest.machines[machineName];
+            if (!machine) {
+                throw new Error('Machine does not exists');
+            }
+
+            var version = machine.versions[versionKey];
+            if (!version) {
+                throw new Error('Version does not exists');
+            }
+
+            var instance = version.instances[instanceKey];
+            if (!instance) {
+                throw new Error('Instance does not exists');
+            }
+
+            return instance.route;
+        }
+
+        /**
+         * Retrieve the instance's info.json path
+         * @method getInstanceInfoRoute
+         * @param {String} machineName The name of the machine
+         * @param {String} versionKey The key of the version
+         * @param {String} instanceKey The key of the instance
+         * @returns {String} The route
+         */
+
+    }, {
+        key: 'getInstanceInfoRoute',
+        value: function getInstanceInfoRoute(machineName, versionKey, instanceKey) {
+            return this.getInstanceRoute(machineName, versionKey, instanceKey) + '/info.json';
+        }
+
+        /**
+         * Retrieve the instance's info.json file as a JavasScript Object
+         * @method getInstanceInfo
+         * @param {String} machineName The name of the machine
+         * @param {String} versionKey The key of the version
+         * @param {String} instanceKey The key of the instance
+         * @returns {Object} The info Object
+         */
+
+    }, {
+        key: 'getInstanceInfo',
+        value: function getInstanceInfo(machineName, versionKey, instanceKey) {
+            var route = this.getInstanceInfoRoute(machineName, versionKey, instanceKey);
+            return jsonfile.readFileSync(this.repositoryPath + '/' + route);
+        }
+
+        /**
+         * Update the instance's info.json file using a JavasScript Object
+         * @method setInstanceInfo
+         * @param {String} machineName The name of the machine
+         * @param {String} versionKey The key of the version
+         * @param {String} instanceKey The key of the instance
+         * @param {Object} info The info Object to save
+         * @param {boolean} withCommit If true commits the changes to the repository
+         * @param {String} message If supplied it is used as the message for the commit
+         * @returns {Promise} If withCommit is true, the function returns a Promise
+         */
+
+    }, {
+        key: 'setInstanceInfo',
+        value: function () {
+            var _ref15 = _asyncToGenerator(_regeneratorRuntime.mark(function _callee15(machineName, versionKey, instanceKey, info) {
+                var withCommit = arguments.length > 4 &amp;&amp; arguments[4] !== undefined ? arguments[4] : false;
+                var message = arguments.length > 5 &amp;&amp; arguments[5] !== undefined ? arguments[5] : null;
+                var route;
+                return _regeneratorRuntime.wrap(function _callee15$(_context15) {
+                    while (1) {
+                        switch (_context15.prev = _context15.next) {
+                            case 0:
+                                route = this.getInstanceInfoRoute(machineName, versionKey, instanceKey);
+
+                                jsonfile.writeFileSync(this.repositoryPath + '/' + route, info, { spaces: 2 });
+
+                                if (!withCommit) {
+                                    _context15.next = 6;
+                                    break;
+                                }
+
+                                _context15.next = 5;
+                                return this._commit(null, [route], message || 'Changed the info for the ' + instanceKey + ' of the ' + versionKey + ' of the "' + machineName + '" machine');
+
+                            case 5:
+                                return _context15.abrupt('return', _context15.sent);
+
+                            case 6:
+                            case 'end':
+                                return _context15.stop();
+                        }
+                    }
+                }, _callee15, this);
+            }));
+
+            function setInstanceInfo(_x37, _x38, _x39, _x40) {
+                return _ref15.apply(this, arguments);
+            }
+
+            return setInstanceInfo;
+        }()
+
+        /**
+         * Add a new instance to a version of a machine
+         * @method addInstance
+         * @param {String} machineName The name of the machine
+         * @param {String} versionKey The key of the version
+         * @returns {Promise} The instance key
+         */
+
+    }, {
+        key: 'addInstance',
+        value: function () {
+            var _ref16 = _asyncToGenerator(_regeneratorRuntime.mark(function _callee16(machineName, versionKey) {
+                var manifest, machine, version, versionInfo, newInstanceKey, instanceDirPath, instanceSnapshotsDirPath, infoFile, info;
+                return _regeneratorRuntime.wrap(function _callee16$(_context16) {
+                    while (1) {
+                        switch (_context16.prev = _context16.next) {
+                            case 0:
+
+                                debug('Adding a new instance to the ' + versionKey + ' of the "' + machineName + '" machine');
+                                manifest = this.getManifest();
+                                machine = manifest.machines[machineName];
+
+                                if (machine) {
+                                    _context16.next = 5;
+                                    break;
+                                }
+
+                                throw new Error('Machine does not exists');
+
+                            case 5:
+                                version = machine.versions[versionKey];
+
+                                if (version) {
+                                    _context16.next = 8;
+                                    break;
+                                }
+
+                                throw new Error('Version does not exists');
+
+                            case 8:
+                                versionInfo = this.getVersionInfo(machineName, versionKey);
+
+                                if (versionInfo.isSealed) {
+                                    _context16.next = 11;
+                                    break;
+                                }
+
+                                throw new Error('The version is not sealed yet');
+
+                            case 11:
+                                newInstanceKey = 'instance' + (_Object$keys(version.instances).length + 1);
+                                instanceDirPath = version.route + '/instances/' + newInstanceKey;
+                                instanceSnapshotsDirPath = instanceDirPath + '/snapshots';
+
+                                version.instances[newInstanceKey] = {
+                                    'route': instanceDirPath,
+                                    'snapshots': {}
+                                };
+
+                                infoFile = instanceDirPath + '/info.json';
+
+
+                                debug('Creating the directories');
+                                fs.mkdirSync(this.repositoryPath + '/' + instanceDirPath);
+                                fs.mkdirSync(this.repositoryPath + '/' + instanceSnapshotsDirPath);
+
+                                debug('Creating the instance info.json file');
+                                info = {
+                                    'hasStarted': false,
+                                    'hasEnded': false
+                                };
+
+                                jsonfile.writeFileSync(this.repositoryPath + '/' + infoFile, info);
+
+                                debug('Setting the manifest');
+                                _context16.next = 25;
+                                return this.setManifest(manifest);
+
+                            case 25:
+                                _context16.next = 27;
+                                return this._commit(null, ['manifest.json', infoFile], 'Created the ' + newInstanceKey + ' for the ' + versionKey + ' of the "' + machineName + '" machine');
+
+                            case 27:
+                                return _context16.abrupt('return', newInstanceKey);
+
+                            case 28:
+                            case 'end':
+                                return _context16.stop();
+                        }
+                    }
+                }, _callee16, this);
+            }));
+
+            function addInstance(_x43, _x44) {
+                return _ref16.apply(this, arguments);
+            }
+
+            return addInstance;
+        }()
+
+        /**
+         * Gets the keys of all of the snapshots of the instance of a version of the machine in the repository
+         * @method getSnapshotsKeys
+         * @param {String} machineName The name of the machine to get the snapshots's keys
+         * @param {String} versionKey The key of the version to get the snapshots's keys
+         * @param {String} instanceKey The key of the instance to get the snapshot's keys
+         * @returns {Array} An array with all the snapshot's keys of the instance
+         */
+
+    }, {
+        key: 'getSnapshotsKeys',
+        value: function getSnapshotsKeys(machineName, versionKey, instanceKey) {
+
+            var manifest = this.getManifest();
+
+            var machine = manifest.machines[machineName];
+            if (!machine) {
+                throw new Error('Machine does not exists');
+            }
+
+            var version = machine.versions[versionKey];
+            if (!version) {
+                throw new Error('Version does not exists');
+            }
+
+            var instance = version.instances[instanceKey];
+            if (!instance) {
+                throw new Error('Instance does not exists');
+            }
+
+            return _Object$keys(instance.snapshots);
+        }
+
+        /**
+         * Retrieve the snapshot's directory path
+         * @method getSnapshotRoute
+         * @param {String} machineName The name of the machine
+         * @param {String} versionKey The key of the version
+         * @param {String} instanceKey The key of the instance
+         * @param {String} snapshotKey The key of the snapshot
+         * @returns {String} The route
+         */
+
+    }, {
+        key: 'getSnapshotRoute',
+        value: function getSnapshotRoute(machineName, versionKey, instanceKey, snapshotKey) {
+
+            var manifest = this.getManifest();
+
+            var machine = manifest.machines[machineName];
+            if (!machine) {
+                throw new Error('Machine does not exists');
+            }
+
+            var version = machine.versions[versionKey];
+            if (!version) {
+                throw new Error('Version does not exists');
+            }
+
+            var instance = version.instances[instanceKey];
+            if (!instance) {
+                throw new Error('Instance does not exists');
+            }
+
+            var snapshot = instance.snapshots[snapshotKey];
+            if (!snapshot) {
+                throw new Error('Snapshot does not exists');
+            }
+
+            return snapshot.route;
+        }
+
+        /**
+         * Retrieve the snapshot's info.json path
+         * @method getSnapshotInfoRoute
+         * @param {String} machineName The name of the machine
+         * @param {String} versionKey The key of the version
+         * @param {String} instanceKey The key of the instance
+         * @param {String} snapshotKey The key of the snapshot
+         * @returns {String} The route
+         */
+
+    }, {
+        key: 'getSnapshotInfoRoute',
+        value: function getSnapshotInfoRoute(machineName, versionKey, instanceKey, snapshotKey) {
+            return getSnapshotRoute(machineName, versionKey, instanceKey, snapshotKey) + '/info.json';
+        }
+
+        /**
+         * Retrieve the snapshot's info.json file as a JavasScript Object
+         * @method getSnapshotInfo
+         * @param {String} machineName The name of the machine
+         * @param {String} versionKey The key of the version
+         * @param {String} instanceKey The key of the instance
+         * @param {String} snapshotKey The key of the snapshot
+         * @returns {Object} The info Object
+         */
+
+    }, {
+        key: 'getSnapshotInfo',
+        value: function getSnapshotInfo(machineName, versionKey, instanceKey, snapshotKey) {
+            var route = getSnapshotInfoRoute(machineName, versionKey, instanceKey, snapshotKey);
+            return jsonfile.readFileSync(this.repositoryPath + '/' + route);
+        }
+
+        /**
+         * Add a new snapshot to an instance of a version of a machine
+         * @method addSnapshot
+         * @param {String} machineName The name of the machine
+         * @param {String} versionKey The key of the version
+         * @param {String} instanceKey The key of the instance
+         * @param {Object} info The info Object
+         * @returns {Promise} The instance key
+         */
+
+    }, {
+        key: 'addSnapshot',
+        value: function () {
+            var _ref17 = _asyncToGenerator(_regeneratorRuntime.mark(function _callee17(machineName, versionKey, instanceKey, info) {
+                var manifest, machine, version, instance, newSnapshotKey, snapshotDirPath, infoFile;
+                return _regeneratorRuntime.wrap(function _callee17$(_context17) {
+                    while (1) {
+                        switch (_context17.prev = _context17.next) {
+                            case 0:
+
+                                debug('Adding a new snapshot to the ' + instanceKey + ' of the ' + versionKey + ' of the "' + machineName + '" machine');
+                                manifest = this.getManifest();
+                                machine = manifest.machines[machineName];
+
+                                if (machine) {
+                                    _context17.next = 5;
+                                    break;
+                                }
+
+                                throw new Error('Machine does not exists');
+
+                            case 5:
+                                version = machine.versions[versionKey];
+
+                                if (version) {
+                                    _context17.next = 8;
+                                    break;
+                                }
+
+                                throw new Error('Version does not exists');
+
+                            case 8:
+                                instance = version.instances[instanceKey];
+
+                                if (instance) {
+                                    _context17.next = 11;
+                                    break;
+                                }
+
+                                throw new Error('Instance does not exists');
+
+                            case 11:
+                                newSnapshotKey = 'snapshot' + (_Object$keys(instance.snapshots).length + 1);
+                                snapshotDirPath = instance.route + '/snapshots/' + newSnapshotKey;
+
+                                instance.snapshots[newSnapshotKey] = {
+                                    'route': snapshotDirPath
+                                };
+
+                                infoFile = snapshotDirPath + '/info.json';
+
+
+                                debug('Creating the directories');
+                                fs.mkdirSync(this.repositoryPath + '/' + snapshotDirPath);
+
+                                debug('Creating the snapshot info.json file');
+                                jsonfile.writeFileSync(this.repositoryPath + '/' + infoFile, info);
+
+                                debug('Setting the manifest');
+                                _context17.next = 22;
+                                return this.setManifest(manifest);
+
+                            case 22:
+                                _context17.next = 24;
+                                return this._commit(null, ['manifest.json', infoFile], 'Created the ' + newSnapshotKey + ' for the ' + instanceKey + ' of the ' + versionKey + ' of the "' + machineName + '" machine');
+
+                            case 24:
+                                return _context17.abrupt('return', newSnapshotKey);
+
+                            case 25:
+                            case 'end':
+                                return _context17.stop();
+                        }
+                    }
+                }, _callee17, this);
+            }));
+
+            function addSnapshot(_x45, _x46, _x47, _x48) {
+                return _ref17.apply(this, arguments);
+            }
+
+            return addSnapshot;
+        }()
+    }]);
+
+    return Core;
+}();
+
+module.exports = Core;
+//# sourceMappingURL=index.js.map
 </code></pre>
         </article>
     </section>
@@ -532,13 +1865,13 @@ module.exports = function (dialect, host, user, password, database, config) {
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#createFSM">createFSM</a></li><li><a href="global.html#getAllFsms">getAllFsms</a></li><li><a href="global.html#getAllVersions">getAllVersions</a></li><li><a href="global.html#getFsmById">getFsmById</a></li><li><a href="global.html#getFsmByName">getFsmByName</a></li><li><a href="global.html#getFsmSealedVersions">getFsmSealedVersions</a></li><li><a href="global.html#getFsmVersions">getFsmVersions</a></li><li><a href="global.html#getLatestFsmVersion">getLatestFsmVersion</a></li><li><a href="global.html#getLatestSealedFsmVersion">getLatestSealedFsmVersion</a></li><li><a href="global.html#getVersionById">getVersionById</a></li><li><a href="global.html#isVersionSealed">isVersionSealed</a></li><li><a href="global.html#newVersion">newVersion</a></li><li><a href="global.html#removeFSM">removeFSM</a></li><li><a href="global.html#removeFSMModelVersion">removeFSMModelVersion</a></li><li><a href="global.html#seal">seal</a></li><li><a href="global.html#setScxml">setScxml</a></li><li><a href="global.html#validateSCXML">validateSCXML</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#_commit">_commit</a></li><li><a href="global.html#_createManifest">_createManifest</a></li><li><a href="global.html#_createRepository">_createRepository</a></li><li><a href="global.html#_getFiles">_getFiles</a></li><li><a href="global.html#addInstance">addInstance</a></li><li><a href="global.html#addMachine">addMachine</a></li><li><a href="global.html#addSnapshot">addSnapshot</a></li><li><a href="global.html#addVersion">addVersion</a></li><li><a href="global.html#Core">Core</a></li><li><a href="global.html#getConfig">getConfig</a></li><li><a href="global.html#getInstanceInfo">getInstanceInfo</a></li><li><a href="global.html#getInstanceInfoRoute">getInstanceInfoRoute</a></li><li><a href="global.html#getInstanceRoute">getInstanceRoute</a></li><li><a href="global.html#getInstancesKeys">getInstancesKeys</a></li><li><a href="global.html#getMachinesNames">getMachinesNames</a></li><li><a href="global.html#getManifest">getManifest</a></li><li><a href="global.html#getRepositoryPath">getRepositoryPath</a></li><li><a href="global.html#getSnapshotInfo">getSnapshotInfo</a></li><li><a href="global.html#getSnapshotInfoRoute">getSnapshotInfoRoute</a></li><li><a href="global.html#getSnapshotRoute">getSnapshotRoute</a></li><li><a href="global.html#getSnapshotsKeys">getSnapshotsKeys</a></li><li><a href="global.html#getVersionInfo">getVersionInfo</a></li><li><a href="global.html#getVersionInfoRoute">getVersionInfoRoute</a></li><li><a href="global.html#getVersionModelRoute">getVersionModelRoute</a></li><li><a href="global.html#getVersionRoute">getVersionRoute</a></li><li><a href="global.html#getVersionSCXML">getVersionSCXML</a></li><li><a href="global.html#getVersionsKeys">getVersionsKeys</a></li><li><a href="global.html#init">init</a></li><li><a href="global.html#initRemoteGitPlaintext">initRemoteGitPlaintext</a></li><li><a href="global.html#initRemoteGitSSH">initRemoteGitSSH</a></li><li><a href="global.html#isSCXMLValid">isSCXMLValid</a></li><li><a href="global.html#removeMachine">removeMachine</a></li><li><a href="global.html#setConfig">setConfig</a></li><li><a href="global.html#setInstanceInfo">setInstanceInfo</a></li><li><a href="global.html#setManifest">setManifest</a></li><li><a href="global.html#setVersionInfo">setVersionInfo</a></li><li><a href="global.html#setVersionSCXML">setVersionSCXML</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.3</a> on Sat Jun 03 2017 00:37:33 GMT+0100 (Hora de Verão de GMT)
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.3</a> on Sat Jun 17 2017 07:23:21 GMT+0100 (GMT Daylight Time)
 </footer>
 
 <script> prettyPrint(); </script>

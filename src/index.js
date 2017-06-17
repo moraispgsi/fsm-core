@@ -1,33 +1,35 @@
-
 //  .d888
-// d88P"
+// d88P'
 // 888
 // 888888.d8888b 88888b.d88b.        .d8888b .d88b. 888d888 .d88b.
-// 888   88K     888 "888 "88b      d88P"   d88""88b888P"  d8P  Y8b
-// 888   "Y8888b.888  888  888888888888     888  888888    88888888
+// 888   88K     888 '888 '88b      d88P'   d88''88b888P'  d8P  Y8b
+// 888   'Y8888b.888  888  888888888888     888  888888    88888888
 // 888        X88888  888  888      Y88b.   Y88..88P888    Y8b.
-// 888    88888P'888  888  888       "Y8888P "Y88P" 888     "Y8888
+// 888    88888P'888  888  888       'Y8888P 'Y88P' 888     'Y8888
 
-import nodegit from "nodegit";
-import fs from "fs-extra";
-import jsonfile from "jsonfile";
-import rimraf from "rimraf";
-import debugStart from "debug";
-import validator from "xsd-schema-validator";
+import nodegit from 'nodegit';
+import fs from 'fs-extra';
+import jsonfile from 'jsonfile';
+import rimraf from 'rimraf';
+import debugStart from 'debug';
+import validator from 'xsd-schema-validator';
 
-let debug = debugStart("core");
+let debug = debugStart('core');
 
+/**
+ * The core
+ */
 export default class Core {
 
-    constructor(repositoryPath = __dirname + "/repo", name = "default", email ="None"){
+    constructor(repositoryPath = __dirname + '/repo', name = 'default', email = 'None') {
         this.repositoryPath = repositoryPath;
-        this.machinesDirPath = repositoryPath + "/machines";
-        this.manifestPath = repositoryPath + "/manifest.json";
-        this.configPath = repositoryPath + "/config.json";
+        this.machinesDirPath = repositoryPath + '/machines';
+        this.manifestPath = repositoryPath + '/manifest.json';
+        this.configPath = repositoryPath + '/config.json';
         this.hasRemote = false;
         this.name = name;
         this.email = email;
-        debug("Using path %s", repositoryPath);
+        debug('Using path %s', repositoryPath);
     }
 
     /**
@@ -35,17 +37,17 @@ export default class Core {
      * @method init
      * @returns {Promise} Repository connection
      */
-    async init(){
-        debug("Checking if there is a repository");
+    async init() {
+        debug('Checking if there is a repository');
         let repo;
         try {
             repo = await nodegit.Repository.open(this.repositoryPath);
-        } catch(err) {
-            debug("Repository not found.");
+        } catch (err) {
+            debug('Repository not found.');
             repo = await this._createRepository();
         }
 
-        debug("Repository is ready");
+        debug('Repository is ready');
         return repo;
     }
 
@@ -57,7 +59,7 @@ export default class Core {
      * @param password password to use to authenticate.
      * @returns {Promise} Repository connection
      */
-    async initRemoteGitPlaintext(cloneURL, user, password){
+    async initRemoteGitPlaintext(cloneURL, user, password) {
 
         // Simple object to store clone options.
         let cloneOptions = {};
@@ -65,7 +67,9 @@ export default class Core {
         // with libgit2 being able to verify certificates from GitHub.
         cloneOptions.fetchOpts = {
             callbacks: {
-                certificateCheck: function() { return 1; },
+                certificateCheck: function () {
+                    return 1;
+                },
                 credentials: function () {
                     nodegit.Cred.userpassPlaintextNew(user, password);
                 }
@@ -88,7 +92,7 @@ export default class Core {
 
         //todo - Check the integrity of the repository
 
-        debug("Repository is ready");
+        debug('Repository is ready');
         return repo;
     }
 
@@ -101,9 +105,9 @@ export default class Core {
      * @param passphrase The passphrase of the credential.
      * @returns {Promise} Repository connection
      */
-    async initRemoteGitSSH(cloneURL, publicKey, privateKey, passphrase){
+    async initRemoteGitSSH(cloneURL, publicKey, privateKey, passphrase) {
 
-        debug("Initializing");
+        debug('Initializing');
         // Simple object to store clone options.
         let cloneOptions = {};
         // This is a required callback for OS X machines.  There is a known issue
@@ -111,10 +115,10 @@ export default class Core {
         cloneOptions = {
             fetchOpts: {
                 callbacks: {
-                    certificateCheck: function() {
+                    certificateCheck: function () {
                         return 1;
                     },
-                    credentials: function(url, userName) {
+                    credentials: function (url, userName) {
                         console.log(userName);
                         console.log(publicKey);
                         console.log(privateKey);
@@ -129,7 +133,7 @@ export default class Core {
             }
         };
 
-        debug("Cloning");
+        debug('Cloning');
         // Invoke the clone operation and store the returned Promise.
         let cloneRepository = nodegit.Clone(cloneURL, this.repositoryPath, cloneOptions);
 
@@ -138,15 +142,15 @@ export default class Core {
 
         let errorAndAttemptOpen = async (err) => {
             debug(err);
-            debug("Checking if the repository was already cloned");
+            debug('Checking if the repository was already cloned');
             let repository = await nodegit.Repository.open(this.repositoryPath);
             await repository.fetchAll(cloneOptions.fetchOpts);
-            return repository.mergeBranches("master", "origin/master");
-        }
+            return repository.mergeBranches('master', 'origin/master');
+        };
 
         let repo = await cloneRepository.catch(errorAndAttemptOpen);
 
-        debug("Cloned successfully");
+        debug('Cloned successfully');
 
         this.hasRemote = true;
         this.hasRemoteSSH = true;
@@ -155,7 +159,7 @@ export default class Core {
         this.passphrase = passphrase;
         //todo - Check the integrity of the repository
 
-        debug("Repository is ready");
+        debug('Repository is ready');
         return repo;
     }
 
@@ -165,11 +169,11 @@ export default class Core {
      * @param {String} path The directory path to search
      * @returns {Array} An Array of file paths belonging to the directory path provided
      */
-    _getFiles(path){
+    _getFiles(path) {
         let files = [];
         fs.readdirSync(path).forEach((file) => {
             let subpath = path + '/' + file;
-            if(fs.lstatSync(subpath).isDirectory()){
+            if (fs.lstatSync(subpath).isDirectory()) {
                 let filesReturned = this._getFiles(subpath);
                 files = files.concat(filesReturned);
             } else {
@@ -190,37 +194,39 @@ export default class Core {
      */
     async _commit(repo, pathsToStage, message = null, pathsToUnstage = []) {
         repo = repo || (await nodegit.Repository.open(this.repositoryPath));
-        debug("Adding files to the index");
-        let index = await repo.refreshIndex(this.repositoryPath + "/.git/index");
+        debug('Adding files to the index');
+        let index = await repo.refreshIndex(this.repositoryPath + '/.git/index');
 
-        if(pathsToUnstage && pathsToUnstage.length && pathsToUnstage.length > 0) {
-            for(let file of pathsToUnstage) {
+        if (pathsToUnstage && pathsToUnstage.length && pathsToUnstage.length > 0) {
+            for (let file of pathsToUnstage) {
                 await index.removeByPath(file);
             }
             await index.write();
             await index.writeTree();
         }
 
-        debug("Creating main files");
+        debug('Creating main files');
         let signature = nodegit.Signature.now(this.name, this.email);
 
 
-        debug("Commiting");
+        debug('Commiting');
 
-        await repo.createCommitOnHead(pathsToStage, signature, signature, message || "Automatic initialization");
+        await repo.createCommitOnHead(pathsToStage, signature, signature, message || 'Automatic initialization');
 
-        debug("Pushing");
+        debug('Pushing');
         console.log(this.hasRemoteSSH);
-        if(this.hasRemote){
+        if (this.hasRemote) {
 
-            if(this.hasRemoteSSH) {
-                let remote = await repo.getRemote("origin");
+            if (this.hasRemoteSSH) {
+                let remote = await repo.getRemote('origin');
                 //
                 remote.connect(nodegit.Enums.DIRECTION.PUSH);
 
-                await remote.push(["refs/heads/master:refs/heads/master"], {
+                await remote.push(['refs/heads/master:refs/heads/master'], {
                     callbacks: {
-                        certificateCheck: function() { return 1; },
+                        certificateCheck: function () {
+                            return 1;
+                        },
                         credentials: (url, userName) => {
                             return nodegit.Cred.sshKeyNew(userName, this.publicKey, this.privateKey, this.passphrase);
                         }
@@ -230,10 +236,12 @@ export default class Core {
 
             } else {
 
-                let remote = await repo.getRemote("origin");
-                await remote.push(["refs/heads/master:refs/heads/master"], {
+                let remote = await repo.getRemote('origin');
+                await remote.push(['refs/heads/master:refs/heads/master'], {
                     callbacks: {
-                        certificateCheck: function() { return 1; },
+                        certificateCheck: function () {
+                            return 1;
+                        },
                         credentials: (url, userName) => {
                             return NodeGit.Cred.userpassPlaintextNew(this.user, this.password);
                         }
@@ -242,7 +250,7 @@ export default class Core {
 
             }
 
-            debug("Changes were pushed");
+            debug('Changes were pushed');
 
         }
     }
@@ -252,21 +260,21 @@ export default class Core {
      * @method _createRepository
      * @returns {Promise} Repository connection
      */
-     async _createRepository() {
+    async _createRepository() {
         try {
-            debug("Creating a new one");
+            debug('Creating a new one');
             let repo = await nodegit.Repository.init(this.repositoryPath, 0);
-            debug("Connection established");
-            debug("Creating main files");
+            debug('Connection established');
+            debug('Creating main files');
             await this._createManifest();
             await this._createConfig();
             fs.mkdirSync(this.machinesDirPath);
-            await this._commit(repo, ["manifest.json", "config.json"]);
-            debug("Repository was successfully created");
+            await this._commit(repo, ['manifest.json', 'config.json']);
+            debug('Repository was successfully created');
             return repo;
         } catch (err) {
             debug(err);
-            debug("Nuking the repository");
+            debug('Nuking the repository');
             await new Promise((resolve, reject) => {
                 rimraf(this.repositoryPath, () => {
                     resolve();
@@ -281,17 +289,17 @@ export default class Core {
      * @method _createManifest
      * @returns {Promise}
      */
-    _createManifest(){
+    _createManifest() {
         let file = this.repositoryPath + '/manifest.json';
         let manifest = {
             machines: {}
         };
 
         return new Promise((resolve, reject) => {
-            debug("Creating manifest file");
+            debug('Creating manifest file');
             jsonfile.writeFile(file, manifest, (err) => {
-                if(err){
-                    debug("Failed to create the manifest file");
+                if (err) {
+                    debug('Failed to create the manifest file');
                     reject(err);
                     return;
                 }
@@ -305,14 +313,14 @@ export default class Core {
      * @method _createManifest
      * @returns {Promise}
      */
-    _createConfig(){
+    _createConfig() {
         let file = this.repositoryPath + '/config.json';
         let config = {
             simulation: false
         };
         return new Promise((resolve, reject) => {
             jsonfile.writeFile(file, config, (err) => {
-                if(err){
+                if (err) {
                     reject(err);
                     return;
                 }
@@ -327,7 +335,7 @@ export default class Core {
      * @method getRepositoryPath
      * @returns {String} The path to the repository
      */
-    getRepositoryPath(){
+    getRepositoryPath() {
         return this.repositoryPath;
     }
 
@@ -336,7 +344,7 @@ export default class Core {
      * @method getManifest
      * @returns {Object} The manifest Object
      */
-    getManifest(){
+    getManifest() {
         return jsonfile.readFileSync(this.manifestPath);
     }
 
@@ -348,11 +356,11 @@ export default class Core {
      * @param {String} message If supplied it is used as the message for the commit
      * @returns {Promise} If withCommit is true, the function returns a Promise
      */
-    async setManifest(manifest, withCommit = false, message = null){
+    async setManifest(manifest, withCommit = false, message = null) {
         jsonfile.writeFileSync(this.manifestPath, manifest, {spaces: 2});
-        if(withCommit) {
-            return await this._commit(null, ["manifest.json"],
-                message || "Changed the manifest file");
+        if (withCommit) {
+            return await this._commit(null, ['manifest.json'],
+                message || 'Changed the manifest file');
         }
     }
 
@@ -361,7 +369,7 @@ export default class Core {
      * @method getConfig
      * @returns {Object} The config Object
      */
-    getConfig(){
+    getConfig() {
         return jsonfile.readFileSync(this.configPath);
     }
 
@@ -373,11 +381,11 @@ export default class Core {
      * @param {String} message If supplied it is used as the message for the commit
      * @returns {Promise} If withCommit is true, the function returns a Promise
      */
-    async setConfig(config, withCommit = false, message = null){
+    async setConfig(config, withCommit = false, message = null) {
         jsonfile.writeFileSync(this.configPath, config, {spaces: 2});
-        if(withCommit) {
-            return await this._commit(null, ["config.json"],
-                message || "Changed the config file");
+        if (withCommit) {
+            return await this._commit(null, ['config.json'],
+                message || 'Changed the config file');
         }
     }
 
@@ -398,49 +406,49 @@ export default class Core {
      * @returns {Promise}
      */
     async addMachine(name) {
-        debug("Adding a new machine with the name '%s'", name);
+        debug('Adding a new machine with the name "%s"', name);
         let manifest = this.getManifest();
 
-        if(manifest.machines[name]) {
-            debug("Machine already exists");
-            throw new Error("Machine already exists");
+        if (manifest.machines[name]) {
+            debug('Machine already exists');
+            throw new Error('Machine already exists');
         }
 
         manifest.machines[name] = {
-            route: "machines/" + name,
-            "versions": {
-                "version1": {
-                    "route": "machines/" + name + "/versions/version1",
-                    "instances": {}
+            route: 'machines/' + name,
+            'versions': {
+                'version1': {
+                    'route': 'machines/' + name + '/versions/version1',
+                    'instances': {}
                 }
             }
         };
 
-        let machineDirPath = "machines/" + name;
-        let machineVersionsDirPath = machineDirPath + "/versions";
-        let version1DirPath = machineVersionsDirPath + "/version1";
-        let version1InstancesDirPath = version1DirPath + "/instances";
+        let machineDirPath = 'machines/' + name;
+        let machineVersionsDirPath = machineDirPath + '/versions';
+        let version1DirPath = machineVersionsDirPath + '/version1';
+        let version1InstancesDirPath = version1DirPath + '/instances';
         let modelFile = version1DirPath + '/model.scxml';
-        let infoFile = version1DirPath + "/info.json";
+        let infoFile = version1DirPath + '/info.json';
 
-        debug("Creating the directories");
-        fs.mkdirSync(this.repositoryPath + "/" + machineDirPath);
-        fs.mkdirSync(this.repositoryPath + "/" + machineVersionsDirPath);
-        fs.mkdirSync(this.repositoryPath + "/" + version1DirPath);
-        fs.mkdirSync(this.repositoryPath + "/" + version1InstancesDirPath);
+        debug('Creating the directories');
+        fs.mkdirSync(this.repositoryPath + '/' + machineDirPath);
+        fs.mkdirSync(this.repositoryPath + '/' + machineVersionsDirPath);
+        fs.mkdirSync(this.repositoryPath + '/' + version1DirPath);
+        fs.mkdirSync(this.repositoryPath + '/' + version1InstancesDirPath);
 
-        debug("Creating the base.scxml file");
-        fs.copySync(__dirname + '/base.scxml', this.repositoryPath + "/" + modelFile);
+        debug('Creating the base.scxml file');
+        fs.copySync(__dirname + '/base.scxml', this.repositoryPath + '/' + modelFile);
 
-        debug("Creating the version info.json file");
-        let infoVersion1 = { "isSealed": false };
-        jsonfile.writeFileSync(this.repositoryPath + "/" + infoFile, infoVersion1);
+        debug('Creating the version info.json file');
+        let infoVersion1 = {'isSealed': false};
+        jsonfile.writeFileSync(this.repositoryPath + '/' + infoFile, infoVersion1);
 
-        debug("Setting the manifest");
+        debug('Setting the manifest');
         await this.setManifest(manifest);
 
-        await this._commit(null, ["manifest.json", modelFile, infoFile], "Added '" + name + "' machine");
-        debug("A new machine with the name '%s' was successfully added", name);
+        await this._commit(null, ['manifest.json', modelFile, infoFile], 'Added "' + name + '" machine');
+        debug('A new machine with the name "%s" was successfully added', name);
     }
 
     /**
@@ -450,28 +458,28 @@ export default class Core {
      * @returns {Promise}
      */
     async removeMachine(name) {
-        debug("Removing the machine");
+        debug('Removing the machine');
         let manifest = this.getManifest();
 
-        if(!manifest.machines[name]) {
-            debug("Machine doesn't exists");
+        if (!manifest.machines[name]) {
+            debug('Machine doesn\'t exists');
             return;
         }
 
-        let machinePath = this.machinesDirPath + "/" + name;
-        let removedFileNames = this._getFiles(machinePath).map((f)=>f.substring(this.repositoryPath.length + 1));
+        let machinePath = this.machinesDirPath + '/' + name;
+        let removedFileNames = this._getFiles(machinePath).map((f) => f.substring(this.repositoryPath.length + 1));
 
         delete manifest.machines[name];
         await new Promise((resolve, reject) => {
-            rimraf(this.machinesDirPath + "/" + name, () => {
+            rimraf(this.machinesDirPath + '/' + name, () => {
                 resolve();
             });
         }).then();
 
-        debug("Setting the manifest");
+        debug('Setting the manifest');
         await this.setManifest(manifest);
 
-        await this._commit(null, ["manifest.json"], "Removed '" +  name + "' machine.", removedFileNames);
+        await this._commit(null, ['manifest.json'], 'Removed "' + name + '"  machine.', removedFileNames);
 
         return Object.keys(manifest.machines);
 
@@ -486,7 +494,7 @@ export default class Core {
     getVersionsKeys(machineName) {
         let manifest = this.getManifest();
         if (!manifest.machines[machineName]) {
-            throw new Error("Machine does not exists");
+            throw new Error('Machine does not exists');
         }
         return Object.keys(manifest.machines[machineName].versions);
     }
@@ -502,11 +510,11 @@ export default class Core {
         let manifest = this.getManifest();
 
         if (!manifest.machines[machineName]) {
-            throw new Error("Machine does not exists");
+            throw new Error('Machine does not exists');
         }
 
         if (!manifest.machines[machineName].versions[versionKey]) {
-            throw new Error("Version does not exists");
+            throw new Error('Version does not exists');
         }
 
         return manifest.machines[machineName].versions[versionKey].route;
@@ -520,7 +528,7 @@ export default class Core {
      * @returns {String} The route
      */
     getVersionInfoRoute(machineName, versionKey) {
-        return this.getVersionRoute(machineName, versionKey) + "/info.json";
+        return this.getVersionRoute(machineName, versionKey) + '/info.json';
     }
 
     /**
@@ -531,7 +539,7 @@ export default class Core {
      * @returns {String} The route
      */
     getVersionModelRoute(machineName, versionKey) {
-        return this.getVersionRoute(machineName, versionKey) + "/model.scxml";
+        return this.getVersionRoute(machineName, versionKey) + '/model.scxml';
     }
 
     /**
@@ -543,7 +551,7 @@ export default class Core {
      */
     getVersionInfo(machineName, versionKey) {
         let route = this.getVersionInfoRoute(machineName, versionKey);
-        return jsonfile.readFileSync(this.repositoryPath + "/" + route);
+        return jsonfile.readFileSync(this.repositoryPath + '/' + route);
     }
 
     /**
@@ -559,16 +567,16 @@ export default class Core {
     async setVersionInfo(machineName, versionKey, info, withCommit = false, message = null) {
 
         let route = this.getVersionInfoRoute(machineName, versionKey);
-        let previousInfo = jsonfile.readFileSync(this.repositoryPath + "/" + route);
-        if(previousInfo.isSealed) {
-            throw new Error("Cannot change the version SCXML because the version is sealed.")
+        let previousInfo = jsonfile.readFileSync(this.repositoryPath + '/' + route);
+        if (previousInfo.isSealed) {
+            throw new Error('Cannot change the version SCXML because the version is sealed.')
         }
 
-        jsonfile.writeFileSync(this.repositoryPath + "/" + route, info, {spaces: 2});
+        jsonfile.writeFileSync(this.repositoryPath + '/' + route, info, {spaces: 2});
 
-        if(withCommit) {
+        if (withCommit) {
             return await this._commit(null, [route],
-                message || "Changed the info for the " + versionKey + " of the '" + machineName + "' machine" );
+                message || 'Changed the info for the ' + versionKey + ' of the "' + machineName + '" machine');
         }
 
     }
@@ -582,51 +590,51 @@ export default class Core {
      */
     async addVersion(machineName) {
 
-        debug("Adding a new version to the '" + machineName + "' machine");
+        debug('Adding a new version to the "' + machineName + '" machine');
         let manifest = this.getManifest();
 
         if (!manifest.machines[machineName]) {
-            throw new Error("Machine does not exists");
+            throw new Error('Machine does not exists');
         }
 
         let versions = manifest.machines[machineName].versions;
         let versionKeys = Object.keys(versions);
         let lastVersionKey = versionKeys[versionKeys.length - 1];
         let lastVersion = versions[lastVersionKey];
-        let lastVersionInfoFile = lastVersion.route + "/info.json";
-        let lastVersionInfo = jsonfile.readFileSync(this.repositoryPath + "/" + lastVersionInfoFile);
+        let lastVersionInfoFile = lastVersion.route + '/info.json';
+        let lastVersionInfo = jsonfile.readFileSync(this.repositoryPath + '/' + lastVersionInfoFile);
         let lastVersionModelFile = lastVersion.route + '/model.scxml';
 
-        if(!lastVersionInfo.isSealed) {
-            throw new Error("The last versions is not sealed yet");
+        if (!lastVersionInfo.isSealed) {
+            throw new Error('The last versions is not sealed yet');
         }
 
-        let newVersionKey = "version" + (versionKeys.length + 1);
-        let versionDirPath = manifest.machines[machineName].route + "/versions/" + newVersionKey;
+        let newVersionKey = 'version' + (versionKeys.length + 1);
+        let versionDirPath = manifest.machines[machineName].route + '/versions/' + newVersionKey;
         manifest.machines[machineName].versions[newVersionKey] = {
-            "route": versionDirPath,
-            "instances": {}
+            'route': versionDirPath,
+            'instances': {}
         };
 
-        let versionInstancesDirPath = versionDirPath + "/instances";
+        let versionInstancesDirPath = versionDirPath + '/instances';
         let modelFile = versionDirPath + '/model.scxml';
-        let infoFile = versionDirPath + "/info.json";
+        let infoFile = versionDirPath + '/info.json';
 
-        debug("Creating the directories");
-        fs.mkdirSync(this.repositoryPath + "/" + versionDirPath);
-        fs.mkdirSync(this.repositoryPath + "/" + versionInstancesDirPath);
+        debug('Creating the directories');
+        fs.mkdirSync(this.repositoryPath + '/' + versionDirPath);
+        fs.mkdirSync(this.repositoryPath + '/' + versionInstancesDirPath);
 
-        debug("Copying the previous version's model.scxml");
-        fs.copySync(this.repositoryPath + "/" + lastVersionModelFile, this.repositoryPath + "/" + modelFile);
+        debug('Copying the previous version\'s model.scxml');
+        fs.copySync(this.repositoryPath + '/' + lastVersionModelFile, this.repositoryPath + '/' + modelFile);
 
-        debug("Creating the version info.json file");
-        let infoVersion = { "isSealed": false };
-        jsonfile.writeFileSync(this.repositoryPath + "/" + infoFile, infoVersion);
+        debug('Creating the version info.json file');
+        let infoVersion = {'isSealed': false};
+        jsonfile.writeFileSync(this.repositoryPath + '/' + infoFile, infoVersion);
 
-        debug("Setting the manifest");
+        debug('Setting the manifest');
         await this.setManifest(manifest);
-        await this._commit(null, ["manifest.json",  modelFile, infoFile],
-            "Created the " + newVersionKey + " for the '" + machineName + "' machine");
+        await this._commit(null, ['manifest.json', modelFile, infoFile],
+            'Created the ' + newVersionKey + ' for the "' + machineName + '" machine');
 
         return newVersionKey;
 
@@ -641,24 +649,24 @@ export default class Core {
      * @returns {Promise}
      */
     async sealVersion(machineName, versionKey) {
-        debug("Attempting to seal the version '%s' of the machine '%s'", versionKey, machineName);
+        debug('Attempting to seal the version "%s" of the machine "%s"', versionKey, machineName);
         let info = await this.getVersionInfo(machineName, versionKey);
-        if(info.isSealed) {
-            throw new Error("Version it already sealed");
+        if (info.isSealed) {
+            throw new Error('Version it already sealed');
         }
 
-        debug("Getting manifest");
+        debug('Getting manifest');
         let manifest = this.getManifest();
         let model = this.getVersionSCXML(machineName, versionKey);
         let isValid = await this.isSCXMLValid(model);
 
-        if(!isValid) {
-            throw new Error("The model is not valid.");
+        if (!isValid) {
+            throw new Error('The model is not valid.');
         }
 
         info.isSealed = true;
         await this.setVersionInfo(machineName, versionKey, info);
-        debug("The version '%s' of the machine '%s' was sealed successfully", versionKey, machineName);
+        debug('The version "%s" of the machine "%s" was sealed successfully', versionKey, machineName);
 
     }
 
@@ -672,7 +680,7 @@ export default class Core {
      */
     getVersionSCXML(machineName, versionKey) {
         let route = this.getVersionModelRoute(machineName, versionKey);
-        return fs.readFileSync(this.repositoryPath + "/" + route).toString('utf8');
+        return fs.readFileSync(this.repositoryPath + '/' + route).toString('utf8');
     }
 
     /**
@@ -688,16 +696,16 @@ export default class Core {
     async setVersionSCXML(machineName, versionKey, model, withCommit = false, message = null) {
 
         let route = this.getVersionInfoRoute(machineName, versionKey);
-        let previousInfo = jsonfile.readFileSync(this.repositoryPath + "/" + route);
-        if(previousInfo.isSealed) {
-            throw new Error("Cannot change the version SCXML because the version is sealed.")
+        let previousInfo = jsonfile.readFileSync(this.repositoryPath + '/' + route);
+        if (previousInfo.isSealed) {
+            throw new Error('Cannot change the version SCXML because the version is sealed.')
         }
         let modelRoute = this.getVersionModelRoute(machineName, versionKey);
-        fs.writeFileSync(this.repositoryPath + "/" + modelRoute, model);
+        fs.writeFileSync(this.repositoryPath + '/' + modelRoute, model);
 
-        if(withCommit) {
+        if (withCommit) {
             return await this._commit(null, [modelRoute],
-                message || "Changed the model.scxml for the " + versionKey + " of the '" + machineName + "' machine");
+                message || 'Changed the model.scxml for the ' + versionKey + ' of the "' + machineName + '" machine');
         }
     }
 
@@ -707,10 +715,10 @@ export default class Core {
      * @param {String} model A string with the SCXML document to validate
      * @returns {Promise} True if the SCXML is valid false otherwise
      */
-    isSCXMLValid(model){
+    isSCXMLValid(model) {
         return new Promise((resolve, reject) => {
-            if(model === "") {
-                reject("Model is empty");
+            if (model === '') {
+                reject('Model is empty');
                 return;
             }
 
@@ -731,18 +739,18 @@ export default class Core {
      * @param {String} versionKey The key of the version to get the instances's keys
      * @returns {Array} An array with all the instance's keys of the the version
      */
-    getInstancesKeys(machineName, versionKey){
+    getInstancesKeys(machineName, versionKey) {
 
         let manifest = this.getManifest();
 
         let machine = manifest.machines[machineName];
         if (!machine) {
-            throw new Error("Machine does not exists");
+            throw new Error('Machine does not exists');
         }
 
         let version = machine.versions[versionKey];
         if (!version) {
-            throw new Error("Version does not exists");
+            throw new Error('Version does not exists');
         }
 
         return Object.keys(version.instances);
@@ -756,23 +764,23 @@ export default class Core {
      * @param {String} instanceKey The key of the instance
      * @returns {String} The route
      */
-    getInstanceRoute(machineName, versionKey, instanceKey){
+    getInstanceRoute(machineName, versionKey, instanceKey) {
 
         let manifest = this.getManifest();
 
         let machine = manifest.machines[machineName];
         if (!machine) {
-            throw new Error("Machine does not exists");
+            throw new Error('Machine does not exists');
         }
 
         let version = machine.versions[versionKey];
         if (!version) {
-            throw new Error("Version does not exists");
+            throw new Error('Version does not exists');
         }
 
         let instance = version.instances[instanceKey];
         if (!instance) {
-            throw new Error("Instance does not exists");
+            throw new Error('Instance does not exists');
         }
 
         return instance.route;
@@ -787,7 +795,7 @@ export default class Core {
      * @returns {String} The route
      */
     getInstanceInfoRoute(machineName, versionKey, instanceKey) {
-        return this.getInstanceRoute(machineName, versionKey, instanceKey) + "/info.json";
+        return this.getInstanceRoute(machineName, versionKey, instanceKey) + '/info.json';
     }
 
     /**
@@ -800,7 +808,7 @@ export default class Core {
      */
     getInstanceInfo(machineName, versionKey, instanceKey) {
         let route = this.getInstanceInfoRoute(machineName, versionKey, instanceKey);
-        return jsonfile.readFileSync(this.repositoryPath + "/" + route);
+        return jsonfile.readFileSync(this.repositoryPath + '/' + route);
     }
 
     /**
@@ -817,12 +825,12 @@ export default class Core {
     async setInstanceInfo(machineName, versionKey, instanceKey, info, withCommit = false, message = null) {
 
         let route = this.getInstanceInfoRoute(machineName, versionKey, instanceKey);
-        jsonfile.writeFileSync(this.repositoryPath + "/" + route, info, {spaces: 2});
+        jsonfile.writeFileSync(this.repositoryPath + '/' + route, info, {spaces: 2});
 
-        if(withCommit) {
+        if (withCommit) {
             return await this._commit(null, [route],
-                message || "Changed the info for the " + instanceKey + " of the " +
-                versionKey + " of the '" + machineName + "' machine");
+                message || 'Changed the info for the ' + instanceKey + ' of the ' +
+                versionKey + ' of the "' + machineName + '" machine');
         }
 
     }
@@ -836,49 +844,49 @@ export default class Core {
      */
     async addInstance(machineName, versionKey) {
 
-        debug("Adding a new instance to the " + versionKey + " of the '" + machineName + "' machine");
+        debug('Adding a new instance to the ' + versionKey + ' of the "' + machineName + '" machine');
         let manifest = this.getManifest();
 
         let machine = manifest.machines[machineName];
         if (!machine) {
-            throw new Error("Machine does not exists");
+            throw new Error('Machine does not exists');
         }
 
         let version = machine.versions[versionKey];
         if (!version) {
-            throw new Error("Version does not exists");
+            throw new Error('Version does not exists');
         }
 
-        let versionInfo = this.getVersionInfo(machineName,  versionKey);
-        if(!versionInfo.isSealed) {
-            throw new Error("The version is not sealed yet");
+        let versionInfo = this.getVersionInfo(machineName, versionKey);
+        if (!versionInfo.isSealed) {
+            throw new Error('The version is not sealed yet');
         }
 
-        let newInstanceKey = "instance" + (Object.keys(version.instances).length + 1);
-        let instanceDirPath = version.route + "/instances/" + newInstanceKey;
-        let instanceSnapshotsDirPath = instanceDirPath + "/snapshots";
+        let newInstanceKey = 'instance' + (Object.keys(version.instances).length + 1);
+        let instanceDirPath = version.route + '/instances/' + newInstanceKey;
+        let instanceSnapshotsDirPath = instanceDirPath + '/snapshots';
         version.instances[newInstanceKey] = {
-            "route": instanceDirPath,
-            "snapshots": {}
+            'route': instanceDirPath,
+            'snapshots': {}
         };
 
-        let infoFile = instanceDirPath + "/info.json";
+        let infoFile = instanceDirPath + '/info.json';
 
-        debug("Creating the directories");
-        fs.mkdirSync(this.repositoryPath + "/" + instanceDirPath);
-        fs.mkdirSync(this.repositoryPath + "/" + instanceSnapshotsDirPath);
+        debug('Creating the directories');
+        fs.mkdirSync(this.repositoryPath + '/' + instanceDirPath);
+        fs.mkdirSync(this.repositoryPath + '/' + instanceSnapshotsDirPath);
 
-        debug("Creating the instance info.json file");
+        debug('Creating the instance info.json file');
         let info = {
-            "hasStarted": false,
-            "hasEnded": false
+            'hasStarted': false,
+            'hasEnded': false
         };
-        jsonfile.writeFileSync(this.repositoryPath + "/" + infoFile, info);
+        jsonfile.writeFileSync(this.repositoryPath + '/' + infoFile, info);
 
-        debug("Setting the manifest");
+        debug('Setting the manifest');
         await this.setManifest(manifest);
-        await this._commit(null, ["manifest.json", infoFile],
-            "Created the "+newInstanceKey+" for the "+versionKey+" of the '" + machineName + "' machine");
+        await this._commit(null, ['manifest.json', infoFile],
+            'Created the ' + newInstanceKey + ' for the ' + versionKey + ' of the "' + machineName + '" machine');
 
         return newInstanceKey;
     }
@@ -891,23 +899,23 @@ export default class Core {
      * @param {String} instanceKey The key of the instance to get the snapshot's keys
      * @returns {Array} An array with all the snapshot's keys of the instance
      */
-    getSnapshotsKeys(machineName, versionKey, instanceKey){
+    getSnapshotsKeys(machineName, versionKey, instanceKey) {
 
         let manifest = this.getManifest();
 
         let machine = manifest.machines[machineName];
         if (!machine) {
-            throw new Error("Machine does not exists");
+            throw new Error('Machine does not exists');
         }
 
         let version = machine.versions[versionKey];
         if (!version) {
-            throw new Error("Version does not exists");
+            throw new Error('Version does not exists');
         }
 
         let instance = version.instances[instanceKey];
         if (!instance) {
-            throw new Error("Instance does not exists");
+            throw new Error('Instance does not exists');
         }
 
         return Object.keys(instance.snapshots);
@@ -922,28 +930,28 @@ export default class Core {
      * @param {String} snapshotKey The key of the snapshot
      * @returns {String} The route
      */
-    getSnapshotRoute(machineName, versionKey, instanceKey, snapshotKey){
+    getSnapshotRoute(machineName, versionKey, instanceKey, snapshotKey) {
 
         let manifest = this.getManifest();
 
         let machine = manifest.machines[machineName];
         if (!machine) {
-            throw new Error("Machine does not exists");
+            throw new Error('Machine does not exists');
         }
 
         let version = machine.versions[versionKey];
         if (!version) {
-            throw new Error("Version does not exists");
+            throw new Error('Version does not exists');
         }
 
         let instance = version.instances[instanceKey];
         if (!instance) {
-            throw new Error("Instance does not exists");
+            throw new Error('Instance does not exists');
         }
 
         let snapshot = instance.snapshots[snapshotKey];
         if (!snapshot) {
-            throw new Error("Snapshot does not exists");
+            throw new Error('Snapshot does not exists');
         }
 
         return snapshot.route;
@@ -959,7 +967,7 @@ export default class Core {
      * @returns {String} The route
      */
     getSnapshotInfoRoute(machineName, versionKey, instanceKey, snapshotKey) {
-        return getSnapshotRoute(machineName, versionKey, instanceKey, snapshotKey) + "/info.json";
+        return getSnapshotRoute(machineName, versionKey, instanceKey, snapshotKey) + '/info.json';
     }
 
     /**
@@ -973,7 +981,7 @@ export default class Core {
      */
     getSnapshotInfo(machineName, versionKey, instanceKey, snapshotKey) {
         let route = getSnapshotInfoRoute(machineName, versionKey, instanceKey, snapshotKey);
-        return jsonfile.readFileSync(this.repositoryPath + "/" + route);
+        return jsonfile.readFileSync(this.repositoryPath + '/' + route);
     }
 
     /**
@@ -987,43 +995,43 @@ export default class Core {
      */
     async addSnapshot(machineName, versionKey, instanceKey, info) {
 
-        debug("Adding a new snapshot to the " + instanceKey + " of the " + versionKey + " of the '" + machineName + "' machine");
+        debug('Adding a new snapshot to the ' + instanceKey + ' of the ' + versionKey + ' of the "' + machineName + '" machine');
         let manifest = this.getManifest();
 
         let machine = manifest.machines[machineName];
         if (!machine) {
-            throw new Error("Machine does not exists");
+            throw new Error('Machine does not exists');
         }
 
         let version = machine.versions[versionKey];
         if (!version) {
-            throw new Error("Version does not exists");
+            throw new Error('Version does not exists');
         }
 
         let instance = version.instances[instanceKey];
         if (!instance) {
-            throw new Error("Instance does not exists");
+            throw new Error('Instance does not exists');
         }
 
-        let newSnapshotKey = "snapshot" + (Object.keys(instance.snapshots).length + 1);
-        let snapshotDirPath = instance.route + "/snapshots/" + newSnapshotKey;
+        let newSnapshotKey = 'snapshot' + (Object.keys(instance.snapshots).length + 1);
+        let snapshotDirPath = instance.route + '/snapshots/' + newSnapshotKey;
         instance.snapshots[newSnapshotKey] = {
-            "route": snapshotDirPath
+            'route': snapshotDirPath
         };
 
-        let infoFile = snapshotDirPath + "/info.json";
+        let infoFile = snapshotDirPath + '/info.json';
 
-        debug("Creating the directories");
-        fs.mkdirSync(this.repositoryPath + "/" + snapshotDirPath);
+        debug('Creating the directories');
+        fs.mkdirSync(this.repositoryPath + '/' + snapshotDirPath);
 
-        debug("Creating the snapshot info.json file");
-        jsonfile.writeFileSync(this.repositoryPath + "/" + infoFile, info);
+        debug('Creating the snapshot info.json file');
+        jsonfile.writeFileSync(this.repositoryPath + '/' + infoFile, info);
 
-        debug("Setting the manifest");
+        debug('Setting the manifest');
         await this.setManifest(manifest);
-        await this._commit(null, ["manifest.json", infoFile],
-            "Created the " + newSnapshotKey + " for the " + instanceKey + " of the " +
-            versionKey + " of the '" + machineName + "' machine");
+        await this._commit(null, ['manifest.json', infoFile],
+            'Created the ' + newSnapshotKey + ' for the ' + instanceKey + ' of the ' +
+            versionKey + ' of the "' + machineName + '" machine');
 
         return newSnapshotKey;
     }

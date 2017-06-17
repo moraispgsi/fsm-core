@@ -92,6 +92,72 @@
     
 
     
+        <h3 class="subsection-title">Members</h3>
+
+        
+            
+<h4 class="name" id="Core"><span class="type-signature"></span>Core<span class="type-signature"></span></h4>
+
+
+
+
+<div class="description">
+    The core
+</div>
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="index.js.html">index.js</a>, <a href="index.js.html#line34">line 34</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+        
+    
 
     
         <h3 class="subsection-title">Methods</h3>
@@ -101,14 +167,1041 @@
 
     
 
-    <h4 class="name" id="createFSM"><span class="type-signature"></span>createFSM<span class="signature">(name)</span><span class="type-signature"> &rarr; {Promise}</span></h4>
+    <h4 class="name" id="_commit"><span class="type-signature"></span>_commit<span class="signature">(repo, pathsToStage, message, pathsToUnstage)</span><span class="type-signature"> &rarr; {Array}</span></h4>
 
     
 
 
 
 <div class="description">
-    Creates a new Finite-state machine model.
+    Commit to the repository
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>repo</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Repository</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The repository connection object</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>pathsToStage</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Array</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The array of file paths(relative to the repository) to be staged</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>message</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The message to go along with this commit</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>pathsToUnstage</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Array</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The array of file paths(relative to the repository) to be un-staged</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="index.js.html">index.js</a>, <a href="index.js.html#line331">line 331</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    An Array of file paths belonging to the directory path provided
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Array</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="_createManifest"><span class="type-signature"></span>_createManifest<span class="signature">()</span><span class="type-signature"> &rarr; {Promise}</span></h4>
+
+    
+
+
+
+<div class="description">
+    Create the manifest file inside the repository
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="index.js.html">index.js</a>, <a href="index.js.html#line610">line 610</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Promise</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="_createManifest"><span class="type-signature"></span>_createManifest<span class="signature">()</span><span class="type-signature"> &rarr; {Promise}</span></h4>
+
+    
+
+
+
+<div class="description">
+    Create the config file inside the repository
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="index.js.html">index.js</a>, <a href="index.js.html#line637">line 637</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Promise</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="_createRepository"><span class="type-signature"></span>_createRepository<span class="signature">()</span><span class="type-signature"> &rarr; {Promise}</span></h4>
+
+    
+
+
+
+<div class="description">
+    Create a new repository
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="index.js.html">index.js</a>, <a href="index.js.html#line535">line 535</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    Repository connection
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Promise</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="_getFiles"><span class="type-signature"></span>_getFiles<span class="signature">(path)</span><span class="type-signature"> &rarr; {Array}</span></h4>
+
+    
+
+
+
+<div class="description">
+    Recursively gather the paths of the files inside a directory path
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>path</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The directory path to search</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="index.js.html">index.js</a>, <a href="index.js.html#line306">line 306</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    An Array of file paths belonging to the directory path provided
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Array</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="addInstance"><span class="type-signature"></span>addInstance<span class="signature">(machineName, versionKey)</span><span class="type-signature"> &rarr; {Promise}</span></h4>
+
+    
+
+
+
+<div class="description">
+    Add a new instance to a version of a machine
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>machineName</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The name of the machine</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>versionKey</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The key of the version</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="index.js.html">index.js</a>, <a href="index.js.html#line1525">line 1525</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    The instance key
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Promise</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="addMachine"><span class="type-signature"></span>addMachine<span class="signature">(machineName, versionKey)</span><span class="type-signature"> &rarr; {Promise}</span></h4>
+
+    
+
+
+
+<div class="description">
+    Seal a version of a machine
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>machineName</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The name of the machine</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>versionKey</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The key of the version</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="index.js.html">index.js</a>, <a href="index.js.html#line1204">line 1204</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Promise</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="addMachine"><span class="type-signature"></span>addMachine<span class="signature">(name)</span><span class="type-signature"> &rarr; {Promise}</span></h4>
+
+    
+
+
+
+<div class="description">
+    Add a new machine to the repository
 </div>
 
 
@@ -149,13 +1242,18 @@
 
             <td class="type">
             
+                
+<span class="param-type">String</span>
+
+
+            
             </td>
 
             
 
             
 
-            <td class="description last">The name of the finite-state machine model</td>
+            <td class="description last">The name of the new machine</td>
         </tr>
 
     
@@ -196,7 +1294,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="index.js.html">index.js</a>, <a href="index.js.html#line298">line 298</a>
+        <a href="index.js.html">index.js</a>, <a href="index.js.html#line804">line 804</a>
     </li></ul></dd>
     
 
@@ -222,10 +1320,6 @@
 <h5>Returns:</h5>
 
         
-<div class="param-desc">
-    A promise to create a finite-state machine model and return an object witha fsm property and a version property which is the first unsealed version
-</div>
-
 
 
 <dl>
@@ -249,222 +1343,14 @@
 
     
 
-    <h4 class="name" id="getAllFsms"><span class="type-signature"></span>getAllFsms<span class="signature">()</span><span class="type-signature"> &rarr; {Promise}</span></h4>
+    <h4 class="name" id="addSnapshot"><span class="type-signature"></span>addSnapshot<span class="signature">(machineName, versionKey, instanceKey, info)</span><span class="type-signature"> &rarr; {Promise}</span></h4>
 
     
 
 
 
 <div class="description">
-    Gets all the finite-state machines
-</div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="index.js.html">index.js</a>, <a href="index.js.html#line114">line 114</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-<h5>Returns:</h5>
-
-        
-<div class="param-desc">
-    A promise to return an array with all the finite-state machines
-</div>
-
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">Promise</span>
-
-
-    </dd>
-</dl>
-
-    
-
-
-
-        
-            
-
-    
-
-    <h4 class="name" id="getAllVersions"><span class="type-signature"></span>getAllVersions<span class="signature">()</span><span class="type-signature"> &rarr; {Promise}</span></h4>
-
-    
-
-
-
-<div class="description">
-    Get all the versions
-</div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="index.js.html">index.js</a>, <a href="index.js.html#line168">line 168</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-<h5>Returns:</h5>
-
-        
-<div class="param-desc">
-    A promise to return an array with all the versions
-</div>
-
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">Promise</span>
-
-
-    </dd>
-</dl>
-
-    
-
-
-
-        
-            
-
-    
-
-    <h4 class="name" id="getFsmById"><span class="type-signature"></span>getFsmById<span class="signature">(fsmID)</span><span class="type-signature"> &rarr; {Promise}</span></h4>
-
-    
-
-
-
-<div class="description">
-    Finds a finite-state machine by ID
+    Add a new snapshot to an instance of a version of a machine
 </div>
 
 
@@ -500,10 +1386,15 @@
 
         <tr>
             
-                <td class="name"><code>fsmID</code></td>
+                <td class="name"><code>machineName</code></td>
             
 
             <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
             
             </td>
 
@@ -511,7 +1402,76 @@
 
             
 
-            <td class="description last">The ID of the finite-state machine</td>
+            <td class="description last">The name of the machine</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>versionKey</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The key of the version</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>instanceKey</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The key of the instance</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>info</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Object</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The info Object</td>
         </tr>
 
     
@@ -552,7 +1512,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="index.js.html">index.js</a>, <a href="index.js.html#line151">line 151</a>
+        <a href="index.js.html">index.js</a>, <a href="index.js.html#line1730">line 1730</a>
     </li></ul></dd>
     
 
@@ -579,7 +1539,7 @@
 
         
 <div class="param-desc">
-    A promise to return the finite-state machine
+    The instance key
 </div>
 
 
@@ -605,14 +1565,14 @@
 
     
 
-    <h4 class="name" id="getFsmByName"><span class="type-signature"></span>getFsmByName<span class="signature">(name)</span><span class="type-signature"> &rarr; {Promise}</span></h4>
+    <h4 class="name" id="addVersion"><span class="type-signature"></span>addVersion<span class="signature">(machineName)</span><span class="type-signature"> &rarr; {Promise}</span></h4>
 
     
 
 
 
 <div class="description">
-    Gets a finite-state machine by its name
+    Add a new version to a machine
 </div>
 
 
@@ -648,10 +1608,15 @@
 
         <tr>
             
-                <td class="name"><code>name</code></td>
+                <td class="name"><code>machineName</code></td>
             
 
             <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
             
             </td>
 
@@ -659,7 +1624,7 @@
 
             
 
-            <td class="description last">the name of the finite-state machine</td>
+            <td class="description last">The name of the machine</td>
         </tr>
 
     
@@ -700,7 +1665,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="index.js.html">index.js</a>, <a href="index.js.html#line131">line 131</a>
+        <a href="index.js.html">index.js</a>, <a href="index.js.html#line1109">line 1109</a>
     </li></ul></dd>
     
 
@@ -727,7 +1692,7 @@
 
         
 <div class="param-desc">
-    Returns a promise to return the finite-state machine
+    The version key
 </div>
 
 
@@ -753,14 +1718,118 @@
 
     
 
-    <h4 class="name" id="getFsmSealedVersions"><span class="type-signature"></span>getFsmSealedVersions<span class="signature">(fsmID)</span><span class="type-signature"> &rarr; {Array}</span></h4>
+    <h4 class="name" id="getConfig"><span class="type-signature"></span>getConfig<span class="signature">()</span><span class="type-signature"> &rarr; {Object}</span></h4>
 
     
 
 
 
 <div class="description">
-    Gets all the versions that are sealed of a finite-state machine
+    Retrieve the repository config.json file as a JavasScript Object
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="index.js.html">index.js</a>, <a href="index.js.html#line732">line 732</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    The config Object
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Object</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="getInstanceInfo"><span class="type-signature"></span>getInstanceInfo<span class="signature">(machineName, versionKey, instanceKey)</span><span class="type-signature"> &rarr; {Object}</span></h4>
+
+    
+
+
+
+<div class="description">
+    Retrieve the instance's info.json file as a JavasScript Object
 </div>
 
 
@@ -796,10 +1865,15 @@
 
         <tr>
             
-                <td class="name"><code>fsmID</code></td>
+                <td class="name"><code>machineName</code></td>
             
 
             <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
             
             </td>
 
@@ -807,7 +1881,53 @@
 
             
 
-            <td class="description last">the finite-state machine id</td>
+            <td class="description last">The name of the machine</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>versionKey</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The key of the version</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>instanceKey</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The key of the instance</td>
         </tr>
 
     
@@ -848,7 +1968,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="index.js.html">index.js</a>, <a href="index.js.html#line272">line 272</a>
+        <a href="index.js.html">index.js</a>, <a href="index.js.html#line1456">line 1456</a>
     </li></ul></dd>
     
 
@@ -875,7 +1995,581 @@
 
         
 <div class="param-desc">
-    an Array of versions
+    The info Object
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Object</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="getInstanceInfoRoute"><span class="type-signature"></span>getInstanceInfoRoute<span class="signature">(machineName, versionKey, instanceKey)</span><span class="type-signature"> &rarr; {String}</span></h4>
+
+    
+
+
+
+<div class="description">
+    Retrieve the instance's info.json path
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>machineName</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The name of the machine</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>versionKey</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The key of the version</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>instanceKey</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The key of the instance</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="index.js.html">index.js</a>, <a href="index.js.html#line1441">line 1441</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    The route
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">String</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="getInstanceRoute"><span class="type-signature"></span>getInstanceRoute<span class="signature">(machineName, versionKey, instanceKey)</span><span class="type-signature"> &rarr; {String}</span></h4>
+
+    
+
+
+
+<div class="description">
+    Retrieve the instance's directory path
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>machineName</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The name of the machine</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>versionKey</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The key of the version</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>instanceKey</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The key of the instance</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="index.js.html">index.js</a>, <a href="index.js.html#line1408">line 1408</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    The route
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">String</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="getInstancesKeys"><span class="type-signature"></span>getInstancesKeys<span class="signature">(machineName, versionKey)</span><span class="type-signature"> &rarr; {Array}</span></h4>
+
+    
+
+
+
+<div class="description">
+    Gets the keys of all of the instances of a version of the machine in the repository
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>machineName</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The name of the machine to get the instances's keys</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>versionKey</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The key of the version to get the instances's keys</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="index.js.html">index.js</a>, <a href="index.js.html#line1381">line 1381</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    An array with all the instance's keys of the the version
 </div>
 
 
@@ -901,14 +2595,14 @@
 
     
 
-    <h4 class="name" id="getFsmVersions"><span class="type-signature"></span>getFsmVersions<span class="signature">(fsmID)</span><span class="type-signature"> &rarr; {Array}</span></h4>
+    <h4 class="name" id="getMachinesNames"><span class="type-signature"></span>getMachinesNames<span class="signature">()</span><span class="type-signature"> &rarr; {Array}</span></h4>
 
     
 
 
 
 <div class="description">
-    Gets all the versions of a finite-state machine
+    Get the names of all of the machines in the repository
 </div>
 
 
@@ -917,50 +2611,6 @@
 
 
 
-
-
-    <h5>Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>fsmID</code></td>
-            
-
-            <td class="type">
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">the finite-state machine id</td>
-        </tr>
-
-    
-    </tbody>
-</table>
 
 
 
@@ -996,7 +2646,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="index.js.html">index.js</a>, <a href="index.js.html#line247">line 247</a>
+        <a href="index.js.html">index.js</a>, <a href="index.js.html#line791">line 791</a>
     </li></ul></dd>
     
 
@@ -1023,7 +2673,7 @@
 
         
 <div class="param-desc">
-    an Array of versions
+    An array with all the machine's names
 </div>
 
 
@@ -1049,14 +2699,222 @@
 
     
 
-    <h4 class="name" id="getLatestFsmVersion"><span class="type-signature"></span>getLatestFsmVersion<span class="signature">(fsmID)</span><span class="type-signature"> &rarr; {Promise}</span></h4>
+    <h4 class="name" id="getManifest"><span class="type-signature"></span>getManifest<span class="signature">()</span><span class="type-signature"> &rarr; {Object}</span></h4>
 
     
 
 
 
 <div class="description">
-    Returns the latest finite-state machine version
+    Retrieve the repository manifest.json file as a JavasScript Object
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="index.js.html">index.js</a>, <a href="index.js.html#line673">line 673</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    The manifest Object
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Object</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="getRepositoryPath"><span class="type-signature"></span>getRepositoryPath<span class="signature">()</span><span class="type-signature"> &rarr; {String}</span></h4>
+
+    
+
+
+
+<div class="description">
+    Retrieve the repository path
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="index.js.html">index.js</a>, <a href="index.js.html#line661">line 661</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    The path to the repository
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">String</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="getSnapshotInfo"><span class="type-signature"></span>getSnapshotInfo<span class="signature">(machineName, versionKey, instanceKey, snapshotKey)</span><span class="type-signature"> &rarr; {Object}</span></h4>
+
+    
+
+
+
+<div class="description">
+    Retrieve the snapshot's info.json file as a JavasScript Object
 </div>
 
 
@@ -1092,10 +2950,15 @@
 
         <tr>
             
-                <td class="name"><code>fsmID</code></td>
+                <td class="name"><code>machineName</code></td>
             
 
             <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
             
             </td>
 
@@ -1103,7 +2966,76 @@
 
             
 
-            <td class="description last">the id of the finite-state machine</td>
+            <td class="description last">The name of the machine</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>versionKey</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The key of the version</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>instanceKey</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The key of the instance</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>snapshotKey</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The key of the snapshot</td>
         </tr>
 
     
@@ -1144,7 +3076,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="index.js.html">index.js</a>, <a href="index.js.html#line225">line 225</a>
+        <a href="index.js.html">index.js</a>, <a href="index.js.html#line1713">line 1713</a>
     </li></ul></dd>
     
 
@@ -1171,7 +3103,7 @@
 
         
 <div class="param-desc">
-    Returns a promise to return the latest sealed version
+    The info Object
 </div>
 
 
@@ -1182,7 +3114,7 @@
     </dt>
     <dd>
         
-<span class="param-type">Promise</span>
+<span class="param-type">Object</span>
 
 
     </dd>
@@ -1197,14 +3129,14 @@
 
     
 
-    <h4 class="name" id="getLatestSealedFsmVersion"><span class="type-signature"></span>getLatestSealedFsmVersion<span class="signature">(fsmID)</span><span class="type-signature"> &rarr; {Promise}</span></h4>
+    <h4 class="name" id="getSnapshotInfoRoute"><span class="type-signature"></span>getSnapshotInfoRoute<span class="signature">(machineName, versionKey, instanceKey, snapshotKey)</span><span class="type-signature"> &rarr; {String}</span></h4>
 
     
 
 
 
 <div class="description">
-    Returns the latest sealed finite-state machine version
+    Retrieve the snapshot's info.json path
 </div>
 
 
@@ -1240,10 +3172,15 @@
 
         <tr>
             
-                <td class="name"><code>fsmID</code></td>
+                <td class="name"><code>machineName</code></td>
             
 
             <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
             
             </td>
 
@@ -1251,7 +3188,76 @@
 
             
 
-            <td class="description last">the id of the finite-state machine</td>
+            <td class="description last">The name of the machine</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>versionKey</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The key of the version</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>instanceKey</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The key of the instance</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>snapshotKey</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The key of the snapshot</td>
         </tr>
 
     
@@ -1292,7 +3298,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="index.js.html">index.js</a>, <a href="index.js.html#line202">line 202</a>
+        <a href="index.js.html">index.js</a>, <a href="index.js.html#line1697">line 1697</a>
     </li></ul></dd>
     
 
@@ -1319,7 +3325,7 @@
 
         
 <div class="param-desc">
-    Returns a promise to return the latest sealed version
+    The route
 </div>
 
 
@@ -1330,7 +3336,7 @@
     </dt>
     <dd>
         
-<span class="param-type">Promise</span>
+<span class="param-type">String</span>
 
 
     </dd>
@@ -1345,14 +3351,14 @@
 
     
 
-    <h4 class="name" id="getVersionById"><span class="type-signature"></span>getVersionById<span class="signature">(versionID)</span><span class="type-signature"> &rarr; {Promise}</span></h4>
+    <h4 class="name" id="getSnapshotRoute"><span class="type-signature"></span>getSnapshotRoute<span class="signature">(machineName, versionKey, instanceKey, snapshotKey)</span><span class="type-signature"> &rarr; {String}</span></h4>
 
     
 
 
 
 <div class="description">
-    Finds a version by ID
+    Retrieve the snapshot's directory path
 </div>
 
 
@@ -1388,10 +3394,15 @@
 
         <tr>
             
-                <td class="name"><code>versionID</code></td>
+                <td class="name"><code>machineName</code></td>
             
 
             <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
             
             </td>
 
@@ -1399,7 +3410,76 @@
 
             
 
-            <td class="description last">The ID of the version</td>
+            <td class="description last">The name of the machine</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>versionKey</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The key of the version</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>instanceKey</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The key of the instance</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>snapshotKey</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The key of the snapshot</td>
         </tr>
 
     
@@ -1440,7 +3520,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="index.js.html">index.js</a>, <a href="index.js.html#line185">line 185</a>
+        <a href="index.js.html">index.js</a>, <a href="index.js.html#line1658">line 1658</a>
     </li></ul></dd>
     
 
@@ -1467,7 +3547,7 @@
 
         
 <div class="param-desc">
-    A promise to return the version
+    The route
 </div>
 
 
@@ -1478,7 +3558,7 @@
     </dt>
     <dd>
         
-<span class="param-type">Promise</span>
+<span class="param-type">String</span>
 
 
     </dd>
@@ -1493,14 +3573,14 @@
 
     
 
-    <h4 class="name" id="isVersionSealed"><span class="type-signature"></span>isVersionSealed<span class="signature">(versionID)</span><span class="type-signature"> &rarr; {Promise}</span></h4>
+    <h4 class="name" id="getSnapshotsKeys"><span class="type-signature"></span>getSnapshotsKeys<span class="signature">(machineName, versionKey, instanceKey)</span><span class="type-signature"> &rarr; {Array}</span></h4>
 
     
 
 
 
 <div class="description">
-    Verifies if a version is sealed
+    Gets the keys of all of the snapshots of the instance of a version of the machine in the repository
 </div>
 
 
@@ -1536,10 +3616,15 @@
 
         <tr>
             
-                <td class="name"><code>versionID</code></td>
+                <td class="name"><code>machineName</code></td>
             
 
             <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
             
             </td>
 
@@ -1547,7 +3632,53 @@
 
             
 
-            <td class="description last">the version ID</td>
+            <td class="description last">The name of the machine to get the snapshots's keys</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>versionKey</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The key of the version to get the snapshots's keys</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>instanceKey</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The key of the instance to get the snapshot's keys</td>
         </tr>
 
     
@@ -1588,7 +3719,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="index.js.html">index.js</a>, <a href="index.js.html#line96">line 96</a>
+        <a href="index.js.html">index.js</a>, <a href="index.js.html#line1625">line 1625</a>
     </li></ul></dd>
     
 
@@ -1615,7 +3746,7 @@
 
         
 <div class="param-desc">
-    Returns a promise to return a boolean value
+    An array with all the snapshot's keys of the instance
 </div>
 
 
@@ -1626,7 +3757,7 @@
     </dt>
     <dd>
         
-<span class="param-type">Promise</span>
+<span class="param-type">Array</span>
 
 
     </dd>
@@ -1641,14 +3772,14 @@
 
     
 
-    <h4 class="name" id="newVersion"><span class="type-signature"></span>newVersion<span class="signature">(fsmID)</span><span class="type-signature"> &rarr; {Promise}</span></h4>
+    <h4 class="name" id="getVersionInfo"><span class="type-signature"></span>getVersionInfo<span class="signature">(machineName, versionKey)</span><span class="type-signature"> &rarr; {Object}</span></h4>
 
     
 
 
 
 <div class="description">
-    Creates a new version of a finite-state machine. The new version will reference the old one. Thelatest version must be sealed
+    Retrieve the version info.json file as a JavasScript Object
 </div>
 
 
@@ -1684,10 +3815,15 @@
 
         <tr>
             
-                <td class="name"><code>fsmID</code></td>
+                <td class="name"><code>machineName</code></td>
             
 
             <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
             
             </td>
 
@@ -1695,7 +3831,30 @@
 
             
 
-            <td class="description last">The id of the finite-state machine to create a new version of</td>
+            <td class="description last">The name of the machine</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>versionKey</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The key of the version</td>
         </tr>
 
     
@@ -1736,7 +3895,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="index.js.html">index.js</a>, <a href="index.js.html#line434">line 434</a>
+        <a href="index.js.html">index.js</a>, <a href="index.js.html#line1032">line 1032</a>
     </li></ul></dd>
     
 
@@ -1763,7 +3922,7 @@
 
         
 <div class="param-desc">
-    A Promise to create a new version of the FSM model return the version.
+    The info Object
 </div>
 
 
@@ -1774,7 +3933,7 @@
     </dt>
     <dd>
         
-<span class="param-type">Promise</span>
+<span class="param-type">Object</span>
 
 
     </dd>
@@ -1789,14 +3948,14 @@
 
     
 
-    <h4 class="name" id="removeFSM"><span class="type-signature"></span>removeFSM<span class="signature">(fsmID)</span><span class="type-signature"> &rarr; {Promise}</span></h4>
+    <h4 class="name" id="getVersionInfoRoute"><span class="type-signature"></span>getVersionInfoRoute<span class="signature">(machineName, versionKey)</span><span class="type-signature"> &rarr; {String}</span></h4>
 
     
 
 
 
 <div class="description">
-    Removes a Finite-State machine model if there is only one version and that version is not sealed
+    Retrieve the version's info.json file path
 </div>
 
 
@@ -1832,10 +3991,15 @@
 
         <tr>
             
-                <td class="name"><code>fsmID</code></td>
+                <td class="name"><code>machineName</code></td>
             
 
             <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
             
             </td>
 
@@ -1843,7 +4007,30 @@
 
             
 
-            <td class="description last">the Finite-State machine id</td>
+            <td class="description last">The name of the machine</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>versionKey</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The key of the version</td>
         </tr>
 
     
@@ -1884,7 +4071,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="index.js.html">index.js</a>, <a href="index.js.html#line315">line 315</a>
+        <a href="index.js.html">index.js</a>, <a href="index.js.html#line1004">line 1004</a>
     </li></ul></dd>
     
 
@@ -1911,7 +4098,7 @@
 
         
 <div class="param-desc">
-    A promise to remove the Finite-State machine model
+    The route
 </div>
 
 
@@ -1922,7 +4109,7 @@
     </dt>
     <dd>
         
-<span class="param-type">Promise</span>
+<span class="param-type">String</span>
 
 
     </dd>
@@ -1937,14 +4124,14 @@
 
     
 
-    <h4 class="name" id="removeFSMModelVersion"><span class="type-signature"></span>removeFSMModelVersion<span class="signature">(versionID)</span><span class="type-signature"> &rarr; {Promise}</span></h4>
+    <h4 class="name" id="getVersionModelRoute"><span class="type-signature"></span>getVersionModelRoute<span class="signature">(machineName, versionKey)</span><span class="type-signature"> &rarr; {String}</span></h4>
 
     
 
 
 
 <div class="description">
-    Removes a Finite-State machine model version if the version is not sealed
+    Retrieve the version's model.scxml file path
 </div>
 
 
@@ -1980,10 +4167,15 @@
 
         <tr>
             
-                <td class="name"><code>versionID</code></td>
+                <td class="name"><code>machineName</code></td>
             
 
             <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
             
             </td>
 
@@ -1991,7 +4183,30 @@
 
             
 
-            <td class="description last">The id of the Finite-State machine model version</td>
+            <td class="description last">The name of the machine</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>versionKey</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The key of the version</td>
         </tr>
 
     
@@ -2032,7 +4247,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="index.js.html">index.js</a>, <a href="index.js.html#line343">line 343</a>
+        <a href="index.js.html">index.js</a>, <a href="index.js.html#line1018">line 1018</a>
     </li></ul></dd>
     
 
@@ -2059,7 +4274,7 @@
 
         
 <div class="param-desc">
-    A promise to remove the Finite-State machine model version
+    The route
 </div>
 
 
@@ -2070,7 +4285,7 @@
     </dt>
     <dd>
         
-<span class="param-type">Promise</span>
+<span class="param-type">String</span>
 
 
     </dd>
@@ -2085,14 +4300,14 @@
 
     
 
-    <h4 class="name" id="seal"><span class="type-signature"></span>seal<span class="signature">(versionID)</span><span class="type-signature"> &rarr; {Promise}</span></h4>
+    <h4 class="name" id="getVersionRoute"><span class="type-signature"></span>getVersionRoute<span class="signature">(machineName, versionKey)</span><span class="type-signature"> &rarr; {String}</span></h4>
 
     
 
 
 
 <div class="description">
-    Seals a FSM model version if it is not already sealed and the scxml of the version is valid
+    Retrieve the version directory path
 </div>
 
 
@@ -2128,10 +4343,15 @@
 
         <tr>
             
-                <td class="name"><code>versionID</code></td>
+                <td class="name"><code>machineName</code></td>
             
 
             <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
             
             </td>
 
@@ -2139,7 +4359,30 @@
 
             
 
-            <td class="description last">The id of the FSM model version</td>
+            <td class="description last">The name of the machine</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>versionKey</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The key of the version</td>
         </tr>
 
     
@@ -2180,7 +4423,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="index.js.html">index.js</a>, <a href="index.js.html#line403">line 403</a>
+        <a href="index.js.html">index.js</a>, <a href="index.js.html#line980">line 980</a>
     </li></ul></dd>
     
 
@@ -2207,7 +4450,7 @@
 
         
 <div class="param-desc">
-    A Promise to seal the version and return the new version
+    The route
 </div>
 
 
@@ -2218,7 +4461,7 @@
     </dt>
     <dd>
         
-<span class="param-type">Promise</span>
+<span class="param-type">String</span>
 
 
     </dd>
@@ -2233,14 +4476,14 @@
 
     
 
-    <h4 class="name" id="setScxml"><span class="type-signature"></span>setScxml<span class="signature">(versionID, scxml)</span><span class="type-signature"> &rarr; {Promise}</span></h4>
+    <h4 class="name" id="getVersionSCXML"><span class="type-signature"></span>getVersionSCXML<span class="signature">(machineName, versionKey)</span><span class="type-signature"> &rarr; {String}</span></h4>
 
     
 
 
 
 <div class="description">
-    Sets the current scxml for a FSM model version
+    Retrieve the version model.scxml file as a String
 </div>
 
 
@@ -2276,10 +4519,15 @@
 
         <tr>
             
-                <td class="name"><code>versionID</code></td>
+                <td class="name"><code>machineName</code></td>
             
 
             <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
             
             </td>
 
@@ -2287,17 +4535,22 @@
 
             
 
-            <td class="description last">The id of the FSM model version</td>
+            <td class="description last">The name of the machine</td>
         </tr>
 
     
 
         <tr>
             
-                <td class="name"><code>scxml</code></td>
+                <td class="name"><code>versionKey</code></td>
             
 
             <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
             
             </td>
 
@@ -2305,7 +4558,7 @@
 
             
 
-            <td class="description last">A string SCXML</td>
+            <td class="description last">The key of the version</td>
         </tr>
 
     
@@ -2346,7 +4599,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="index.js.html">index.js</a>, <a href="index.js.html#line378">line 378</a>
+        <a href="index.js.html">index.js</a>, <a href="index.js.html#line1277">line 1277</a>
     </li></ul></dd>
     
 
@@ -2373,7 +4626,7 @@
 
         
 <div class="param-desc">
-    A Promise to set SCXML of the FSM model version
+    The model
 </div>
 
 
@@ -2384,7 +4637,7 @@
     </dt>
     <dd>
         
-<span class="param-type">Promise</span>
+<span class="param-type">String</span>
 
 
     </dd>
@@ -2399,14 +4652,14 @@
 
     
 
-    <h4 class="name" id="validateSCXML"><span class="type-signature"></span>validateSCXML<span class="signature">(scxml)</span><span class="type-signature"></span></h4>
+    <h4 class="name" id="getVersionsKeys"><span class="type-signature"></span>getVersionsKeys<span class="signature">(machineName)</span><span class="type-signature"> &rarr; {Array}</span></h4>
 
     
 
 
 
 <div class="description">
-    Validates a SCXML stringThe validation is done using the xmllint npm libraryhttps://github.com/kripken/xml.js/issues/8
+    Get the keys of all of the versions of machine in the repository
 </div>
 
 
@@ -2442,7 +4695,660 @@
 
         <tr>
             
-                <td class="name"><code>scxml</code></td>
+                <td class="name"><code>machineName</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The name of the machine to get the version's keys</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="index.js.html">index.js</a>, <a href="index.js.html#line963">line 963</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    An array with all the version's keys of the machine
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Array</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="init"><span class="type-signature"></span>init<span class="signature">()</span><span class="type-signature"> &rarr; {Promise}</span></h4>
+
+    
+
+
+
+<div class="description">
+    Initializes the repository connection
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="index.js.html">index.js</a>, <a href="index.js.html#line52">line 52</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    Repository connection
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Promise</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="initRemoteGitPlaintext"><span class="type-signature"></span>initRemoteGitPlaintext<span class="signature">(cloneURL, user, password)</span><span class="type-signature"> &rarr; {Promise}</span></h4>
+
+    
+
+
+
+<div class="description">
+    Initializes the repository connection using ssh password
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>cloneURL</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The URL of the remote repository</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>user</code></td>
+            
+
+            <td class="type">
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">username to use to authenticate.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>password</code></td>
+            
+
+            <td class="type">
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">password to use to authenticate.</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="index.js.html">index.js</a>, <a href="index.js.html#line110">line 110</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    Repository connection
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Promise</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="initRemoteGitSSH"><span class="type-signature"></span>initRemoteGitSSH<span class="signature">(cloneURL, publicKey, privateKey, passphrase)</span><span class="type-signature"> &rarr; {Promise}</span></h4>
+
+    
+
+
+
+<div class="description">
+    Initializes the repository connection using ssh password
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>cloneURL</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The URL of the remote repository</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>publicKey</code></td>
+            
+
+            <td class="type">
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The public key of the credential.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>privateKey</code></td>
+            
+
+            <td class="type">
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The private key of the credential.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>passphrase</code></td>
+            
+
+            <td class="type">
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The passphrase of the credential.</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="index.js.html">index.js</a>, <a href="index.js.html#line187">line 187</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    Repository connection
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Promise</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="isSCXMLValid"><span class="type-signature"></span>isSCXMLValid<span class="signature">(model)</span><span class="type-signature"> &rarr; {Promise}</span></h4>
+
+    
+
+
+
+<div class="description">
+    Validates SCXML markup as a string
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>model</code></td>
             
 
             <td class="type">
@@ -2499,7 +5405,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="index.js.html">index.js</a>, <a href="index.js.html#line458">line 458</a>
+        <a href="index.js.html">index.js</a>, <a href="index.js.html#line1355">line 1355</a>
     </li></ul></dd>
     
 
@@ -2522,6 +5428,1333 @@
 
 
 
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    True if the SCXML is valid false otherwise
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Promise</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="removeMachine"><span class="type-signature"></span>removeMachine<span class="signature">(name)</span><span class="type-signature"> &rarr; {Promise}</span></h4>
+
+    
+
+
+
+<div class="description">
+    Remove a machine from the repository
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>name</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The name of the machine</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="index.js.html">index.js</a>, <a href="index.js.html#line891">line 891</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Promise</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="setConfig"><span class="type-signature"></span>setConfig<span class="signature">(config, withCommit, message)</span><span class="type-signature"> &rarr; {Promise}</span></h4>
+
+    
+
+
+
+<div class="description">
+    Update the repository config.json file using a JavasScript Object
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>config</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Object</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The config Object to save</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>withCommit</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">boolean</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">If true commits the changes to the repository</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>message</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">If supplied it is used as the message for the commit</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="index.js.html">index.js</a>, <a href="index.js.html#line744">line 744</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    If withCommit is true, the function returns a Promise
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Promise</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="setInstanceInfo"><span class="type-signature"></span>setInstanceInfo<span class="signature">(machineName, versionKey, instanceKey, info, withCommit, message)</span><span class="type-signature"> &rarr; {Promise}</span></h4>
+
+    
+
+
+
+<div class="description">
+    Update the instance's info.json file using a JavasScript Object
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>machineName</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The name of the machine</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>versionKey</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The key of the version</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>instanceKey</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The key of the instance</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>info</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Object</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The info Object to save</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>withCommit</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">boolean</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">If true commits the changes to the repository</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>message</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">If supplied it is used as the message for the commit</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="index.js.html">index.js</a>, <a href="index.js.html#line1472">line 1472</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    If withCommit is true, the function returns a Promise
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Promise</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="setManifest"><span class="type-signature"></span>setManifest<span class="signature">(manifest, withCommit, message)</span><span class="type-signature"> &rarr; {Promise}</span></h4>
+
+    
+
+
+
+<div class="description">
+    Update the repository manifest.json file using a JavasScript Object
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>manifest</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Object</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The manifest Object to save</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>withCommit</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">boolean</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">If true commits the changes to the repository</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>message</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">If supplied it is used as the message for the commit</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="index.js.html">index.js</a>, <a href="index.js.html#line685">line 685</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    If withCommit is true, the function returns a Promise
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Promise</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="setVersionInfo"><span class="type-signature"></span>setVersionInfo<span class="signature">(machineName, versionKey, info, withCommit, message)</span><span class="type-signature"> &rarr; {Promise}</span></h4>
+
+    
+
+
+
+<div class="description">
+    Update the version info.json file using a JavasScript Object
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>machineName</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The name of the machine</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>versionKey</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The key of the version</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>info</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Object</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The info Object to save</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>withCommit</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">boolean</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">If true commits the changes to the repository</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>message</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">If supplied it is used as the message for the commit</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="index.js.html">index.js</a>, <a href="index.js.html#line1047">line 1047</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    If withCommit is true, the function returns a Promise
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Promise</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="setVersionSCXML"><span class="type-signature"></span>setVersionSCXML<span class="signature">(model, machineName, versionKey, withCommit, message)</span><span class="type-signature"> &rarr; {Promise}</span></h4>
+
+    
+
+
+
+<div class="description">
+    Update the version model.scxml file using a String
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>model</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The model</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>machineName</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The name of the machine</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>versionKey</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The key of the version</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>withCommit</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">boolean</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">If true commits the changes to the repository</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>message</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">If supplied it is used as the message for the commit</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="index.js.html">index.js</a>, <a href="index.js.html#line1292">line 1292</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    If withCommit is true, the function returns a Promise
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Promise</span>
+
+
+    </dd>
+</dl>
+
+    
 
 
 
@@ -2541,13 +6774,13 @@
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#createFSM">createFSM</a></li><li><a href="global.html#getAllFsms">getAllFsms</a></li><li><a href="global.html#getAllVersions">getAllVersions</a></li><li><a href="global.html#getFsmById">getFsmById</a></li><li><a href="global.html#getFsmByName">getFsmByName</a></li><li><a href="global.html#getFsmSealedVersions">getFsmSealedVersions</a></li><li><a href="global.html#getFsmVersions">getFsmVersions</a></li><li><a href="global.html#getLatestFsmVersion">getLatestFsmVersion</a></li><li><a href="global.html#getLatestSealedFsmVersion">getLatestSealedFsmVersion</a></li><li><a href="global.html#getVersionById">getVersionById</a></li><li><a href="global.html#isVersionSealed">isVersionSealed</a></li><li><a href="global.html#newVersion">newVersion</a></li><li><a href="global.html#removeFSM">removeFSM</a></li><li><a href="global.html#removeFSMModelVersion">removeFSMModelVersion</a></li><li><a href="global.html#seal">seal</a></li><li><a href="global.html#setScxml">setScxml</a></li><li><a href="global.html#validateSCXML">validateSCXML</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#_commit">_commit</a></li><li><a href="global.html#_createManifest">_createManifest</a></li><li><a href="global.html#_createRepository">_createRepository</a></li><li><a href="global.html#_getFiles">_getFiles</a></li><li><a href="global.html#addInstance">addInstance</a></li><li><a href="global.html#addMachine">addMachine</a></li><li><a href="global.html#addSnapshot">addSnapshot</a></li><li><a href="global.html#addVersion">addVersion</a></li><li><a href="global.html#Core">Core</a></li><li><a href="global.html#getConfig">getConfig</a></li><li><a href="global.html#getInstanceInfo">getInstanceInfo</a></li><li><a href="global.html#getInstanceInfoRoute">getInstanceInfoRoute</a></li><li><a href="global.html#getInstanceRoute">getInstanceRoute</a></li><li><a href="global.html#getInstancesKeys">getInstancesKeys</a></li><li><a href="global.html#getMachinesNames">getMachinesNames</a></li><li><a href="global.html#getManifest">getManifest</a></li><li><a href="global.html#getRepositoryPath">getRepositoryPath</a></li><li><a href="global.html#getSnapshotInfo">getSnapshotInfo</a></li><li><a href="global.html#getSnapshotInfoRoute">getSnapshotInfoRoute</a></li><li><a href="global.html#getSnapshotRoute">getSnapshotRoute</a></li><li><a href="global.html#getSnapshotsKeys">getSnapshotsKeys</a></li><li><a href="global.html#getVersionInfo">getVersionInfo</a></li><li><a href="global.html#getVersionInfoRoute">getVersionInfoRoute</a></li><li><a href="global.html#getVersionModelRoute">getVersionModelRoute</a></li><li><a href="global.html#getVersionRoute">getVersionRoute</a></li><li><a href="global.html#getVersionSCXML">getVersionSCXML</a></li><li><a href="global.html#getVersionsKeys">getVersionsKeys</a></li><li><a href="global.html#init">init</a></li><li><a href="global.html#initRemoteGitPlaintext">initRemoteGitPlaintext</a></li><li><a href="global.html#initRemoteGitSSH">initRemoteGitSSH</a></li><li><a href="global.html#isSCXMLValid">isSCXMLValid</a></li><li><a href="global.html#removeMachine">removeMachine</a></li><li><a href="global.html#setConfig">setConfig</a></li><li><a href="global.html#setInstanceInfo">setInstanceInfo</a></li><li><a href="global.html#setManifest">setManifest</a></li><li><a href="global.html#setVersionInfo">setVersionInfo</a></li><li><a href="global.html#setVersionSCXML">setVersionSCXML</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.3</a> on Sat Jun 03 2017 00:37:33 GMT+0100 (Hora de Verão de GMT)
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.3</a> on Sat Jun 17 2017 07:23:21 GMT+0100 (GMT Daylight Time)
 </footer>
 
 <script> prettyPrint(); </script>
