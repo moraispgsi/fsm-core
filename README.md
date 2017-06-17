@@ -1,5 +1,10 @@
 # fsm-core
 [![Build Status](https://travis-ci.org/moraispgsi/fsm-core.svg?branch=master)](https://travis-ci.org/moraispgsi/fsm-core)
+[![npm version](https://badge.fury.io/js/fsm-core.svg)](https://badge.fury.io/js/fsm-core)
+[![GitHub issues](https://img.shields.io/github/issues/moraispgsi/fsm-core.svg)](https://github.com/moraispgsi/fsm-core/issues)
+[![GitHub forks](https://img.shields.io/github/forks/moraispgsi/fsm-core.svg)](https://github.com/moraispgsi/fsm-core/network)
+[![GitHub stars](https://img.shields.io/github/stars/moraispgsi/fsm-core.svg)](https://github.com/moraispgsi/fsm-core/stargazers)
+[![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://raw.githubusercontent.com/moraispgsi/fsm-core/master/LICENSE.txt)
 
 ## Synopsis
 The fsm-core module provides facilities to persist SCXML files in a git repository. Also it provides a feature to clone a repository.
