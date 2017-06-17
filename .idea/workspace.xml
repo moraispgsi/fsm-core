@@ -2,8 +2,13 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="a3b16e93-389a-47cc-bea8-547fa515eb36" name="Default" comment="">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/test/.eslintrc" afterPath="" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/conf.json" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/out/module.exports.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/global.html" afterPath="$PROJECT_DIR$/out/global.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/index.html" afterPath="$PROJECT_DIR$/out/index.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/index.js.html" afterPath="$PROJECT_DIR$/out/index.js.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/package.json" afterPath="$PROJECT_DIR$/package.json" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -44,7 +49,7 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="index.js" pinned="false" current-in-tab="true">
+      <file leaf-file-name="index.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/index.js">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="-208">
@@ -58,12 +63,24 @@
           </provider>
         </entry>
       </file>
+      <file leaf-file-name="conf.json" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/conf.json">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="17">
+              <caret line="1" column="52" lean-forward="false" selection-start-line="1" selection-start-column="52" selection-end-line="1" selection-end-column="52" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
       <file leaf-file-name="index.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/out/index.html">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="51">
               <caret line="4" column="29" lean-forward="false" selection-start-line="4" selection-start-column="29" selection-end-line="4" selection-end-column="29" />
-              <folding />
+              <folding>
+                <marker date="1497683044767" expanded="true" signature="3229:3267" ph="..." />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -186,6 +203,7 @@
         <option value="$PROJECT_DIR$/src/test.js" />
         <option value="$PROJECT_DIR$/package.json" />
         <option value="$PROJECT_DIR$/src/index.js" />
+        <option value="$PROJECT_DIR$/conf.json" />
       </list>
     </option>
   </component>
@@ -469,7 +487,7 @@
       <workItem from="1497592240611" duration="406000" />
       <workItem from="1497593418283" duration="708000" />
       <workItem from="1497647578103" duration="15335000" />
-      <workItem from="1497678910752" duration="3700000" />
+      <workItem from="1497678910752" duration="4109000" />
     </task>
     <task id="LOCAL-00001" summary="createState return only the state instead of an object">
       <created>1488240569779</created>
@@ -779,11 +797,18 @@
       <option name="project" value="LOCAL" />
       <updated>1497681295727</updated>
     </task>
-    <option name="localTasksCounter" value="45" />
+    <task id="LOCAL-00045" summary="removed lint in testing">
+      <created>1497682728367</created>
+      <option name="number" value="00045" />
+      <option name="presentableId" value="LOCAL-00045" />
+      <option name="project" value="LOCAL" />
+      <updated>1497682728367</updated>
+    </task>
+    <option name="localTasksCounter" value="46" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="481353000" />
+    <option name="totallyTimeSpent" value="481762000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
@@ -845,7 +870,6 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="newVersion() bug correction" />
     <MESSAGE value="relative path to files" />
     <MESSAGE value="getAllFsms and getAllVersions" />
     <MESSAGE value="first tests" />
@@ -870,7 +894,8 @@
     <MESSAGE value="build change to include dependency files" />
     <MESSAGE value="ssh and remote repositories" />
     <MESSAGE value="generated the jsdoc" />
-    <option name="LAST_COMMIT_MESSAGE" value="generated the jsdoc" />
+    <MESSAGE value="removed lint in testing" />
+    <option name="LAST_COMMIT_MESSAGE" value="removed lint in testing" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -886,8 +911,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/node_modules/xmllint/xmllint.js" />
-    <entry file="file://$PROJECT_DIR$/node_modules/xmllint/package.json" />
     <entry file="file://$PROJECT_DIR$/test/test.test.js" />
     <entry file="file://$PROJECT_DIR$/node_modules/babel-plugin-transform-runtime/lib/definitions.js">
       <provider selected="true" editor-type-id="text-editor">
@@ -1217,7 +1240,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="51">
           <caret line="4" column="29" lean-forward="false" selection-start-line="4" selection-start-column="29" selection-end-line="4" selection-end-column="29" />
-          <folding />
+          <folding>
+            <marker date="1497683044767" expanded="true" signature="3229:3267" ph="..." />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -1277,6 +1302,22 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="102">
           <caret line="6" column="11" lean-forward="false" selection-start-line="6" selection-start-column="7" selection-end-line="6" selection-end-column="12" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/out/module.exports.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="136">
+          <caret line="8" column="20" lean-forward="false" selection-start-line="8" selection-start-column="20" selection-end-line="8" selection-end-column="20" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/conf.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="17">
+          <caret line="1" column="52" lean-forward="false" selection-start-line="1" selection-start-column="52" selection-end-line="1" selection-end-column="52" />
           <folding />
         </state>
       </provider>
