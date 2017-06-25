@@ -7,10 +7,12 @@
 [![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://raw.githubusercontent.com/moraispgsi/fsm-core/master/LICENSE.txt)
 
 ## Synopsis
-The fsm-core module provides facilities to persist SCXML files in a git repository. Also it provides a feature to clone a repository.
+The fsm-core module provides facilities to persist SCXML files in a git repository. The idea is be able to version control for the repository using git and therefor be able to have a history for the evolution of the repository and a way to revert to a previous point in history. Also it provides a feature to clone from a remote repository using ssh.
 
 ## Code Example
 ```javascript
+//using the co library for ease of use
+//$ npm install co 
 var co = require("co");
 var Core = require("fsm-core");
 co(function*(){
@@ -33,14 +35,14 @@ co(function*(){
 ```
 ## Motivation
 
-This module was initially intended to be used by the fsm-engine module, which consumes the repository.
-https://github.com/moraispgsi/fsm-engine
+This module was intended to be used alongside the fsm-engine module, which operates over the repository.
+See more in: https://github.com/moraispgsi/fsm-engine
 
 ## Installation
 ```
 npm install fsm-core --save
 ```
-In case you want to use a remote repository, fork the base repository https://github.com/moraispgsi/fsm-core-repo and initialize the core with ssh with the following script: 
+In case you want to use a remote repository, fork the base repository from https://github.com/moraispgsi/fsm-core-repo and initialize the core with ssh with the following script: 
 ```
 core.initRemoteGitSSH('ssh/git/path', 'publicKey/path', 'privateKey/path', 'passphrase').then();
 ```
