@@ -13,6 +13,7 @@ import jsonfile from 'jsonfile';
 import rimraf from 'rimraf';
 import debugStart from 'debug';
 import validator from 'xsd-schema-validator';
+import tmp from 'tmp';
 
 let debug = debugStart('core');
 
@@ -91,6 +92,9 @@ export default class Core {
         this.password = password;
 
         //todo - Check the integrity of the repository
+        if (!fs.existsSync(this.repositoryPath + '/machines')) {
+            fs.mkdirSync(this.repositoryPath + '/machines');
+        }
 
         debug('Repository is ready');
         return repo;
@@ -105,7 +109,20 @@ export default class Core {
      * @param passphrase The passphrase of the credential.
      * @returns {Promise} Repository connection
      */
+
+
     async initRemoteGitSSH(cloneURL, publicKey, privateKey, passphrase) {
+
+        console.log("ehe["+publicKey[0]+"]",publicKey);
+        if(publicKey.startsWith("ssh-rsa")){
+            let pubKey = tmp.fileSync();
+            fs.writeFileSync(pubKey.name, publicKey);
+            publicKey = pubKey.name;
+            let priKey = tmp.fileSync();
+            fs.writeFileSync(priKey.name, privateKey);
+            privateKey = priKey.name;
+        }
+
 
         debug('Initializing');
         // Simple object to store clone options.
@@ -119,15 +136,16 @@ export default class Core {
                         return 1;
                     },
                     credentials: function (url, userName) {
-                        console.log(userName);
-                        console.log(publicKey);
-                        console.log(privateKey);
-                        console.log(passphrase);
-                        return nodegit.Cred.sshKeyNew(
-                            userName,
-                            publicKey,
-                            privateKey,
-                            passphrase);
+                        try{
+                            return nodegit.Cred.sshKeyNew(
+                                userName,
+                                publicKey,
+                                privateKey,
+                                passphrase);
+                        } catch(err){
+                            debug(err);
+                            throw err;
+                        }
                     }
                 }
             }
@@ -158,7 +176,9 @@ export default class Core {
         this.privateKey = privateKey;
         this.passphrase = passphrase;
         //todo - Check the integrity of the repository
-
+        if (!fs.existsSync(this.repositoryPath + '/machines')) {
+            fs.mkdirSync(this.repositoryPath + '/machines');
+        }
         debug('Repository is ready');
         return repo;
     }
@@ -213,10 +233,9 @@ export default class Core {
 
         await repo.createCommitOnHead(pathsToStage, signature, signature, message || 'Automatic initialization');
 
-        debug('Pushing');
-        console.log(this.hasRemoteSSH);
         if (this.hasRemote) {
 
+            debug('Pushing');
             if (this.hasRemoteSSH) {
                 let remote = await repo.getRemote('origin');
                 //
@@ -665,7 +684,8 @@ export default class Core {
         }
 
         info.isSealed = true;
-        await this.setVersionInfo(machineName, versionKey, info);
+        await this.setVersionInfo(machineName, versionKey, info, true, "Sealed the version " +
+            versionKey + "of the machine " + machineName + ".");
         debug('The version "%s" of the machine "%s" was sealed successfully', versionKey, machineName);
 
     }
@@ -837,7 +857,7 @@ export default class Core {
 
     /**
      * Add a new instance to a version of a machine
-     * @method addInstance
+     * @method
      * @param {String} machineName The name of the machine
      * @param {String} versionKey The key of the version
      * @returns {Promise} The instance key
@@ -873,6 +893,9 @@ export default class Core {
         let infoFile = instanceDirPath + '/info.json';
 
         debug('Creating the directories');
+        if (!fs.existsSync(this.repositoryPath + "/" + version.route + '/instances')) {
+            fs.mkdirSync(this.repositoryPath + "/" + version.route + '/instances');
+        }
         fs.mkdirSync(this.repositoryPath + '/' + instanceDirPath);
         fs.mkdirSync(this.repositoryPath + '/' + instanceSnapshotsDirPath);
 
@@ -967,7 +990,7 @@ export default class Core {
      * @returns {String} The route
      */
     getSnapshotInfoRoute(machineName, versionKey, instanceKey, snapshotKey) {
-        return getSnapshotRoute(machineName, versionKey, instanceKey, snapshotKey) + '/info.json';
+        return this.getSnapshotRoute(machineName, versionKey, instanceKey, snapshotKey) + '/info.json';
     }
 
     /**
@@ -980,7 +1003,7 @@ export default class Core {
      * @returns {Object} The info Object
      */
     getSnapshotInfo(machineName, versionKey, instanceKey, snapshotKey) {
-        let route = getSnapshotInfoRoute(machineName, versionKey, instanceKey, snapshotKey);
+        let route = this.getSnapshotInfoRoute(machineName, versionKey, instanceKey, snapshotKey);
         return jsonfile.readFileSync(this.repositoryPath + '/' + route);
     }
 
@@ -1022,6 +1045,10 @@ export default class Core {
         let infoFile = snapshotDirPath + '/info.json';
 
         debug('Creating the directories');
+
+        if (!fs.existsSync(this.repositoryPath + "/" + instance.route + '/snapshots')) {
+            fs.mkdirSync(this.repositoryPath + "/" + instance.route + '/snapshots');
+        }
         fs.mkdirSync(this.repositoryPath + '/' + snapshotDirPath);
 
         debug('Creating the snapshot info.json file');
