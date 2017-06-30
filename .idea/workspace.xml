@@ -1,13 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="a3b16e93-389a-47cc-bea8-547fa515eb36" name="Default" comment="check if a directory already exists">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/example/example1.js" />
+    <list default="true" id="a3b16e93-389a-47cc-bea8-547fa515eb36" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/fsm-core.todo" afterPath="$PROJECT_DIR$/fsm-core.todo" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/package.json" afterPath="$PROJECT_DIR$/package.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/index.js" afterPath="$PROJECT_DIR$/src/index.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/test/core-test.js" afterPath="$PROJECT_DIR$/test/core-test.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.travis.yml" afterPath="$PROJECT_DIR$/.travis.yml" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -79,7 +75,7 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="core-test.js" pinned="false" current-in-tab="true">
+      <file leaf-file-name="core-test.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/test/core-test.js">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="175">
@@ -87,6 +83,16 @@
               <folding>
                 <element signature="e#274#328#0" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name=".travis.yml" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/.travis.yml">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="119">
+              <caret line="7" column="3" lean-forward="false" selection-start-line="7" selection-start-column="3" selection-end-line="7" selection-end-column="3" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -188,7 +194,6 @@
         <option value="$PROJECT_DIR$/__tests__/test.test.js" />
         <option value="$PROJECT_DIR$/test/test.test.js" />
         <option value="$PROJECT_DIR$/test/model-test.js" />
-        <option value="$PROJECT_DIR$/.travis.yml" />
         <option value="$PROJECT_DIR$/trysomething.js" />
         <option value="$PROJECT_DIR$/gittest.js" />
         <option value="$PROJECT_DIR$/base.scxml" />
@@ -212,6 +217,7 @@
         <option value="$PROJECT_DIR$/src/index.js" />
         <option value="$PROJECT_DIR$/package.json" />
         <option value="$PROJECT_DIR$/test/core-test.js" />
+        <option value="$PROJECT_DIR$/.travis.yml" />
       </list>
     </option>
   </component>
@@ -492,7 +498,7 @@
       <workItem from="1497593418283" duration="708000" />
       <workItem from="1497647578103" duration="15335000" />
       <workItem from="1497678910752" duration="4109000" />
-      <workItem from="1498360639347" duration="45303000" />
+      <workItem from="1498360639347" duration="45678000" />
     </task>
     <task id="LOCAL-00001" summary="createState return only the state instead of an object">
       <created>1488240569779</created>
@@ -809,11 +815,18 @@
       <option name="project" value="LOCAL" />
       <updated>1497682728367</updated>
     </task>
-    <option name="localTasksCounter" value="46" />
+    <task id="LOCAL-00046" summary="added tests">
+      <created>1498808001173</created>
+      <option name="number" value="00046" />
+      <option name="presentableId" value="LOCAL-00046" />
+      <option name="project" value="LOCAL" />
+      <updated>1498808001173</updated>
+    </task>
+    <option name="localTasksCounter" value="47" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="527065000" />
+    <option name="totallyTimeSpent" value="527440000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
@@ -876,7 +889,6 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="relative path to files" />
     <MESSAGE value="getAllFsms and getAllVersions" />
     <MESSAGE value="first tests" />
     <MESSAGE value="tests" />
@@ -901,7 +913,8 @@
     <MESSAGE value="ssh and remote repositories" />
     <MESSAGE value="generated the jsdoc" />
     <MESSAGE value="removed lint in testing" />
-    <option name="LAST_COMMIT_MESSAGE" value="removed lint in testing" />
+    <MESSAGE value="added tests" />
+    <option name="LAST_COMMIT_MESSAGE" value="added tests" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1092,13 +1105,6 @@
     <entry file="file://$PROJECT_DIR$/dist/index.umd.js" />
     <entry file="file://$PROJECT_DIR$/test/GreetingSpec.js" />
     <entry file="file://$PROJECT_DIR$/test/repo/manifest.json" />
-    <entry file="file://$PROJECT_DIR$/.travis.yml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="119">
-          <caret line="7" column="15" lean-forward="false" selection-start-line="7" selection-start-column="15" selection-end-line="7" selection-end-column="15" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/.editorconfig">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="221">
@@ -1293,6 +1299,14 @@
           <folding>
             <element signature="e#274#328#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/.travis.yml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="119">
+          <caret line="7" column="3" lean-forward="false" selection-start-line="7" selection-start-column="3" selection-end-line="7" selection-end-column="3" />
+          <folding />
         </state>
       </provider>
     </entry>
