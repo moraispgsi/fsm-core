@@ -192,6 +192,7 @@ class Core {
      * @memberOf Core
      * @param {String} path The directory path to search
      * @returns {Array} An Array of file paths belonging to the directory path provided
+     * @private
      */
     _getFiles(path) {
         let files = [];
@@ -216,6 +217,7 @@ class Core {
      * @param {String} message The message to go along with this commit
      * @param {Array} pathsToUnstage The array of file paths(relative to the repository) to be un-staged
      * @returns {Array} An Array of file paths belonging to the directory path provided
+     * @private
      */
     async _commit(repo, pathsToStage, message = null, pathsToUnstage = []) {
         repo = repo || (await nodegit.Repository.open(this.repositoryPath));
@@ -284,6 +286,7 @@ class Core {
      * @method _createRepository
      * @memberOf Core
      * @returns {Promise} Repository connection
+     * @private
      */
     async _createRepository() {
         try {
@@ -314,6 +317,7 @@ class Core {
      * @method _createManifest
      * @memberOf Core
      * @returns {Promise}
+     * @private
      */
     _createManifest() {
         let file = this.repositoryPath + '/manifest.json';
@@ -339,6 +343,7 @@ class Core {
      * @method _createManifest
      * @memberOf Core
      * @returns {Promise}
+     * @private
      */
     _createConfig() {
         let file = this.repositoryPath + '/config.json';
