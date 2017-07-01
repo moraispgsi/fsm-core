@@ -41,13 +41,14 @@ import jsonfile from 'jsonfile';
 import rimraf from 'rimraf';
 import debugStart from 'debug';
 import validator from 'xsd-schema-validator';
+import tmp from 'tmp';
 
 let debug = debugStart('core');
 
 /**
- * The core
+ * This module interfaces with a git repository to facilitate the persistence of SCXML files to be used in the fsm-engine module
  */
-export default class Core {
+class Core {
 
     constructor(repositoryPath = __dirname + '/repo', name = 'default', email = 'None') {
         this.repositoryPath = repositoryPath;
@@ -63,6 +64,7 @@ export default class Core {
     /**
      * Initializes the repository connection
      * @method init
+     * @memberOf Core
      * @returns {Promise} Repository connection
      */
     async init() {
@@ -82,6 +84,7 @@ export default class Core {
     /**
      * Initializes the repository connection using ssh password
      * @method initRemoteGitPlaintext
+     * @memberOf Core
      * @param {String} cloneURL The URL of the remote repository
      * @param user username to use to authenticate.
      * @param password password to use to authenticate.
@@ -119,6 +122,9 @@ export default class Core {
         this.password = password;
 
         //todo - Check the integrity of the repository
+        if (!fs.existsSync(this.repositoryPath + '/machines')) {
+            fs.mkdirSync(this.repositoryPath + '/machines');
+        }
 
         debug('Repository is ready');
         return repo;
@@ -127,13 +133,27 @@ export default class Core {
     /**
      * Initializes the repository connection using ssh password
      * @method initRemoteGitSSH
+     * @memberOf Core
      * @param {String} cloneURL The URL of the remote repository
      * @param publicKey The public key of the credential.
      * @param privateKey The private key of the credential.
      * @param passphrase The passphrase of the credential.
      * @returns {Promise} Repository connection
      */
+
+
     async initRemoteGitSSH(cloneURL, publicKey, privateKey, passphrase) {
+
+        console.log("ehe["+publicKey[0]+"]",publicKey);
+        if(publicKey.startsWith("ssh-rsa")){
+            let pubKey = tmp.fileSync();
+            fs.writeFileSync(pubKey.name, publicKey);
+            publicKey = pubKey.name;
+            let priKey = tmp.fileSync();
+            fs.writeFileSync(priKey.name, privateKey);
+            privateKey = priKey.name;
+        }
+
 
         debug('Initializing');
         // Simple object to store clone options.
@@ -147,15 +167,16 @@ export default class Core {
                         return 1;
                     },
                     credentials: function (url, userName) {
-                        console.log(userName);
-                        console.log(publicKey);
-                        console.log(privateKey);
-                        console.log(passphrase);
-                        return nodegit.Cred.sshKeyNew(
-                            userName,
-                            publicKey,
-                            privateKey,
-                            passphrase);
+                        try{
+                            return nodegit.Cred.sshKeyNew(
+                                userName,
+                                publicKey,
+                                privateKey,
+                                passphrase);
+                        } catch(err){
+                            debug(err);
+                            throw err;
+                        }
                     }
                 }
             }
@@ -186,7 +207,9 @@ export default class Core {
         this.privateKey = privateKey;
         this.passphrase = passphrase;
         //todo - Check the integrity of the repository
-
+        if (!fs.existsSync(this.repositoryPath + '/machines')) {
+            fs.mkdirSync(this.repositoryPath + '/machines');
+        }
         debug('Repository is ready');
         return repo;
     }
@@ -194,6 +217,7 @@ export default class Core {
     /**
      * Recursively gather the paths of the files inside a directory path
      * @method _getFiles
+     * @memberOf Core
      * @param {String} path The directory path to search
      * @returns {Array} An Array of file paths belonging to the directory path provided
      */
@@ -214,6 +238,7 @@ export default class Core {
     /**
      * Commit to the repository
      * @method _commit
+     * @memberOf Core
      * @param {Repository} repo The repository connection object
      * @param {Array} pathsToStage The array of file paths(relative to the repository) to be staged
      * @param {String} message The message to go along with this commit
@@ -241,10 +266,9 @@ export default class Core {
 
         await repo.createCommitOnHead(pathsToStage, signature, signature, message || 'Automatic initialization');
 
-        debug('Pushing');
-        console.log(this.hasRemoteSSH);
         if (this.hasRemote) {
 
+            debug('Pushing');
             if (this.hasRemoteSSH) {
                 let remote = await repo.getRemote('origin');
                 //
@@ -286,6 +310,7 @@ export default class Core {
     /**
      * Create a new repository
      * @method _createRepository
+     * @memberOf Core
      * @returns {Promise} Repository connection
      */
     async _createRepository() {
@@ -315,6 +340,7 @@ export default class Core {
     /**
      * Create the manifest file inside the repository
      * @method _createManifest
+     * @memberOf Core
      * @returns {Promise}
      */
     _createManifest() {
@@ -339,6 +365,7 @@ export default class Core {
     /**
      * Create the config file inside the repository
      * @method _createManifest
+     * @memberOf Core
      * @returns {Promise}
      */
     _createConfig() {
@@ -361,6 +388,7 @@ export default class Core {
     /**
      * Retrieve the repository path
      * @method getRepositoryPath
+     * @memberOf Core
      * @returns {String} The path to the repository
      */
     getRepositoryPath() {
@@ -370,6 +398,7 @@ export default class Core {
     /**
      * Retrieve the repository manifest.json file as a JavasScript Object
      * @method getManifest
+     * @memberOf Core
      * @returns {Object} The manifest Object
      */
     getManifest() {
@@ -379,6 +408,7 @@ export default class Core {
     /**
      * Update the repository manifest.json file using a JavasScript Object
      * @method setManifest
+     * @memberOf Core
      * @param {Object} manifest The manifest Object to save
      * @param {boolean} withCommit If true commits the changes to the repository
      * @param {String} message If supplied it is used as the message for the commit
@@ -395,6 +425,7 @@ export default class Core {
     /**
      * Retrieve the repository config.json file as a JavasScript Object
      * @method getConfig
+     * @memberOf Core
      * @returns {Object} The config Object
      */
     getConfig() {
@@ -404,6 +435,7 @@ export default class Core {
     /**
      * Update the repository config.json file using a JavasScript Object
      * @method setConfig
+     * @memberOf Core
      * @param {Object} config The config Object to save
      * @param {boolean} withCommit If true commits the changes to the repository
      * @param {String} message If supplied it is used as the message for the commit
@@ -420,6 +452,7 @@ export default class Core {
     /**
      * Get the names of all of the machines in the repository
      * @method getMachinesNames
+     * @memberOf Core
      * @returns {Array} An array with all the machine's names
      */
     getMachinesNames() {
@@ -430,6 +463,7 @@ export default class Core {
     /**
      * Add a new machine to the repository
      * @method addMachine
+     * @memberOf Core
      * @param {String} name The name of the new machine
      * @returns {Promise}
      */
@@ -482,6 +516,7 @@ export default class Core {
     /**
      * Remove a machine from the repository
      * @method removeMachine
+     * @memberOf Core
      * @param {String} name The name of the machine
      * @returns {Promise}
      */
@@ -516,6 +551,7 @@ export default class Core {
     /**
      * Get the keys of all of the versions of machine in the repository
      * @method getVersionsKeys
+     * @memberOf Core
      * @param {String} machineName The name of the machine to get the version's keys
      * @returns {Array} An array with all the version's keys of the machine
      */
@@ -530,6 +566,7 @@ export default class Core {
     /**
      * Retrieve the version directory path
      * @method getVersionRoute
+     * @memberOf Core
      * @param {String} machineName The name of the machine
      * @param {String} versionKey The key of the version
      * @returns {String} The route
@@ -551,6 +588,7 @@ export default class Core {
     /**
      * Retrieve the version's info.json file path
      * @method getVersionInfoRoute
+     * @memberOf Core
      * @param {String} machineName The name of the machine
      * @param {String} versionKey The key of the version
      * @returns {String} The route
@@ -562,6 +600,7 @@ export default class Core {
     /**
      * Retrieve the version's model.scxml file path
      * @method getVersionModelRoute
+     * @memberOf Core
      * @param {String} machineName The name of the machine
      * @param {String} versionKey The key of the version
      * @returns {String} The route
@@ -573,6 +612,7 @@ export default class Core {
     /**
      * Retrieve the version info.json file as a JavasScript Object
      * @method getVersionInfo
+     * @memberOf Core
      * @param {String} machineName The name of the machine
      * @param {String} versionKey The key of the version
      * @returns {Object} The info Object
@@ -585,6 +625,7 @@ export default class Core {
     /**
      * Update the version info.json file using a JavasScript Object
      * @method setVersionInfo
+     * @memberOf Core
      * @param {String} machineName The name of the machine
      * @param {String} versionKey The key of the version
      * @param {Object} info The info Object to save
@@ -613,6 +654,7 @@ export default class Core {
     /**
      * Add a new version to a machine
      * @method addVersion
+     * @memberOf Core
      * @param {String} machineName The name of the machine
      * @returns {Promise} The version key
      */
@@ -672,6 +714,7 @@ export default class Core {
     /**
      * Seal a version of a machine
      * @method addMachine
+     * @memberOf Core
      * @param {String} machineName The name of the machine
      * @param {String} versionKey The key of the version
      * @returns {Promise}
@@ -693,7 +736,8 @@ export default class Core {
         }
 
         info.isSealed = true;
-        await this.setVersionInfo(machineName, versionKey, info);
+        await this.setVersionInfo(machineName, versionKey, info, true, "Sealed the version " +
+            versionKey + "of the machine " + machineName + ".");
         debug('The version "%s" of the machine "%s" was sealed successfully', versionKey, machineName);
 
     }
@@ -702,6 +746,7 @@ export default class Core {
     /**
      * Retrieve the version model.scxml file as a String
      * @method getVersionSCXML
+     * @memberOf Core
      * @param {String} machineName The name of the machine
      * @param {String} versionKey The key of the version
      * @returns {String} The model
@@ -714,6 +759,7 @@ export default class Core {
     /**
      * Update the version model.scxml file using a String
      * @method setVersionSCXML
+     * @memberOf Core
      * @param {String} model The model
      * @param {String} machineName The name of the machine
      * @param {String} versionKey The key of the version
@@ -740,6 +786,7 @@ export default class Core {
     /**
      * Validates SCXML markup as a string
      * @method isSCXMLValid
+     * @memberOf Core
      * @param {String} model A string with the SCXML document to validate
      * @returns {Promise} True if the SCXML is valid false otherwise
      */
@@ -763,6 +810,7 @@ export default class Core {
     /**
      * Gets the keys of all of the instances of a version of the machine in the repository
      * @method getInstancesKeys
+     * @memberOf Core
      * @param {String} machineName The name of the machine to get the instances's keys
      * @param {String} versionKey The key of the version to get the instances's keys
      * @returns {Array} An array with all the instance's keys of the the version
@@ -787,6 +835,7 @@ export default class Core {
     /**
      * Retrieve the instance's directory path
      * @method getInstanceRoute
+     * @memberOf Core
      * @param {String} machineName The name of the machine
      * @param {String} versionKey The key of the version
      * @param {String} instanceKey The key of the instance
@@ -817,6 +866,7 @@ export default class Core {
     /**
      * Retrieve the instance's info.json path
      * @method getInstanceInfoRoute
+     * @memberOf Core
      * @param {String} machineName The name of the machine
      * @param {String} versionKey The key of the version
      * @param {String} instanceKey The key of the instance
@@ -829,6 +879,7 @@ export default class Core {
     /**
      * Retrieve the instance's info.json file as a JavasScript Object
      * @method getInstanceInfo
+     * @memberOf Core
      * @param {String} machineName The name of the machine
      * @param {String} versionKey The key of the version
      * @param {String} instanceKey The key of the instance
@@ -842,6 +893,7 @@ export default class Core {
     /**
      * Update the instance's info.json file using a JavasScript Object
      * @method setInstanceInfo
+     * @memberOf Core
      * @param {String} machineName The name of the machine
      * @param {String} versionKey The key of the version
      * @param {String} instanceKey The key of the instance
@@ -866,6 +918,7 @@ export default class Core {
     /**
      * Add a new instance to a version of a machine
      * @method addInstance
+     * @memberOf Core
      * @param {String} machineName The name of the machine
      * @param {String} versionKey The key of the version
      * @returns {Promise} The instance key
@@ -901,6 +954,9 @@ export default class Core {
         let infoFile = instanceDirPath + '/info.json';
 
         debug('Creating the directories');
+        if (!fs.existsSync(this.repositoryPath + "/" + version.route + '/instances')) {
+            fs.mkdirSync(this.repositoryPath + "/" + version.route + '/instances');
+        }
         fs.mkdirSync(this.repositoryPath + '/' + instanceDirPath);
         fs.mkdirSync(this.repositoryPath + '/' + instanceSnapshotsDirPath);
 
@@ -922,6 +978,7 @@ export default class Core {
     /**
      * Gets the keys of all of the snapshots of the instance of a version of the machine in the repository
      * @method getSnapshotsKeys
+     * @memberOf Core
      * @param {String} machineName The name of the machine to get the snapshots's keys
      * @param {String} versionKey The key of the version to get the snapshots's keys
      * @param {String} instanceKey The key of the instance to get the snapshot's keys
@@ -952,6 +1009,7 @@ export default class Core {
     /**
      * Retrieve the snapshot's directory path
      * @method getSnapshotRoute
+     * @memberOf Core
      * @param {String} machineName The name of the machine
      * @param {String} versionKey The key of the version
      * @param {String} instanceKey The key of the instance
@@ -988,6 +1046,7 @@ export default class Core {
     /**
      * Retrieve the snapshot's info.json path
      * @method getSnapshotInfoRoute
+     * @memberOf Core
      * @param {String} machineName The name of the machine
      * @param {String} versionKey The key of the version
      * @param {String} instanceKey The key of the instance
@@ -995,12 +1054,13 @@ export default class Core {
      * @returns {String} The route
      */
     getSnapshotInfoRoute(machineName, versionKey, instanceKey, snapshotKey) {
-        return getSnapshotRoute(machineName, versionKey, instanceKey, snapshotKey) + '/info.json';
+        return this.getSnapshotRoute(machineName, versionKey, instanceKey, snapshotKey) + '/info.json';
     }
 
     /**
      * Retrieve the snapshot's info.json file as a JavasScript Object
      * @method getSnapshotInfo
+     * @memberOf Core
      * @param {String} machineName The name of the machine
      * @param {String} versionKey The key of the version
      * @param {String} instanceKey The key of the instance
@@ -1008,13 +1068,14 @@ export default class Core {
      * @returns {Object} The info Object
      */
     getSnapshotInfo(machineName, versionKey, instanceKey, snapshotKey) {
-        let route = getSnapshotInfoRoute(machineName, versionKey, instanceKey, snapshotKey);
+        let route = this.getSnapshotInfoRoute(machineName, versionKey, instanceKey, snapshotKey);
         return jsonfile.readFileSync(this.repositoryPath + '/' + route);
     }
 
     /**
      * Add a new snapshot to an instance of a version of a machine
      * @method addSnapshot
+     * @memberOf Core
      * @param {String} machineName The name of the machine
      * @param {String} versionKey The key of the version
      * @param {String} instanceKey The key of the instance
@@ -1050,6 +1111,10 @@ export default class Core {
         let infoFile = snapshotDirPath + '/info.json';
 
         debug('Creating the directories');
+
+        if (!fs.existsSync(this.repositoryPath + "/" + instance.route + '/snapshots')) {
+            fs.mkdirSync(this.repositoryPath + "/" + instance.route + '/snapshots');
+        }
         fs.mkdirSync(this.repositoryPath + '/' + snapshotDirPath);
 
         debug('Creating the snapshot info.json file');
@@ -1063,7 +1128,9 @@ export default class Core {
 
         return newSnapshotKey;
     }
-};
+}
+
+export default Core;
 </code></pre>
         </article>
     </section>
@@ -1074,13 +1141,13 @@ export default class Core {
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="module.exports.html">exports</a></li></ul><h3>Global</h3><ul><li><a href="global.html#_commit">_commit</a></li><li><a href="global.html#_createManifest">_createManifest</a></li><li><a href="global.html#_createRepository">_createRepository</a></li><li><a href="global.html#_getFiles">_getFiles</a></li><li><a href="global.html#addInstance">addInstance</a></li><li><a href="global.html#addMachine">addMachine</a></li><li><a href="global.html#addSnapshot">addSnapshot</a></li><li><a href="global.html#addVersion">addVersion</a></li><li><a href="global.html#getConfig">getConfig</a></li><li><a href="global.html#getInstanceInfo">getInstanceInfo</a></li><li><a href="global.html#getInstanceInfoRoute">getInstanceInfoRoute</a></li><li><a href="global.html#getInstanceRoute">getInstanceRoute</a></li><li><a href="global.html#getInstancesKeys">getInstancesKeys</a></li><li><a href="global.html#getMachinesNames">getMachinesNames</a></li><li><a href="global.html#getManifest">getManifest</a></li><li><a href="global.html#getRepositoryPath">getRepositoryPath</a></li><li><a href="global.html#getSnapshotInfo">getSnapshotInfo</a></li><li><a href="global.html#getSnapshotInfoRoute">getSnapshotInfoRoute</a></li><li><a href="global.html#getSnapshotRoute">getSnapshotRoute</a></li><li><a href="global.html#getSnapshotsKeys">getSnapshotsKeys</a></li><li><a href="global.html#getVersionInfo">getVersionInfo</a></li><li><a href="global.html#getVersionInfoRoute">getVersionInfoRoute</a></li><li><a href="global.html#getVersionModelRoute">getVersionModelRoute</a></li><li><a href="global.html#getVersionRoute">getVersionRoute</a></li><li><a href="global.html#getVersionSCXML">getVersionSCXML</a></li><li><a href="global.html#getVersionsKeys">getVersionsKeys</a></li><li><a href="global.html#init">init</a></li><li><a href="global.html#initRemoteGitPlaintext">initRemoteGitPlaintext</a></li><li><a href="global.html#initRemoteGitSSH">initRemoteGitSSH</a></li><li><a href="global.html#isSCXMLValid">isSCXMLValid</a></li><li><a href="global.html#removeMachine">removeMachine</a></li><li><a href="global.html#setConfig">setConfig</a></li><li><a href="global.html#setInstanceInfo">setInstanceInfo</a></li><li><a href="global.html#setManifest">setManifest</a></li><li><a href="global.html#setVersionInfo">setVersionInfo</a></li><li><a href="global.html#setVersionSCXML">setVersionSCXML</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="Core.html">Core</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.3</a> on Sat Jun 17 2017 08:04:04 GMT+0100 (GMT Daylight Time)
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.3</a> on Sat Jul 01 2017 05:02:59 GMT+0100 (GMT Daylight Time)
 </footer>
 
 <script> prettyPrint(); </script>

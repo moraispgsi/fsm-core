@@ -18,9 +18,9 @@ import tmp from 'tmp';
 let debug = debugStart('core');
 
 /**
- * The core
+ * This module interfaces with a git repository to facilitate the persistence of SCXML files to be used in the fsm-engine module
  */
-export default class Core {
+class Core {
 
     constructor(repositoryPath = __dirname + '/repo', name = 'default', email = 'None') {
         this.repositoryPath = repositoryPath;
@@ -36,6 +36,7 @@ export default class Core {
     /**
      * Initializes the repository connection
      * @method init
+     * @memberOf Core
      * @returns {Promise} Repository connection
      */
     async init() {
@@ -55,6 +56,7 @@ export default class Core {
     /**
      * Initializes the repository connection using ssh password
      * @method initRemoteGitPlaintext
+     * @memberOf Core
      * @param {String} cloneURL The URL of the remote repository
      * @param user username to use to authenticate.
      * @param password password to use to authenticate.
@@ -103,6 +105,7 @@ export default class Core {
     /**
      * Initializes the repository connection using ssh password
      * @method initRemoteGitSSH
+     * @memberOf Core
      * @param {String} cloneURL The URL of the remote repository
      * @param publicKey The public key of the credential.
      * @param privateKey The private key of the credential.
@@ -186,6 +189,7 @@ export default class Core {
     /**
      * Recursively gather the paths of the files inside a directory path
      * @method _getFiles
+     * @memberOf Core
      * @param {String} path The directory path to search
      * @returns {Array} An Array of file paths belonging to the directory path provided
      */
@@ -206,6 +210,7 @@ export default class Core {
     /**
      * Commit to the repository
      * @method _commit
+     * @memberOf Core
      * @param {Repository} repo The repository connection object
      * @param {Array} pathsToStage The array of file paths(relative to the repository) to be staged
      * @param {String} message The message to go along with this commit
@@ -277,6 +282,7 @@ export default class Core {
     /**
      * Create a new repository
      * @method _createRepository
+     * @memberOf Core
      * @returns {Promise} Repository connection
      */
     async _createRepository() {
@@ -306,6 +312,7 @@ export default class Core {
     /**
      * Create the manifest file inside the repository
      * @method _createManifest
+     * @memberOf Core
      * @returns {Promise}
      */
     _createManifest() {
@@ -330,6 +337,7 @@ export default class Core {
     /**
      * Create the config file inside the repository
      * @method _createManifest
+     * @memberOf Core
      * @returns {Promise}
      */
     _createConfig() {
@@ -352,6 +360,7 @@ export default class Core {
     /**
      * Retrieve the repository path
      * @method getRepositoryPath
+     * @memberOf Core
      * @returns {String} The path to the repository
      */
     getRepositoryPath() {
@@ -361,6 +370,7 @@ export default class Core {
     /**
      * Retrieve the repository manifest.json file as a JavasScript Object
      * @method getManifest
+     * @memberOf Core
      * @returns {Object} The manifest Object
      */
     getManifest() {
@@ -370,6 +380,7 @@ export default class Core {
     /**
      * Update the repository manifest.json file using a JavasScript Object
      * @method setManifest
+     * @memberOf Core
      * @param {Object} manifest The manifest Object to save
      * @param {boolean} withCommit If true commits the changes to the repository
      * @param {String} message If supplied it is used as the message for the commit
@@ -386,6 +397,7 @@ export default class Core {
     /**
      * Retrieve the repository config.json file as a JavasScript Object
      * @method getConfig
+     * @memberOf Core
      * @returns {Object} The config Object
      */
     getConfig() {
@@ -395,6 +407,7 @@ export default class Core {
     /**
      * Update the repository config.json file using a JavasScript Object
      * @method setConfig
+     * @memberOf Core
      * @param {Object} config The config Object to save
      * @param {boolean} withCommit If true commits the changes to the repository
      * @param {String} message If supplied it is used as the message for the commit
@@ -411,6 +424,7 @@ export default class Core {
     /**
      * Get the names of all of the machines in the repository
      * @method getMachinesNames
+     * @memberOf Core
      * @returns {Array} An array with all the machine's names
      */
     getMachinesNames() {
@@ -421,6 +435,7 @@ export default class Core {
     /**
      * Add a new machine to the repository
      * @method addMachine
+     * @memberOf Core
      * @param {String} name The name of the new machine
      * @returns {Promise}
      */
@@ -473,6 +488,7 @@ export default class Core {
     /**
      * Remove a machine from the repository
      * @method removeMachine
+     * @memberOf Core
      * @param {String} name The name of the machine
      * @returns {Promise}
      */
@@ -507,6 +523,7 @@ export default class Core {
     /**
      * Get the keys of all of the versions of machine in the repository
      * @method getVersionsKeys
+     * @memberOf Core
      * @param {String} machineName The name of the machine to get the version's keys
      * @returns {Array} An array with all the version's keys of the machine
      */
@@ -521,6 +538,7 @@ export default class Core {
     /**
      * Retrieve the version directory path
      * @method getVersionRoute
+     * @memberOf Core
      * @param {String} machineName The name of the machine
      * @param {String} versionKey The key of the version
      * @returns {String} The route
@@ -542,6 +560,7 @@ export default class Core {
     /**
      * Retrieve the version's info.json file path
      * @method getVersionInfoRoute
+     * @memberOf Core
      * @param {String} machineName The name of the machine
      * @param {String} versionKey The key of the version
      * @returns {String} The route
@@ -553,6 +572,7 @@ export default class Core {
     /**
      * Retrieve the version's model.scxml file path
      * @method getVersionModelRoute
+     * @memberOf Core
      * @param {String} machineName The name of the machine
      * @param {String} versionKey The key of the version
      * @returns {String} The route
@@ -564,6 +584,7 @@ export default class Core {
     /**
      * Retrieve the version info.json file as a JavasScript Object
      * @method getVersionInfo
+     * @memberOf Core
      * @param {String} machineName The name of the machine
      * @param {String} versionKey The key of the version
      * @returns {Object} The info Object
@@ -576,6 +597,7 @@ export default class Core {
     /**
      * Update the version info.json file using a JavasScript Object
      * @method setVersionInfo
+     * @memberOf Core
      * @param {String} machineName The name of the machine
      * @param {String} versionKey The key of the version
      * @param {Object} info The info Object to save
@@ -604,6 +626,7 @@ export default class Core {
     /**
      * Add a new version to a machine
      * @method addVersion
+     * @memberOf Core
      * @param {String} machineName The name of the machine
      * @returns {Promise} The version key
      */
@@ -663,6 +686,7 @@ export default class Core {
     /**
      * Seal a version of a machine
      * @method addMachine
+     * @memberOf Core
      * @param {String} machineName The name of the machine
      * @param {String} versionKey The key of the version
      * @returns {Promise}
@@ -694,6 +718,7 @@ export default class Core {
     /**
      * Retrieve the version model.scxml file as a String
      * @method getVersionSCXML
+     * @memberOf Core
      * @param {String} machineName The name of the machine
      * @param {String} versionKey The key of the version
      * @returns {String} The model
@@ -706,6 +731,7 @@ export default class Core {
     /**
      * Update the version model.scxml file using a String
      * @method setVersionSCXML
+     * @memberOf Core
      * @param {String} model The model
      * @param {String} machineName The name of the machine
      * @param {String} versionKey The key of the version
@@ -732,6 +758,7 @@ export default class Core {
     /**
      * Validates SCXML markup as a string
      * @method isSCXMLValid
+     * @memberOf Core
      * @param {String} model A string with the SCXML document to validate
      * @returns {Promise} True if the SCXML is valid false otherwise
      */
@@ -755,6 +782,7 @@ export default class Core {
     /**
      * Gets the keys of all of the instances of a version of the machine in the repository
      * @method getInstancesKeys
+     * @memberOf Core
      * @param {String} machineName The name of the machine to get the instances's keys
      * @param {String} versionKey The key of the version to get the instances's keys
      * @returns {Array} An array with all the instance's keys of the the version
@@ -779,6 +807,7 @@ export default class Core {
     /**
      * Retrieve the instance's directory path
      * @method getInstanceRoute
+     * @memberOf Core
      * @param {String} machineName The name of the machine
      * @param {String} versionKey The key of the version
      * @param {String} instanceKey The key of the instance
@@ -809,6 +838,7 @@ export default class Core {
     /**
      * Retrieve the instance's info.json path
      * @method getInstanceInfoRoute
+     * @memberOf Core
      * @param {String} machineName The name of the machine
      * @param {String} versionKey The key of the version
      * @param {String} instanceKey The key of the instance
@@ -821,6 +851,7 @@ export default class Core {
     /**
      * Retrieve the instance's info.json file as a JavasScript Object
      * @method getInstanceInfo
+     * @memberOf Core
      * @param {String} machineName The name of the machine
      * @param {String} versionKey The key of the version
      * @param {String} instanceKey The key of the instance
@@ -834,6 +865,7 @@ export default class Core {
     /**
      * Update the instance's info.json file using a JavasScript Object
      * @method setInstanceInfo
+     * @memberOf Core
      * @param {String} machineName The name of the machine
      * @param {String} versionKey The key of the version
      * @param {String} instanceKey The key of the instance
@@ -857,7 +889,8 @@ export default class Core {
 
     /**
      * Add a new instance to a version of a machine
-     * @method
+     * @method addInstance
+     * @memberOf Core
      * @param {String} machineName The name of the machine
      * @param {String} versionKey The key of the version
      * @returns {Promise} The instance key
@@ -917,6 +950,7 @@ export default class Core {
     /**
      * Gets the keys of all of the snapshots of the instance of a version of the machine in the repository
      * @method getSnapshotsKeys
+     * @memberOf Core
      * @param {String} machineName The name of the machine to get the snapshots's keys
      * @param {String} versionKey The key of the version to get the snapshots's keys
      * @param {String} instanceKey The key of the instance to get the snapshot's keys
@@ -947,6 +981,7 @@ export default class Core {
     /**
      * Retrieve the snapshot's directory path
      * @method getSnapshotRoute
+     * @memberOf Core
      * @param {String} machineName The name of the machine
      * @param {String} versionKey The key of the version
      * @param {String} instanceKey The key of the instance
@@ -983,6 +1018,7 @@ export default class Core {
     /**
      * Retrieve the snapshot's info.json path
      * @method getSnapshotInfoRoute
+     * @memberOf Core
      * @param {String} machineName The name of the machine
      * @param {String} versionKey The key of the version
      * @param {String} instanceKey The key of the instance
@@ -996,6 +1032,7 @@ export default class Core {
     /**
      * Retrieve the snapshot's info.json file as a JavasScript Object
      * @method getSnapshotInfo
+     * @memberOf Core
      * @param {String} machineName The name of the machine
      * @param {String} versionKey The key of the version
      * @param {String} instanceKey The key of the instance
@@ -1010,6 +1047,7 @@ export default class Core {
     /**
      * Add a new snapshot to an instance of a version of a machine
      * @method addSnapshot
+     * @memberOf Core
      * @param {String} machineName The name of the machine
      * @param {String} versionKey The key of the version
      * @param {String} instanceKey The key of the instance
@@ -1062,4 +1100,6 @@ export default class Core {
 
         return newSnapshotKey;
     }
-};
+}
+
+export default Core;
