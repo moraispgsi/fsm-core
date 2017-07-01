@@ -12,8 +12,6 @@ addons:
       - lcov
 node_js:
   - '6'
-  - '5'
-  - '4'
 #script:
 #  - npm run test:cover
 #after_success:
