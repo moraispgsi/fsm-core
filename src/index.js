@@ -58,8 +58,8 @@ class Core {
      * @method initRemoteGitPlaintext
      * @memberOf Core
      * @param {String} cloneURL The URL of the remote repository
-     * @param user username to use to authenticate.
-     * @param password password to use to authenticate.
+     * @param {String} user username to use to authenticate.
+     * @param {String} password password to use to authenticate.
      * @returns {Promise} Repository connection
      */
     async initRemoteGitPlaintext(cloneURL, user, password) {
@@ -107,13 +107,11 @@ class Core {
      * @method initRemoteGitSSH
      * @memberOf Core
      * @param {String} cloneURL The URL of the remote repository
-     * @param publicKey The public key of the credential.
-     * @param privateKey The private key of the credential.
-     * @param passphrase The passphrase of the credential.
+     * @param {String} publicKey The public key of the credential.
+     * @param {String} privateKey The private key of the credential.
+     * @param {String} passphrase The passphrase of the credential.
      * @returns {Promise} Repository connection
      */
-
-
     async initRemoteGitSSH(cloneURL, publicKey, privateKey, passphrase) {
 
         console.log("ehe["+publicKey[0]+"]",publicKey);
@@ -235,7 +233,6 @@ class Core {
         debug('Creating main files');
         let signature = nodegit.Signature.now(this.name, this.email);
 
-
         debug('Commiting');
 
         await repo.createCommitOnHead(pathsToStage, signature, signature, message || 'Automatic initialization');
@@ -258,7 +255,6 @@ class Core {
                         }
                     },
                 });
-
 
             } else {
 
