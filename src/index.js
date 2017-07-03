@@ -383,16 +383,13 @@ class Core {
      * @method setManifest
      * @memberOf Core
      * @param {Object} manifest The manifest Object to save
-     * @param {boolean} withCommit If true commits the changes to the repository
      * @param {String} message If supplied it is used as the message for the commit
-     * @returns {Promise} If withCommit is true, the function returns a Promise
+     * @returns {Promise}
      */
-    async setManifest(manifest, withCommit = false, message = null) {
+    async setManifest(manifest, message = null) {
         jsonfile.writeFileSync(this.manifestPath, manifest, {spaces: 2});
-        if (withCommit) {
-            return await this._commit(null, ['manifest.json'],
-                message || 'Changed the manifest file');
-        }
+        return await this._commit(null, ['manifest.json'],
+            message || 'Changed the manifest file');
     }
 
     /**
@@ -410,16 +407,13 @@ class Core {
      * @method setConfig
      * @memberOf Core
      * @param {Object} config The config Object to save
-     * @param {boolean} withCommit If true commits the changes to the repository
      * @param {String} message If supplied it is used as the message for the commit
-     * @returns {Promise} If withCommit is true, the function returns a Promise
+     * @returns {Promise}
      */
-    async setConfig(config, withCommit = false, message = null) {
+    async setConfig(config, message = null) {
         jsonfile.writeFileSync(this.configPath, config, {spaces: 2});
-        if (withCommit) {
-            return await this._commit(null, ['config.json'],
-                message || 'Changed the config file');
-        }
+        return await this._commit(null, ['config.json'],
+            message || 'Changed the config file');
     }
 
     /**
@@ -602,11 +596,10 @@ class Core {
      * @param {String} machineName The name of the machine
      * @param {String} versionKey The key of the version
      * @param {Object} info The info Object to save
-     * @param {boolean} withCommit If true commits the changes to the repository
      * @param {String} message If supplied it is used as the message for the commit
-     * @returns {Promise} If withCommit is true, the function returns a Promise
+     * @returns {Promise}
      */
-    async setVersionInfo(machineName, versionKey, info, withCommit = false, message = null) {
+    async setVersionInfo(machineName, versionKey, info, message = null) {
 
         let route = this.getVersionInfoRoute(machineName, versionKey);
         let previousInfo = jsonfile.readFileSync(this.repositoryPath + '/' + route);
@@ -616,10 +609,8 @@ class Core {
 
         jsonfile.writeFileSync(this.repositoryPath + '/' + route, info, {spaces: 2});
 
-        if (withCommit) {
-            return await this._commit(null, [route],
-                message || 'Changed the info for the ' + versionKey + ' of the "' + machineName + '" machine');
-        }
+        return await this._commit(null, [route],
+            message || 'Changed the info for the ' + versionKey + ' of the "' + machineName + '" machine');
 
     }
 
@@ -736,11 +727,10 @@ class Core {
      * @param {String} model The model
      * @param {String} machineName The name of the machine
      * @param {String} versionKey The key of the version
-     * @param {boolean} withCommit If true commits the changes to the repository
      * @param {String} message If supplied it is used as the message for the commit
-     * @returns {Promise} If withCommit is true, the function returns a Promise
+     * @returns {Promise}
      */
-    async setVersionSCXML(machineName, versionKey, model, withCommit = false, message = null) {
+    async setVersionSCXML(machineName, versionKey, model, message = null) {
 
         let route = this.getVersionInfoRoute(machineName, versionKey);
         let previousInfo = jsonfile.readFileSync(this.repositoryPath + '/' + route);
@@ -750,10 +740,8 @@ class Core {
         let modelRoute = this.getVersionModelRoute(machineName, versionKey);
         fs.writeFileSync(this.repositoryPath + '/' + modelRoute, model);
 
-        if (withCommit) {
-            return await this._commit(null, [modelRoute],
-                message || 'Changed the model.scxml for the ' + versionKey + ' of the "' + machineName + '" machine');
-        }
+        return await this._commit(null, [modelRoute],
+            message || 'Changed the model.scxml for the ' + versionKey + ' of the "' + machineName + '" machine');
     }
 
     /**
@@ -871,20 +859,17 @@ class Core {
      * @param {String} versionKey The key of the version
      * @param {String} instanceKey The key of the instance
      * @param {Object} info The info Object to save
-     * @param {boolean} withCommit If true commits the changes to the repository
      * @param {String} message If supplied it is used as the message for the commit
-     * @returns {Promise} If withCommit is true, the function returns a Promise
+     * @returns {Promise}
      */
-    async setInstanceInfo(machineName, versionKey, instanceKey, info, withCommit = false, message = null) {
+    async setInstanceInfo(machineName, versionKey, instanceKey, info, message = null) {
 
         let route = this.getInstanceInfoRoute(machineName, versionKey, instanceKey);
         jsonfile.writeFileSync(this.repositoryPath + '/' + route, info, {spaces: 2});
 
-        if (withCommit) {
-            return await this._commit(null, [route],
-                message || 'Changed the info for the ' + instanceKey + ' of the ' +
-                versionKey + ' of the "' + machineName + '" machine');
-        }
+        return await this._commit(null, [route],
+            message || 'Changed the info for the ' + instanceKey + ' of the ' +
+            versionKey + ' of the "' + machineName + '" machine');
 
     }
 
