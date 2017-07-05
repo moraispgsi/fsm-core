@@ -388,7 +388,7 @@ class Core {
      */
     async setManifest(manifest, message = null) {
         jsonfile.writeFileSync(this.manifestPath, manifest, {spaces: 2});
-        return await this._commit(null, ['manifest.json'],
+        await this._commit(null, ['manifest.json'],
             message || 'Changed the manifest file');
     }
 
@@ -412,7 +412,7 @@ class Core {
      */
     async setConfig(config, message = null) {
         jsonfile.writeFileSync(this.configPath, config, {spaces: 2});
-        return await this._commit(null, ['config.json'],
+        await this._commit(null, ['config.json'],
             message || 'Changed the config file');
     }
 
@@ -609,7 +609,7 @@ class Core {
 
         jsonfile.writeFileSync(this.repositoryPath + '/' + route, info, {spaces: 2});
 
-        return await this._commit(null, [route],
+        await this._commit(null, [route],
             message || 'Changed the info for the ' + versionKey + ' of the "' + machineName + '" machine');
 
     }
@@ -700,8 +700,8 @@ class Core {
         }
 
         info.isSealed = true;
-        await this.setVersionInfo(machineName, versionKey, info, true, "Sealed the version " +
-            versionKey + "of the machine " + machineName + ".");
+        await this.setVersionInfo(machineName, versionKey, info, "Sealed the version " +
+            versionKey + " of the machine " + machineName + ".");
         debug('The version "%s" of the machine "%s" was sealed successfully', versionKey, machineName);
 
     }
@@ -733,14 +733,14 @@ class Core {
     async setVersionSCXML(machineName, versionKey, model, message = null) {
 
         let route = this.getVersionInfoRoute(machineName, versionKey);
-        let previousInfo = jsonfile.readFileSync(this.repositoryPath + '/' + route);
-        if (previousInfo.isSealed) {
+        let info = jsonfile.readFileSync(this.repositoryPath + '/' + route);
+        if (info.isSealed) {
             throw new Error('Cannot change the version SCXML because the version is sealed.')
         }
         let modelRoute = this.getVersionModelRoute(machineName, versionKey);
         fs.writeFileSync(this.repositoryPath + '/' + modelRoute, model);
 
-        return await this._commit(null, [modelRoute],
+        await this._commit(null, [modelRoute],
             message || 'Changed the model.scxml for the ' + versionKey + ' of the "' + machineName + '" machine');
     }
 
@@ -867,7 +867,7 @@ class Core {
         let route = this.getInstanceInfoRoute(machineName, versionKey, instanceKey);
         jsonfile.writeFileSync(this.repositoryPath + '/' + route, info, {spaces: 2});
 
-        return await this._commit(null, [route],
+        await this._commit(null, [route],
             message || 'Changed the info for the ' + instanceKey + ' of the ' +
             versionKey + ' of the "' + machineName + '" machine');
 
