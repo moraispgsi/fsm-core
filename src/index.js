@@ -14,6 +14,7 @@ import rimraf from 'rimraf';
 import debugStart from 'debug';
 import validator from 'xsd-schema-validator';
 import tmp from 'tmp';
+import AwaitLock from 'await-lock';
 
 let debug = debugStart('core');
 
@@ -22,7 +23,16 @@ let debug = debugStart('core');
  */
 class Core {
 
-    constructor(repositoryPath = __dirname + '/repo', name = 'default', email = 'None') {
+    /**
+     * Constructor
+     * @constructor
+     * @memberOf Core
+     * @param repositoryPath The path of the local repository
+     * @param name The name that appears in the commit's signature
+     * @param email The email that appears in the commit's signature
+     * @param pushInterval The time in seconds that takes for a push to occur
+     */
+    constructor(repositoryPath = __dirname + '/repo', name = 'default', email = 'None', pushInterval = '7200') {
         this.repositoryPath = repositoryPath;
         this.machinesDirPath = repositoryPath + '/machines';
         this.manifestPath = repositoryPath + '/manifest.json';
@@ -30,6 +40,10 @@ class Core {
         this.hasRemote = false;
         this.name = name;
         this.email = email;
+        this.pushInterval = pushInterval;
+        this.pushIntervalRef = null;
+        this.repo = null;
+        this.lock = new AwaitLock();
         debug('Using path %s', repositoryPath);
     }
 
@@ -48,6 +62,8 @@ class Core {
             debug('Repository not found.');
             repo = await this._createRepository();
         }
+
+        this.repo = repo;
 
         debug('Repository is ready');
         return repo;
@@ -98,6 +114,11 @@ class Core {
             fs.mkdirSync(this.repositoryPath + '/machines');
         }
 
+        this.pushIntervalRef = setInterval(function() {
+
+        }, this.pushInterval);
+
+        this.repo = repo;
         debug('Repository is ready');
         return repo;
     }
@@ -114,7 +135,6 @@ class Core {
      */
     async initRemoteGitSSH(cloneURL, publicKey, privateKey, passphrase) {
 
-        console.log("ehe["+publicKey[0]+"]",publicKey);
         if(publicKey.startsWith("ssh-rsa")){
             let pubKey = tmp.fileSync();
             fs.writeFileSync(pubKey.name, publicKey);
@@ -123,7 +143,6 @@ class Core {
             fs.writeFileSync(priKey.name, privateKey);
             privateKey = priKey.name;
         }
-
 
         debug('Initializing');
         // Simple object to store clone options.
@@ -180,6 +199,9 @@ class Core {
         if (!fs.existsSync(this.repositoryPath + '/machines')) {
             fs.mkdirSync(this.repositoryPath + '/machines');
         }
+
+        this.repo = repo;
+
         debug('Repository is ready');
         return repo;
     }
@@ -218,62 +240,29 @@ class Core {
      * @private
      */
     async _commit(repo, pathsToStage, message = null, pathsToUnstage = []) {
-        repo = repo || (await nodegit.Repository.open(this.repositoryPath));
-        debug('Adding files to the index');
-        let index = await repo.refreshIndex(this.repositoryPath + '/.git/index');
 
-        if (pathsToUnstage && pathsToUnstage.length && pathsToUnstage.length > 0) {
-            for (let file of pathsToUnstage) {
-                await index.removeByPath(file);
-            }
-            await index.write();
-            await index.writeTree();
-        }
+        await this.lock.acquireAsync();
+        try {
+            repo = repo || (await nodegit.Repository.open(this.repositoryPath));
+            debug('Adding files to the index');
+            let index = await repo.refreshIndex(this.repositoryPath + '/.git/index');
 
-        debug('Creating main files');
-        let signature = nodegit.Signature.now(this.name, this.email);
-
-        debug('Commiting');
-
-        await repo.createCommitOnHead(pathsToStage, signature, signature, message || 'Automatic initialization');
-
-        if (this.hasRemote) {
-
-            debug('Pushing');
-            if (this.hasRemoteSSH) {
-                let remote = await repo.getRemote('origin');
-                //
-                remote.connect(nodegit.Enums.DIRECTION.PUSH);
-
-                await remote.push(['refs/heads/master:refs/heads/master'], {
-                    callbacks: {
-                        certificateCheck: function () {
-                            return 1;
-                        },
-                        credentials: (url, userName) => {
-                            return nodegit.Cred.sshKeyNew(userName, this.publicKey, this.privateKey, this.passphrase);
-                        }
-                    },
-                });
-
-            } else {
-
-                let remote = await repo.getRemote('origin');
-                await remote.push(['refs/heads/master:refs/heads/master'], {
-                    callbacks: {
-                        certificateCheck: function () {
-                            return 1;
-                        },
-                        credentials: (url, userName) => {
-                            return NodeGit.Cred.userpassPlaintextNew(this.user, this.password);
-                        }
-                    },
-                });
-
+            if (pathsToUnstage && pathsToUnstage.length && pathsToUnstage.length > 0) {
+                for (let file of pathsToUnstage) {
+                    await index.removeByPath(file);
+                }
+                await index.write();
+                await index.writeTree();
             }
 
-            debug('Changes were pushed');
+            debug('Creating main files');
+            let signature = nodegit.Signature.now(this.name, this.email);
 
+            debug('Commiting');
+
+            await repo.createCommitOnHead(pathsToStage, signature, signature, message || 'Automatic initialization');
+        } finally {
+            this.lock.release();
         }
     }
 
@@ -357,6 +346,71 @@ class Core {
 
         });
     }
+
+    async push() {
+        if (this.hasRemote) {
+
+            debug('Pushing');
+            if (this.hasRemoteSSH) {
+                let remote = await repo.getRemote('origin');
+                //
+                remote.connect(nodegit.Enums.DIRECTION.PUSH);
+
+                await remote.push(['refs/heads/master:refs/heads/master'], {
+                    callbacks: {
+                        certificateCheck: function () {
+                            return 1;
+                        },
+                        credentials: (url, userName) => {
+                            return nodegit.Cred.sshKeyNew(userName, this.publicKey, this.privateKey, this.passphrase);
+                        }
+                    },
+                });
+
+            } else {
+
+                let remote = await repo.getRemote('origin');
+                await remote.push(['refs/heads/master:refs/heads/master'], {
+                    callbacks: {
+                        certificateCheck: function () {
+                            return 1;
+                        },
+                        credentials: (url, userName) => {
+                            return NodeGit.Cred.userpassPlaintextNew(this.user, this.password);
+                        }
+                    },
+                });
+            }
+            debug('Changes were pushed');
+        }
+    }
+
+    async getCommitHistory() {
+        let firstCommitOnMaster = await this.repo.getMasterCommit();
+        let history = firstCommitOnMaster.history(nodegit.Revwalk.SORT.Time);
+        let historyCommits = [];
+        // History emits "commit" event for each commit in the branch's history
+        history.on("commit", function(commit) {
+            let commitData = {
+                sha: commit.sha(),
+                author: commit.author().name(),
+                email: commit.author().email(),
+                date: commit.date(),
+                message: commit.message()
+            };
+
+            historyCommits.push(commitData);
+        });
+
+        return await new Promise(function(resolve) {
+            history.on("end", function () {
+                resolve(historyCommits);
+            });
+            history.start();
+        });
+
+    }
+
 
     /**
      * Retrieve the repository path

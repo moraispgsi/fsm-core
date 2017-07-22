@@ -1,5 +1,21 @@
- ☐ Create the github wiki
- ☐ Unit testing
- ✔ Make fsm-core a class @done (17-06-19 14:22)
- ✔ Put default params in the fsm-core @done (17-06-19 14:22)
+Primary:
+ ☐ Custom validation using XSD for a machine(the validation then is applicable to every version)
+
+Secondary:
+ ☐ Create functions to get the repository information. @medium
+ ☐ Unit testing @medium
+ ☐ Create the github wiki @low
  ☐ Create a log file @low
+ ☐ Save information in the repository about the actions done to the entities (creation date update date etc, started date ...)
+ ☐ Check the integrity of the repository
+ ☐ Switchable repository.
+
+  Done:
+  ✔ Push changes from time to time instead of on every commit. @done (17-07-12 15:05)
+  ✔ Function to manually request the changes to be pushed to the remote repository @done (17-07-12 15:05)
+  ✔ Function to get the repository for external actions to be taken (the repository object from NodeGit). @done (17-07-12 15:05)
+  ✔ Get commit history @done (17-07-12 15:02)
+  ✔ Create the file structure @done (17-07-08 07:27)
+  ✔ Make fsm-core a class @done (17-06-19 14:22)
+  ✔ Put default params in the fsm-core @done (17-06-19 14:22)
+  ✔ Commit @done (17-07-08 07:36)

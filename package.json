@@ -1,7 +1,7 @@
 {
   "private": true,
   "name": "fsm-core",
-  "version": "1.0.25",
+  "version": "1.0.27",
   "description": "",
   "repository": "moraispgsi/fsm-core",
   "author": "Ricardo Morais <moraispgsi@gmail.com> (https://www.INSTICC.org)",
@@ -23,6 +23,7 @@
     "extends": "airbnb-base"
   },
   "dependencies": {
+    "await-lock": "^1.1.2",
     "babel-runtime": "^6.11.6",
     "co": "^4.6.0",
     "debug": "^2.6.8",
