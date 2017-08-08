@@ -741,7 +741,7 @@ class Core {
         debug('Attempting to seal the version "%s" of the machine "%s"', versionKey, machineName);
         let info = await this.getVersionInfo(machineName, versionKey);
         if (info.isSealed) {
-            throw new Error('Version it already sealed');
+            throw new Error('Version is already sealed');
         }
 
         debug('Getting manifest');

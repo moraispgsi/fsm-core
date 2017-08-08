@@ -22,5 +22,4 @@ co(function*() {
     console.log(yield core.getCommitHistory());
 
 
-}).
-then();
+}).then();
