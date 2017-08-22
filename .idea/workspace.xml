@@ -2,10 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="a3b16e93-389a-47cc-bea8-547fa515eb36" name="Default" comment="">
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/example/redisTest.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/indexRedis.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/example/example2.js" afterPath="$PROJECT_DIR$/example/example2.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/package.json" afterPath="$PROJECT_DIR$/package.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/index.js" afterPath="$PROJECT_DIR$/src/index.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/tools/build.js" afterPath="$PROJECT_DIR$/tools/build.js" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -26,220 +27,34 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="example1.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/example/example1.js">
+      <file leaf-file-name="redisTest.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/example/redisTest.js">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="238">
-              <caret line="14" column="37" lean-forward="false" selection-start-line="14" selection-start-column="37" selection-end-line="14" selection-end-column="37" />
+              <caret line="14" column="31" lean-forward="false" selection-start-line="14" selection-start-column="31" selection-end-line="14" selection-end-column="31" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="example2.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/example/example2.js">
+      <file leaf-file-name="indexRedis.js" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/indexRedis.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="374">
-              <caret line="22" column="0" lean-forward="false" selection-start-line="22" selection-start-column="0" selection-end-line="22" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="index.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/index.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="5457">
-              <caret line="800" column="6" lean-forward="false" selection-start-line="800" selection-start-column="6" selection-end-line="800" selection-end-column="6" />
+            <state relative-caret-position="7599">
+              <caret line="492" column="23" lean-forward="false" selection-start-line="492" selection-start-column="23" selection-end-line="492" selection-end-column="23" />
               <folding>
-                <element signature="e#361#391#0" expanded="true" />
-                <element signature="e#2128#2234#0" expanded="false" />
-                <element signature="n#!!doc;n#initRemoteGitPlaintext#0;n#Core#0" expanded="false" />
-                <element signature="n#!!block;n#initRemoteGitPlaintext#0;n#Core#0" expanded="false" />
-                <element signature="e#2858#2931#0" expanded="false" />
-                <element signature="e#3036#3315#0" expanded="false" />
-                <element signature="e#3061#3305#0" expanded="false" />
-                <element signature="e#3109#3158#0" expanded="false" />
-                <element signature="e#3201#3291#0" expanded="false" />
-                <element signature="e#3487#3566#0" expanded="false" />
-                <element signature="e#3674#3750#0" expanded="false" />
-                <element signature="e#4032#4104#0" expanded="false" />
-                <element signature="n#!!doc;n#initRemoteGitSSH#0;n#Core#0" expanded="false" />
-                <element signature="n#!!block;n#initRemoteGitSSH#0;n#Core#0" expanded="false" />
-                <element signature="e#5254#5327#0" expanded="false" />
-                <element signature="e#5422#6115#0" expanded="false" />
-                <element signature="e#5447#6105#0" expanded="false" />
-                <element signature="e#5476#6091#0" expanded="false" />
-                <element signature="e#5528#5585#0" expanded="false" />
-                <element signature="e#5645#6073#0" expanded="false" />
-                <element signature="e#5674#5934#0" expanded="false" />
-                <element signature="e#5945#6051#0" expanded="false" />
-                <element signature="e#6510#6829#0" expanded="false" />
-                <element signature="e#7236#7308#0" expanded="false" />
-                <element signature="n#!!doc;n#_getFiles#0;n#Core#0" expanded="false" />
-                <element signature="n#!!block;n#_getFiles#0;n#Core#0" expanded="false" />
-                <element signature="e#7793#8100#0" expanded="false" />
-                <element signature="e#7893#8022#0" expanded="false" />
-                <element signature="e#8028#8090#0" expanded="false" />
-                <element signature="n#!!doc;n#_commit#0;n#Core#0" expanded="false" />
-                <element signature="e#9105#9319#0" expanded="false" />
-                <element signature="e#9156#9227#0" expanded="false" />
-                <element signature="n#!!doc;n#_createRepository#0;n#Core#0" expanded="false" />
-                <element signature="n#!!block;n#_createRepository#0;n#Core#0" expanded="false" />
-                <element signature="e#9869#10371#0" expanded="false" />
-                <element signature="e#10384#10676#0" expanded="false" />
-                <element signature="e#10505#10623#0" expanded="false" />
-                <element signature="e#10557#10607#0" expanded="false" />
-                <element signature="n#!!doc;n#_createManifest#0;n#Core#0" expanded="false" />
-                <element signature="n#!!block;n#_createManifest#0;n#Core#0" expanded="false" />
-                <element signature="e#10955#10991#0" expanded="false" />
-                <element signature="e#11042#11370#0" expanded="false" />
-                <element signature="e#11145#11358#0" expanded="false" />
-                <element signature="e#11172#11317#0" expanded="false" />
-                <element signature="n#!!doc;n#_createConfig#0;n#Core#0" expanded="false" />
-                <element signature="n#!!block;n#_createConfig#0;n#Core#0" expanded="false" />
-                <element signature="e#11643#11684#0" expanded="false" />
-                <element signature="e#11734#11951#0" expanded="false" />
-                <element signature="e#11790#11938#0" expanded="false" />
-                <element signature="e#11817#11897#0" expanded="false" />
-                <element signature="n#!!block;n#push#0;n#Core#0" expanded="false" />
-                <element signature="n#!!doc;n#getRepositoryPath#0;n#Core#0" expanded="false" />
-                <element signature="n#!!block;n#getRepositoryPath#0;n#Core#0" expanded="false" />
-                <element signature="n#!!doc;n#getManifest#0;n#Core#0" expanded="false" />
-                <element signature="n#!!doc;n#getConfig#0;n#Core#0" expanded="false" />
-                <element signature="n#!!block;n#getConfig#0;n#Core#0" expanded="false" />
-                <element signature="n#!!doc;n#getMachinesNames#0;n#Core#0" expanded="false" />
-                <element signature="n#!!block;n#getMachinesNames#0;n#Core#0" expanded="false" />
-                <element signature="n#!!doc;n#addMachine#0;n#Core#0" expanded="false" />
-                <element signature="n#!!block;n#addMachine#0;n#Core#0" expanded="false" />
-                <element signature="e#16672#16783#0" expanded="false" />
-                <element signature="e#16819#17065#0" expanded="false" />
-                <element signature="e#16884#17055#0" expanded="false" />
-                <element signature="e#16914#17041#0" expanded="false" />
-                <element signature="n#!!doc;n#removeMachine#0;n#Core#0" expanded="false" />
-                <element signature="n#!!block;n#removeMachine#0;n#Core#0" expanded="false" />
-                <element signature="e#18703#18780#0" expanded="false" />
-                <element signature="e#19047#19163#0" expanded="false" />
-                <element signature="e#19109#19151#0" expanded="false" />
-                <element signature="n#!!doc;n#getVersionsKeys#0;n#Core#0" expanded="false" />
-                <element signature="n#!!block;n#getVersionsKeys#0;n#Core#0" expanded="false" />
-                <element signature="e#19844#19911#0" expanded="false" />
-                <element signature="n#!!doc;n#getVersionRoute#0;n#Core#0" expanded="false" />
-                <element signature="n#!!block;n#getVersionRoute#0;n#Core#0" expanded="false" />
-                <element signature="e#20387#20454#0" expanded="false" />
-                <element signature="e#20522#20589#0" expanded="false" />
-                <element signature="n#!!doc;n#getVersionInfoRoute#0;n#Core#0" expanded="false" />
-                <element signature="n#!!block;n#getVersionInfoRoute#0;n#Core#0" expanded="false" />
-                <element signature="n#!!doc;n#getVersionModelRoute#0;n#Core#0" expanded="false" />
-                <element signature="n#!!block;n#getVersionModelRoute#0;n#Core#0" expanded="false" />
-                <element signature="n#!!doc;n#getVersionInfo#0;n#Core#0" expanded="false" />
-                <element signature="n#!!block;n#getVersionInfo#0;n#Core#0" expanded="false" />
-                <element signature="n#!!doc;n#addVersion#0;n#Core#0" expanded="false" />
-                <element signature="e#23423#23490#0" expanded="false" />
-                <element signature="e#24314#24390#0" expanded="false" />
-                <element signature="n#!!doc;n#sealVersion#0;n#Core#0" expanded="false" />
-                <element signature="e#26179#26246#0" expanded="false" />
-                <element signature="n#!!doc;n#getVersionSCXML#0;n#Core#0" expanded="false" />
-                <element signature="n#!!block;n#isSCXMLValid#0;n#Core#0" expanded="false" />
-                <element signature="e#28428#28809#0" expanded="false" />
-                <element signature="e#28460#28541#0" expanded="false" />
-                <element signature="e#28638#28798#0" expanded="false" />
-                <element signature="e#28665#28745#0" expanded="false" />
-                <element signature="n#!!doc;n#getInstancesKeys#0;n#Core#0" expanded="false" />
-                <element signature="n#!!block;n#getInstancesKeys#0;n#Core#0" expanded="false" />
-                <element signature="e#29402#29469#0" expanded="false" />
-                <element signature="e#29545#29612#0" expanded="false" />
-                <element signature="n#!!doc;n#getInstanceRoute#0;n#Core#0" expanded="false" />
-                <element signature="n#!!block;n#getInstanceRoute#0;n#Core#0" expanded="false" />
-                <element signature="e#30176#30243#0" expanded="false" />
-                <element signature="e#30319#30386#0" expanded="false" />
-                <element signature="e#30466#30534#0" expanded="false" />
-                <element signature="n#!!doc;n#getInstanceInfoRoute#0;n#Core#0" expanded="false" />
-                <element signature="n#!!block;n#getInstanceInfoRoute#0;n#Core#0" expanded="false" />
-                <element signature="n#!!doc;n#getInstanceInfo#0;n#Core#0" expanded="false" />
-                <element signature="n#!!block;n#getInstanceInfo#0;n#Core#0" expanded="false" />
-                <element signature="n#!!doc;n#addInstance#0;n#Core#0" expanded="false" />
-                <element signature="n#!!block;n#addInstance#0;n#Core#0" expanded="false" />
-                <element signature="e#33131#33198#0" expanded="false" />
-                <element signature="e#33274#33341#0" expanded="false" />
-                <element signature="e#33450#33523#0" expanded="false" />
-                <element signature="e#33805#33882#0" expanded="false" />
-                <element signature="e#34070#34165#0" expanded="false" />
-                <element signature="e#34384#34458#0" expanded="false" />
-                <element signature="n#!!doc;n#getSnapshotsKeys#0;n#Core#0" expanded="false" />
-                <element signature="n#!!block;n#getSnapshotsKeys#0;n#Core#0" expanded="false" />
-                <element signature="e#35529#35596#0" expanded="false" />
-                <element signature="e#35672#35739#0" expanded="false" />
-                <element signature="e#35819#35887#0" expanded="false" />
-                <element signature="n#!!doc;n#getSnapshotRoute#0;n#Core#0" expanded="false" />
-                <element signature="n#!!block;n#getSnapshotRoute#0;n#Core#0" expanded="false" />
-                <element signature="e#36524#36591#0" expanded="false" />
-                <element signature="e#36667#36734#0" expanded="false" />
-                <element signature="e#36814#36882#0" expanded="false" />
-                <element signature="e#36963#37031#0" expanded="false" />
-                <element signature="n#!!doc;n#getSnapshotInfoRoute#0;n#Core#0" expanded="false" />
-                <element signature="n#!!block;n#getSnapshotInfoRoute#0;n#Core#0" expanded="false" />
-                <element signature="n#!!doc;n#getSnapshotInfo#0;n#Core#0" expanded="false" />
-                <element signature="n#!!block;n#getSnapshotInfo#0;n#Core#0" expanded="false" />
-                <element signature="n#!!doc;n#addSnapshot#0;n#Core#0" expanded="false" />
-                <element signature="n#!!block;n#addSnapshot#0;n#Core#0" expanded="false" />
-                <element signature="e#39027#39094#0" expanded="false" />
-                <element signature="e#39170#39237#0" expanded="false" />
-                <element signature="e#39317#39385#0" expanded="false" />
-                <element signature="e#39599#39647#0" expanded="false" />
-                <element signature="e#39837#39933#0" expanded="false" />
+                <element signature="n#!!doc" expanded="true" />
+                <element signature="e#361#392#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name=".gitignore" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/.gitignore">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="85">
-              <caret line="5" column="8" lean-forward="false" selection-start-line="5" selection-start-column="8" selection-end-line="5" selection-end-column="8" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="core-test.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/test/core-test.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="969">
-              <caret line="59" column="22" lean-forward="false" selection-start-line="59" selection-start-column="22" selection-end-line="59" selection-end-column="22" />
-              <folding>
-                <element signature="e#274#328#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="package.json" pinned="false" current-in-tab="true">
+      <file leaf-file-name="package.json" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/package.json">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="51">
               <caret line="3" column="19" lean-forward="false" selection-start-line="3" selection-start-column="19" selection-end-line="3" selection-end-column="19" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name=".eslintrc" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/tools/.eslintrc">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="51">
-              <caret line="3" column="13" lean-forward="false" selection-start-line="3" selection-start-column="13" selection-end-line="3" selection-end-column="13" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name=".editorconfig" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/.editorconfig">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="221">
-              <caret line="13" column="15" lean-forward="false" selection-start-line="13" selection-start-column="15" selection-end-line="13" selection-end-column="15" />
               <folding />
             </state>
           </provider>
@@ -283,9 +98,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$USER_HOME$/Work/Work/ICEIS_website_stable_0.6_PROTOTYPE_CLIENT_FINAL_0.3/server.js" />
-        <option value="$PROJECT_DIR$/teste.js" />
-        <option value="$PROJECT_DIR$/examples/teste.js" />
         <option value="$PROJECT_DIR$/examples/example2.js" />
         <option value="$PROJECT_DIR$/examples/example1.js" />
         <option value="$PROJECT_DIR$/configuration-builder.js" />
@@ -323,7 +135,6 @@
         <option value="$PROJECT_DIR$/test/repo/manifest.json" />
         <option value="$PROJECT_DIR$/README.md" />
         <option value="$PROJECT_DIR$/.editorconfig" />
-        <option value="$PROJECT_DIR$/tools/build.js" />
         <option value="$PROJECT_DIR$/dist/package.json" />
         <option value="$PROJECT_DIR$/src/core.js" />
         <option value="$PROJECT_DIR$/src/test.js" />
@@ -331,8 +142,12 @@
         <option value="$PROJECT_DIR$/example/example1.js" />
         <option value="$PROJECT_DIR$/test/core-test.js" />
         <option value="$PROJECT_DIR$/.travis.yml" />
-        <option value="$PROJECT_DIR$/src/index.js" />
         <option value="$PROJECT_DIR$/example/example2.js" />
+        <option value="$PROJECT_DIR$/src/indexRepository.js" />
+        <option value="$PROJECT_DIR$/tools/build.js" />
+        <option value="$PROJECT_DIR$/src/index.js" />
+        <option value="$PROJECT_DIR$/example/redisTest.js" />
+        <option value="$PROJECT_DIR$/src/indexRedis.js" />
         <option value="$PROJECT_DIR$/package.json" />
       </list>
     </option>
@@ -357,7 +172,7 @@
   <component name="ProjectFrameBounds">
     <option name="x" value="-8" />
     <option name="y" value="-8" />
-    <option name="width" value="1382" />
+    <option name="width" value="1370" />
     <option name="height" value="744" />
   </component>
   <component name="ProjectView">
@@ -375,21 +190,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scratches" />
-      <pane id="Scope">
-        <subPane subId="Project Files">
-          <PATH>
-            <PATH_ELEMENT USER_OBJECT="Root">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT USER_OBJECT="fsm-core">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
-            </PATH_ELEMENT>
-          </PATH>
-        </subPane>
-      </pane>
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -412,12 +212,69 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
+              <option name="myItemId" value="tools" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="fsm-core" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="fsm-core" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
               <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="fsm-core" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="fsm-core" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="example" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="fsm-core" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="fsm-core" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="dist" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
         </subPane>
       </pane>
+      <pane id="Scope">
+        <subPane subId="Project Files">
+          <PATH>
+            <PATH_ELEMENT USER_OBJECT="Root">
+              <option name="myItemId" value="" />
+              <option name="myItemType" value="" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT USER_OBJECT="fsm-core">
+              <option name="myItemId" value="" />
+              <option name="myItemType" value="" />
+            </PATH_ELEMENT>
+          </PATH>
+        </subPane>
+      </pane>
+      <pane id="Scratches" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -433,16 +290,17 @@
     <property name="Git.Branch.Popup.ShowAllRemotes" value="true" />
   </component>
   <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\Ricardo Morais\Desktop\INSTICC\Final Course Project\Repositories\fsm-core\src" />
+      <recent name="C:\Users\Ricardo Morais\Desktop\INSTICC\Final Course Project\Repositories\fsm-core\example" />
+      <recent name="C:\Users\Ricardo Morais\Desktop\INSTICC\PFC\Projeto final\FSM\Core FSM\fsm-core" />
+      <recent name="C:\Users\Ricardo Morais\Desktop\INSTICC\PFC\Projeto final\Core FSM\fsm-core" />
+      <recent name="C:\Users\Ricardo Morais\Desktop\INSTICC\PFC\Projeto final\Core FSM\fsm-core\examples" />
+    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Users\Ricardo Morais\Desktop\INSTICC\PFC\Projeto final\FSM\Core FSM\fsm-core" />
       <recent name="C:\Users\Ricardo Morais\Desktop\INSTICC\PFC\Projeto final\FSM\Core FSM\fsm-core\src" />
       <recent name="C:\Users\Ricardo Morais\Desktop\INSTICC\PFC\Projeto final\Core FSM\fsm-core\xmlSchemas" />
-      <recent name="C:\Users\Ricardo Morais\Desktop\INSTICC\PFC\Projeto final\Core FSM\fsm-core\examples" />
-    </key>
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="C:\Users\Ricardo Morais\Desktop\INSTICC\Final Course Project\Repositories\fsm-core\example" />
-      <recent name="C:\Users\Ricardo Morais\Desktop\INSTICC\PFC\Projeto final\FSM\Core FSM\fsm-core" />
-      <recent name="C:\Users\Ricardo Morais\Desktop\INSTICC\PFC\Projeto final\Core FSM\fsm-core" />
       <recent name="C:\Users\Ricardo Morais\Desktop\INSTICC\PFC\Projeto final\Core FSM\fsm-core\examples" />
     </key>
   </component>
@@ -584,6 +442,11 @@
       <workItem from="1500996055850" duration="5174000" />
       <workItem from="1501077531284" duration="587000" />
       <workItem from="1501164822477" duration="597000" />
+      <workItem from="1502290678211" duration="21392000" />
+      <workItem from="1502336723377" duration="6029000" />
+      <workItem from="1502372605501" duration="29049000" />
+      <workItem from="1502559275959" duration="2136000" />
+      <workItem from="1502740243665" duration="14156000" />
     </task>
     <task id="LOCAL-00007" summary="end simulation">
       <created>1495644703531</created>
@@ -932,7 +795,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="558993000" />
+    <option name="totallyTimeSpent" value="631755000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -944,16 +807,17 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1382" height="744" extended-state="7" />
+    <frame x="-8" y="-8" width="1370" height="744" extended-state="0" />
+    <editor active="true" />
     <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.21742313" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.117117114" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32478634" sideWeight="0.5089286" order="11" side_tool="true" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32991454" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="npm" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.37993422" sideWeight="0.48809522" order="10" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.2803419" sideWeight="0.48809522" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="true" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
@@ -966,6 +830,27 @@
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32991454" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
     </layout>
+    <layout-to-restore>
+      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.0017094017" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
+      <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32478634" sideWeight="0.5089286" order="11" side_tool="true" content_ui="tabs" />
+      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32991454" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="npm" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.2803419" sideWeight="0.48809522" order="10" side_tool="false" content_ui="tabs" />
+      <window_info id="TypeScript" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.21726191" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32991454" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="true" content_ui="tabs" />
+    </layout-to-restore>
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="processedProjectFiles" value="true" />
@@ -1039,14 +924,11 @@
           <option name="timeStamp" value="11" />
         </line-breakpoint>
       </breakpoints>
-      <option name="time" value="42" />
+      <option name="time" value="44" />
     </breakpoint-manager>
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/repo/config.json" />
-    <entry file="file://$PROJECT_DIR$/repo/machines/deadline/versions/versions1/model.scxml" />
-    <entry file="file://$PROJECT_DIR$/repo/machines/deadline/versions/versions1/info.json" />
     <entry file="file://$PROJECT_DIR$/repo/machines/deadline/versions/version2/model.scxml" />
     <entry file="file://$PROJECT_DIR$/repo/machines/deadline/versions/version2/info.json" />
     <entry file="file://$PROJECT_DIR$/repo/machines/keynote/versions/version2/info.json" />
@@ -1121,13 +1003,6 @@
     <entry file="file://$PROJECT_DIR$/src/core.js" />
     <entry file="file://$PROJECT_DIR$/src/test.js" />
     <entry file="file://$PROJECT_DIR$/src/repo5/README.md" />
-    <entry file="file://$PROJECT_DIR$/tools/build.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="442">
-          <caret line="51" column="51" lean-forward="false" selection-start-line="51" selection-start-column="51" selection-end-line="51" selection-end-column="51" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/docs/README.md">
       <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
         <state split_layout="SPLIT">
@@ -1180,14 +1055,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/.gitignore">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="85">
-          <caret line="5" column="8" lean-forward="false" selection-start-line="5" selection-start-column="8" selection-end-line="5" selection-end-column="8" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/node_modules/nodegit/dist/nodegit.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-9095">
@@ -1210,18 +1077,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/dist/index.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="204">
-          <caret line="1605" column="45" lean-forward="true" selection-start-line="1605" selection-start-column="45" selection-end-line="1605" selection-end-column="45" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/tools/.eslintrc">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="51">
           <caret line="3" column="13" lean-forward="false" selection-start-line="3" selection-start-column="13" selection-end-line="3" selection-end-column="13" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1229,7 +1088,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="221">
           <caret line="13" column="15" lean-forward="false" selection-start-line="13" selection-start-column="15" selection-end-line="13" selection-end-column="15" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1249,156 +1107,22 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/test/core-test.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="969">
+        <state relative-caret-position="1003">
           <caret line="59" column="22" lean-forward="false" selection-start-line="59" selection-start-column="22" selection-end-line="59" selection-end-column="22" />
-          <folding>
-            <element signature="e#274#328#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/index.js">
+    <entry file="file://$PROJECT_DIR$/.gitignore">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="5457">
-          <caret line="800" column="6" lean-forward="false" selection-start-line="800" selection-start-column="6" selection-end-line="800" selection-end-column="6" />
-          <folding>
-            <element signature="e#361#391#0" expanded="true" />
-            <element signature="e#2128#2234#0" expanded="false" />
-            <element signature="n#!!doc;n#initRemoteGitPlaintext#0;n#Core#0" expanded="false" />
-            <element signature="n#!!block;n#initRemoteGitPlaintext#0;n#Core#0" expanded="false" />
-            <element signature="e#2858#2931#0" expanded="false" />
-            <element signature="e#3036#3315#0" expanded="false" />
-            <element signature="e#3061#3305#0" expanded="false" />
-            <element signature="e#3109#3158#0" expanded="false" />
-            <element signature="e#3201#3291#0" expanded="false" />
-            <element signature="e#3487#3566#0" expanded="false" />
-            <element signature="e#3674#3750#0" expanded="false" />
-            <element signature="e#4032#4104#0" expanded="false" />
-            <element signature="n#!!doc;n#initRemoteGitSSH#0;n#Core#0" expanded="false" />
-            <element signature="n#!!block;n#initRemoteGitSSH#0;n#Core#0" expanded="false" />
-            <element signature="e#5254#5327#0" expanded="false" />
-            <element signature="e#5422#6115#0" expanded="false" />
-            <element signature="e#5447#6105#0" expanded="false" />
-            <element signature="e#5476#6091#0" expanded="false" />
-            <element signature="e#5528#5585#0" expanded="false" />
-            <element signature="e#5645#6073#0" expanded="false" />
-            <element signature="e#5674#5934#0" expanded="false" />
-            <element signature="e#5945#6051#0" expanded="false" />
-            <element signature="e#6510#6829#0" expanded="false" />
-            <element signature="e#7236#7308#0" expanded="false" />
-            <element signature="n#!!doc;n#_getFiles#0;n#Core#0" expanded="false" />
-            <element signature="n#!!block;n#_getFiles#0;n#Core#0" expanded="false" />
-            <element signature="e#7793#8100#0" expanded="false" />
-            <element signature="e#7893#8022#0" expanded="false" />
-            <element signature="e#8028#8090#0" expanded="false" />
-            <element signature="n#!!doc;n#_commit#0;n#Core#0" expanded="false" />
-            <element signature="e#9105#9319#0" expanded="false" />
-            <element signature="e#9156#9227#0" expanded="false" />
-            <element signature="n#!!doc;n#_createRepository#0;n#Core#0" expanded="false" />
-            <element signature="n#!!block;n#_createRepository#0;n#Core#0" expanded="false" />
-            <element signature="e#9869#10371#0" expanded="false" />
-            <element signature="e#10384#10676#0" expanded="false" />
-            <element signature="e#10505#10623#0" expanded="false" />
-            <element signature="e#10557#10607#0" expanded="false" />
-            <element signature="n#!!doc;n#_createManifest#0;n#Core#0" expanded="false" />
-            <element signature="n#!!block;n#_createManifest#0;n#Core#0" expanded="false" />
-            <element signature="e#10955#10991#0" expanded="false" />
-            <element signature="e#11042#11370#0" expanded="false" />
-            <element signature="e#11145#11358#0" expanded="false" />
-            <element signature="e#11172#11317#0" expanded="false" />
-            <element signature="n#!!doc;n#_createConfig#0;n#Core#0" expanded="false" />
-            <element signature="n#!!block;n#_createConfig#0;n#Core#0" expanded="false" />
-            <element signature="e#11643#11684#0" expanded="false" />
-            <element signature="e#11734#11951#0" expanded="false" />
-            <element signature="e#11790#11938#0" expanded="false" />
-            <element signature="e#11817#11897#0" expanded="false" />
-            <element signature="n#!!block;n#push#0;n#Core#0" expanded="false" />
-            <element signature="n#!!doc;n#getRepositoryPath#0;n#Core#0" expanded="false" />
-            <element signature="n#!!block;n#getRepositoryPath#0;n#Core#0" expanded="false" />
-            <element signature="n#!!doc;n#getManifest#0;n#Core#0" expanded="false" />
-            <element signature="n#!!doc;n#getConfig#0;n#Core#0" expanded="false" />
-            <element signature="n#!!block;n#getConfig#0;n#Core#0" expanded="false" />
-            <element signature="n#!!doc;n#getMachinesNames#0;n#Core#0" expanded="false" />
-            <element signature="n#!!block;n#getMachinesNames#0;n#Core#0" expanded="false" />
-            <element signature="n#!!doc;n#addMachine#0;n#Core#0" expanded="false" />
-            <element signature="n#!!block;n#addMachine#0;n#Core#0" expanded="false" />
-            <element signature="e#16672#16783#0" expanded="false" />
-            <element signature="e#16819#17065#0" expanded="false" />
-            <element signature="e#16884#17055#0" expanded="false" />
-            <element signature="e#16914#17041#0" expanded="false" />
-            <element signature="n#!!doc;n#removeMachine#0;n#Core#0" expanded="false" />
-            <element signature="n#!!block;n#removeMachine#0;n#Core#0" expanded="false" />
-            <element signature="e#18703#18780#0" expanded="false" />
-            <element signature="e#19047#19163#0" expanded="false" />
-            <element signature="e#19109#19151#0" expanded="false" />
-            <element signature="n#!!doc;n#getVersionsKeys#0;n#Core#0" expanded="false" />
-            <element signature="n#!!block;n#getVersionsKeys#0;n#Core#0" expanded="false" />
-            <element signature="e#19844#19911#0" expanded="false" />
-            <element signature="n#!!doc;n#getVersionRoute#0;n#Core#0" expanded="false" />
-            <element signature="n#!!block;n#getVersionRoute#0;n#Core#0" expanded="false" />
-            <element signature="e#20387#20454#0" expanded="false" />
-            <element signature="e#20522#20589#0" expanded="false" />
-            <element signature="n#!!doc;n#getVersionInfoRoute#0;n#Core#0" expanded="false" />
-            <element signature="n#!!block;n#getVersionInfoRoute#0;n#Core#0" expanded="false" />
-            <element signature="n#!!doc;n#getVersionModelRoute#0;n#Core#0" expanded="false" />
-            <element signature="n#!!block;n#getVersionModelRoute#0;n#Core#0" expanded="false" />
-            <element signature="n#!!doc;n#getVersionInfo#0;n#Core#0" expanded="false" />
-            <element signature="n#!!block;n#getVersionInfo#0;n#Core#0" expanded="false" />
-            <element signature="n#!!doc;n#addVersion#0;n#Core#0" expanded="false" />
-            <element signature="e#23423#23490#0" expanded="false" />
-            <element signature="e#24314#24390#0" expanded="false" />
-            <element signature="n#!!doc;n#sealVersion#0;n#Core#0" expanded="false" />
-            <element signature="e#26179#26246#0" expanded="false" />
-            <element signature="n#!!doc;n#getVersionSCXML#0;n#Core#0" expanded="false" />
-            <element signature="n#!!block;n#isSCXMLValid#0;n#Core#0" expanded="false" />
-            <element signature="e#28428#28809#0" expanded="false" />
-            <element signature="e#28460#28541#0" expanded="false" />
-            <element signature="e#28638#28798#0" expanded="false" />
-            <element signature="e#28665#28745#0" expanded="false" />
-            <element signature="n#!!doc;n#getInstancesKeys#0;n#Core#0" expanded="false" />
-            <element signature="n#!!block;n#getInstancesKeys#0;n#Core#0" expanded="false" />
-            <element signature="e#29402#29469#0" expanded="false" />
-            <element signature="e#29545#29612#0" expanded="false" />
-            <element signature="n#!!doc;n#getInstanceRoute#0;n#Core#0" expanded="false" />
-            <element signature="n#!!block;n#getInstanceRoute#0;n#Core#0" expanded="false" />
-            <element signature="e#30176#30243#0" expanded="false" />
-            <element signature="e#30319#30386#0" expanded="false" />
-            <element signature="e#30466#30534#0" expanded="false" />
-            <element signature="n#!!doc;n#getInstanceInfoRoute#0;n#Core#0" expanded="false" />
-            <element signature="n#!!block;n#getInstanceInfoRoute#0;n#Core#0" expanded="false" />
-            <element signature="n#!!doc;n#getInstanceInfo#0;n#Core#0" expanded="false" />
-            <element signature="n#!!block;n#getInstanceInfo#0;n#Core#0" expanded="false" />
-            <element signature="n#!!doc;n#addInstance#0;n#Core#0" expanded="false" />
-            <element signature="n#!!block;n#addInstance#0;n#Core#0" expanded="false" />
-            <element signature="e#33131#33198#0" expanded="false" />
-            <element signature="e#33274#33341#0" expanded="false" />
-            <element signature="e#33450#33523#0" expanded="false" />
-            <element signature="e#33805#33882#0" expanded="false" />
-            <element signature="e#34070#34165#0" expanded="false" />
-            <element signature="e#34384#34458#0" expanded="false" />
-            <element signature="n#!!doc;n#getSnapshotsKeys#0;n#Core#0" expanded="false" />
-            <element signature="n#!!block;n#getSnapshotsKeys#0;n#Core#0" expanded="false" />
-            <element signature="e#35529#35596#0" expanded="false" />
-            <element signature="e#35672#35739#0" expanded="false" />
-            <element signature="e#35819#35887#0" expanded="false" />
-            <element signature="n#!!doc;n#getSnapshotRoute#0;n#Core#0" expanded="false" />
-            <element signature="n#!!block;n#getSnapshotRoute#0;n#Core#0" expanded="false" />
-            <element signature="e#36524#36591#0" expanded="false" />
-            <element signature="e#36667#36734#0" expanded="false" />
-            <element signature="e#36814#36882#0" expanded="false" />
-            <element signature="e#36963#37031#0" expanded="false" />
-            <element signature="n#!!doc;n#getSnapshotInfoRoute#0;n#Core#0" expanded="false" />
-            <element signature="n#!!block;n#getSnapshotInfoRoute#0;n#Core#0" expanded="false" />
-            <element signature="n#!!doc;n#getSnapshotInfo#0;n#Core#0" expanded="false" />
-            <element signature="n#!!block;n#getSnapshotInfo#0;n#Core#0" expanded="false" />
-            <element signature="n#!!doc;n#addSnapshot#0;n#Core#0" expanded="false" />
-            <element signature="n#!!block;n#addSnapshot#0;n#Core#0" expanded="false" />
-            <element signature="e#39027#39094#0" expanded="false" />
-            <element signature="e#39170#39237#0" expanded="false" />
-            <element signature="e#39317#39385#0" expanded="false" />
-            <element signature="e#39599#39647#0" expanded="false" />
-            <element signature="e#39837#39933#0" expanded="false" />
-          </folding>
+        <state relative-caret-position="136">
+          <caret line="8" column="0" lean-forward="true" selection-start-line="8" selection-start-column="0" selection-end-line="8" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/node_modules/redis/index.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-759">
+          <caret line="45" column="9" lean-forward="false" selection-start-line="45" selection-start-column="9" selection-end-line="45" selection-end-column="9" />
         </state>
       </provider>
     </entry>
@@ -1406,14 +1130,42 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="238">
           <caret line="14" column="37" lean-forward="false" selection-start-line="14" selection-start-column="37" selection-end-line="14" selection-end-column="37" />
-          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/index.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="204">
+          <caret line="525" column="48" lean-forward="true" selection-start-line="525" selection-start-column="48" selection-end-line="525" selection-end-column="48" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/example/example2.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="374">
-          <caret line="22" column="0" lean-forward="false" selection-start-line="22" selection-start-column="0" selection-end-line="22" selection-end-column="0" />
+        <state relative-caret-position="85">
+          <caret line="5" column="8" lean-forward="false" selection-start-line="5" selection-start-column="8" selection-end-line="5" selection-end-column="8" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tools/build.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="87">
+          <caret line="25" column="25" lean-forward="false" selection-start-line="25" selection-start-column="25" selection-end-line="25" selection-end-column="25" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/dist/index.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="408">
+          <caret line="181" column="32" lean-forward="false" selection-start-line="181" selection-start-column="32" selection-end-line="181" selection-end-column="32" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/example/redisTest.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="238">
+          <caret line="14" column="31" lean-forward="false" selection-start-line="14" selection-start-column="31" selection-end-line="14" selection-end-column="31" />
           <folding />
         </state>
       </provider>
@@ -1423,6 +1175,17 @@
         <state relative-caret-position="51">
           <caret line="3" column="19" lean-forward="false" selection-start-line="3" selection-start-column="19" selection-end-line="3" selection-end-column="19" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/indexRedis.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="7599">
+          <caret line="492" column="23" lean-forward="false" selection-start-line="492" selection-start-column="23" selection-end-line="492" selection-end-column="23" />
+          <folding>
+            <element signature="n#!!doc" expanded="true" />
+            <element signature="e#361#392#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
