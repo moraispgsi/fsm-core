@@ -1,7 +1,7 @@
 {
   "private": true,
   "name": "fsm-core",
-  "version": "1.0.44",
+  "version": "1.0.50",
   "description": "",
   "repository": "moraispgsi/fsm-core",
   "author": "Ricardo Morais <moraispgsi@gmail.com> (https://www.INSTICC.org)",

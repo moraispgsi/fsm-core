@@ -28,11 +28,26 @@ class Core {
      */
     init(redisOptions, kueOptions) {
 
+        redisOptions.retry_strategy = function (options) {
+            if (options.error && options.error.code === 'ECONNREFUSED') {
+                // End reconnecting on a specific error and flush all commands with
+                // a individual error
+                return new Error('The server refused the connection');
+            }
+            // reconnect after
+            return Math.min(options.attempt * 100, 3000);
+        };
+
         this.client = redis.createClient(redisOptions);
         this.queue = kue.createQueue({
             prefix: 'q',
             redis: kueOptions
         });
+
+        this.queue.on( 'error', function( err ) {
+            debug( 'Oops... ', err );
+        });
+
         this.redlock = new Redlock(
             // you should have one client for each redis node
             // in your cluster
@@ -44,7 +59,7 @@ class Core {
 
                 // the max number of times Redlock will attempt
                 // to lock a resource before erroring
-                retryCount:  10,
+                retryCount:  200,
 
                 // the time in ms between attempts
                 retryDelay:  200, // time in ms
